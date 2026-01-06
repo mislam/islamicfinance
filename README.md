@@ -90,3 +90,35 @@ pnpm db:reset
 # Open Drizzle Studio
 pnpm db:admin
 ```
+
+### Git Hooks
+
+This project uses [Husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/okonet/lint-staged) to ensure code quality:
+
+- **Pre-commit**: Automatically formats and lints staged files, then runs type checking
+- **Commit-msg**: Validates commit message format (conventional commits)
+
+The pre-commit hook runs the following:
+
+1. **Format & Lint** (on staged files only):
+   - Prettier formatting (JS, TS, Svelte, JSON, MD, CSS)
+   - ESLint with auto-fix (JS, TS, Svelte)
+2. **Typecheck**: TypeScript type checking across the project
+
+Commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) format:
+
+- `feat: add new feature`
+- `fix: fix bug`
+- `docs: update documentation`
+- `style: format code`
+- `refactor: restructure code`
+- `test: add tests`
+- `chore: maintenance tasks`
+
+## 🐳 Local Services
+
+The development environment includes:
+
+- **Vite Dev Server**: SvelteKit development server (localhost:5173)
+- **PostgreSQL 17**: Main database (localhost:5432)
+- **Neon Proxy**: Enables Neon serverless driver with local PostgreSQL (localhost:4444)
