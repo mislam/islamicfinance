@@ -1,12 +1,16 @@
 import { neon } from "@neondatabase/serverless"
-import { drizzle } from "drizzle-orm/neon-http"
+import { drizzle as drizzleNeon } from "drizzle-orm/neon-http"
+import { drizzle as drizzlePg } from "drizzle-orm/node-postgres"
 
-import { env } from "$env/dynamic/private"
+import { dev } from "$app/environment"
+import { DATABASE_URL } from "$env/static/private"
 
 import * as schema from "./schema"
 
-if (!env.DATABASE_URL) throw new Error("DATABASE_URL is not set")
+if (!DATABASE_URL) throw new Error("DATABASE_URL environment variable is not set!")
 
-const client = neon(env.DATABASE_URL)
+export const db = dev
+	? drizzlePg(DATABASE_URL, { schema })
+	: drizzleNeon(neon(DATABASE_URL), { schema })
 
-export const db = drizzle(client, { schema })
+export * from "./schema"
