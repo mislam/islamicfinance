@@ -45,6 +45,28 @@ Set up environment variables:
 cp .env.example .env
 ```
 
+Configure hosts file:
+
+Add `db.localtest.me` to our hosts file (required for Neon Proxy):
+
+**macOS / Linux:**
+
+```bash
+sudo nano /etc/hosts
+```
+
+Add: `127.0.0.1 localhost db.localtest.me`
+
+**Windows:**
+
+Open `C:\Windows\System32\drivers\etc\hosts` as Administrator and add: `127.0.0.1 localhost db.localtest.me`
+
+**Note:** Flush DNS cache after editing:
+
+- **macOS**: `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
+- **Linux**: `sudo systemd-resolve --flush-caches`
+- **Windows**: `ipconfig /flushdns`
+
 ### Development
 
 ```bash
@@ -78,7 +100,7 @@ pnpm lint:fix
 
 ### Database Management
 
-The project uses PostgreSQL in Docker for local development. Use these commands to manage your database:
+The project uses PostgreSQL in Docker for local development. Use these commands to manage our database:
 
 ```bash
 # Push schema changes
