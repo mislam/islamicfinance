@@ -7,6 +7,9 @@
 		"better-auth": {
 			"url": "https://mcp.chonkie.ai/better-auth/better-auth-builder/mcp",
 			"headers": {}
+		},
+		"daisyui-github": {
+			"url": "https://gitmcp.io/saadeghi/daisyui"
 		}
 	}
 }
