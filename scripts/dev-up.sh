@@ -2,7 +2,7 @@
 set -e
 
 # Configuration
-PROJECT_NAME="redhunt"
+PROJECT_NAME="islamic-finance"
 SERVICES="postgres neon-proxy"
 
 # Colors

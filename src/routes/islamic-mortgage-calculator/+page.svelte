@@ -3,8 +3,11 @@
 	import { onMount } from "svelte"
 
 	import { browser } from "$app/environment"
+	import { page } from "$app/state"
+	import { Head } from "$lib/seo"
 
 	import { calc } from "./calculations"
+	import { getSEOData } from "./seo"
 	import type { MonthlyRecord, MortgageResult, YearlyRecord } from "./types"
 
 	let homePrice = $state(300000)
@@ -109,21 +112,14 @@
 	function toggleViewMode() {
 		viewMode = viewMode === "month" ? "year" : "month"
 	}
+
+	// SEO metadata - page.url.origin works correctly in both SSR and client
+	const seo = $derived.by(() => {
+		return getSEOData(page.url.pathname, page.url.origin)
+	})
 </script>
 
-<svelte:head>
-	<title>Islamic Home Financing vs. Conventional Mortgage</title>
-	<meta property="og:title" content="Islamic Home Financing vs. Conventional Mortgage" />
-	<meta
-		property="og:description"
-		content="Compare Islamic Partnership & Lease Structure with Traditional Interest-Based Mortgages"
-	/>
-	<!-- <meta property="og:image" content="https://openislamicfinance.com/og-image.png" />
-	<meta property="og:url" content="https://openislamicfinance.com" /> -->
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="Open Islamic Finance" />
-	<meta property="og:locale" content="en_US" />
-</svelte:head>
+<Head {seo} />
 {#if showMobileNotice}
 	<div
 		class="fixed right-4 bottom-4 left-4 z-50 rounded-lg bg-primary p-4 text-primary-content shadow-lg"
@@ -160,7 +156,7 @@
 	</div>
 {/if}
 
-<div class="container mx-auto w-5xl min-w-5xl p-4">
+<main class="container mx-auto w-5xl min-w-5xl p-4">
 	<header class="mb-8 text-center">
 		<h1 class="mb-1 text-2xl font-bold">Islamic Home Financing vs. Conventional Mortgage</h1>
 		<p class="text-base-content/70">
@@ -173,54 +169,79 @@
 			<!-- Property Details -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
 				<legend class="fieldset-legend text-base-content/50">Property Details</legend>
-				<label class="input">
+				<label class="input" for="home-price">
 					<span class="label">Home Price ($)</span>
-					<input type="number" bind:value={homePrice} step="1000" min="10000" />
+					<input id="home-price" type="number" bind:value={homePrice} step="1000" min="10000" />
 				</label>
-				<label class="input">
+				<label class="input" for="down-payment">
 					<span class="label">Down Payment (%)</span>
-					<input type="number" bind:value={downPaymentPercent} step="1" min="10" max="100" />
+					<input
+						id="down-payment"
+						type="number"
+						bind:value={downPaymentPercent}
+						step="1"
+						min="10"
+						max="100"
+					/>
 				</label>
-				<label class="input">
+				<label class="input" for="term-years">
 					<span class="label">Term = {termYears} Years</span>
 					<input
+						id="term-years"
 						type="range"
 						bind:value={termYears}
 						min="5"
 						max="30"
 						step="1"
 						class="range range-sm"
+						aria-label="Loan term in years"
 					/>
 				</label>
 			</fieldset>
 			<!-- Financing Options -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
 				<legend class="fieldset-legend text-base-content/50">Financing Options</legend>
-				<label class="input">
+				<label class="input" for="interest-rate">
 					<span class="label">Conventional Interest (%)</span>
-					<input type="number" bind:value={interestRate} step="0.01" min="0" max="100" />
+					<input
+						id="interest-rate"
+						type="number"
+						bind:value={interestRate}
+						step="0.01"
+						min="0"
+						max="100"
+					/>
 				</label>
-				<label class="input">
+				<label class="input" for="rental-rate">
 					<span class="label">Annual Rental Rate (%)</span>
-					<input type="number" bind:value={annualRentalRate} step="0.01" min="0" max="100" />
+					<input
+						id="rental-rate"
+						type="number"
+						bind:value={annualRentalRate}
+						step="0.01"
+						min="0"
+						max="100"
+					/>
 				</label>
 			</fieldset>
 			<!-- Buyout & Rent -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
 				<legend class="fieldset-legend text-base-content/50">Buyout & Rent</legend>
-				<label class="input">
+				<label class="input" for="monthly-buyout">
 					<span class="label">Monthly Buyout ($)</span>
-					<input type="number" bind:value={monthlyBuyout} step="10" min="10" />
+					<input id="monthly-buyout" type="number" bind:value={monthlyBuyout} step="10" min="10" />
 				</label>
-				<label class="input">
+				<label class="input" for="fair-market-rent">
 					<span class="label">Fair Market Rent ($)</span>
 					<input
+						id="fair-market-rent"
 						type="number"
 						bind:value={fairMarketRent}
 						min={(homePrice * 0.4) / 100}
 						max={(homePrice * 1.0) / 100}
 						step="100"
 						readonly
+						aria-label="Fair market rent (read-only, calculated automatically)"
 					/>
 				</label>
 			</fieldset>
@@ -236,6 +257,7 @@
 								value="conservative"
 								bind:group={appreciationModel}
 								class="radio"
+								aria-label="Conservative growth scenario"
 							/>
 							<span>Conservative</span>
 						</label>
@@ -246,6 +268,7 @@
 								value="balanced"
 								bind:group={appreciationModel}
 								class="radio"
+								aria-label="Balanced growth scenario"
 							/>
 							<span>Balanced</span>
 						</label>
@@ -256,18 +279,33 @@
 								value="optimistic"
 								bind:group={appreciationModel}
 								class="radio"
+								aria-label="Optimistic growth scenario"
 							/>
 							<span>Optimistic</span>
 						</label>
 					</div>
 					<div class="flex flex-col gap-2">
-						<label class="input">
+						<label class="input" for="rent-growth">
 							<span class="label">Rent (%)</span>
-							<input type="number" bind:value={annualRentGrowth} step="0.1" min="0" max="10" />
+							<input
+								id="rent-growth"
+								type="number"
+								bind:value={annualRentGrowth}
+								step="0.1"
+								min="0"
+								max="10"
+							/>
 						</label>
-						<label class="input">
+						<label class="input" for="home-growth">
 							<span class="label">Home (%)</span>
-							<input type="number" bind:value={annualHomeGrowth} step="0.1" min="0" max="10" />
+							<input
+								id="home-growth"
+								type="number"
+								bind:value={annualHomeGrowth}
+								step="0.1"
+								min="0"
+								max="10"
+							/>
 						</label>
 					</div>
 				</div>
@@ -365,7 +403,10 @@
 						<thead>
 							<tr>
 								<th class="relative">
-									<label class="absolute top-2 label cursor-pointer select-none">
+									<label
+										class="absolute top-2 label cursor-pointer select-none"
+										for="view-mode-toggle"
+									>
 										<div class="flex items-center gap-2">
 											<span
 												class={viewMode === "month" ? "text-base-content" : "text-base-content/50"}
@@ -373,10 +414,12 @@
 												Month
 											</span>
 											<input
+												id="view-mode-toggle"
 												type="checkbox"
 												class="toggle border-base-content text-base-content toggle-xs"
 												onclick={toggleViewMode}
 												checked={viewMode === "year"}
+												aria-label="Toggle between monthly and yearly view"
 											/>
 											<span
 												class={viewMode === "year" ? "text-base-content" : "text-base-content/50"}
@@ -457,6 +500,7 @@
 						<div class="flex w-full max-w-md items-center gap-2">
 							<span>Year 1</span>
 							<input
+								id="year-selector"
 								type="range"
 								min="1"
 								max={Math.ceil(comparison.monthlyBreakdown.length / 12)}
@@ -464,6 +508,7 @@
 								class="range flex-1 range-sm"
 								step="1"
 								oninput={handleYearChange}
+								aria-label="Select year to view monthly breakdown"
 							/>
 							<span>Year {Math.ceil(comparison.monthlyBreakdown.length / 12)}</span>
 						</div>
@@ -472,7 +517,7 @@
 			</fieldset>
 		{/if}
 	</div>
-</div>
+</main>
 
 <footer class="bg-base-200 text-base-content/50">
 	<div class="container mx-auto footer w-5xl min-w-5xl footer-horizontal items-center px-4 py-8">

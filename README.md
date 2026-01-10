@@ -1,6 +1,6 @@
-# Redhunt
+# Islamic Finance App
 
-Automated Reddit monitoring with keyword matching and AI-powered intent scoring.
+Islamic finance tools built on Quran and Sunnah.
 
 ## Tech Stack
 
