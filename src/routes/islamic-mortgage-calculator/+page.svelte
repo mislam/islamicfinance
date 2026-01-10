@@ -158,7 +158,9 @@
 
 <main class="container mx-auto w-5xl min-w-5xl p-4">
 	<header class="mb-8 text-center">
-		<h1 class="mb-1 text-2xl font-bold">Islamic Home Financing vs. Conventional Mortgage</h1>
+		<h1 class="mb-1 text-2xl font-bold">
+			Islamic Mortgage Calculator: Halal vs Conventional Financing
+		</h1>
 		<p class="text-base-content/70">
 			Compare Islamic Partnership & Lease Structure with Traditional Interest-Based Mortgages
 		</p>

@@ -12,11 +12,11 @@ import { createSEOData } from "$lib/seo"
  * @returns Complete SEO metadata object
  */
 export function getSEOData(pathname: string, baseUrl: string): SEOData {
-	const title = "Islamic Home Financing Calculator | Compare Halal vs Conventional Mortgage"
+	const title = "Islamic Mortgage Calculator | Halal vs Conventional Comparison"
 	const description =
-		"Free Islamic mortgage calculator comparing Diminishing Musharaka (halal financing) with conventional interest-based mortgages. Calculate payments, ownership, and total costs side-by-side."
+		"Free Islamic mortgage calculator comparing Diminishing Musharaka (halal financing) with conventional mortgages. Calculate payments, ownership, and total costs."
 	const keywords =
-		"islamic mortgage, halal financing, diminishing musharaka, islamic home financing, sharia compliant mortgage, riba free mortgage, islamic finance calculator, halal home loan, conventional mortgage comparison, islamic banking"
+		"islamic mortgage, halal financing, diminishing musharaka, islamic home financing, sharia compliant mortgage, riba free mortgage, islamic finance calculator, halal home loan, conventional mortgage comparison, islamic banking, mortgage simulator, mortgage comparison tool, halal mortgage simulator, islamic finance simulator"
 
 	const structuredData = {
 		"@context": "https://schema.org",
@@ -30,11 +30,6 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 			"@type": "Offer",
 			price: "0",
 			priceCurrency: "USD",
-		},
-		aggregateRating: {
-			"@type": "AggregateRating",
-			ratingValue: "5",
-			ratingCount: "1",
 		},
 		featureList: [
 			"Compare Islamic and conventional mortgages",
@@ -51,6 +46,8 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 			description,
 			keywords,
 			structuredData,
+			ogImage: `${baseUrl}/images/og-islamic-mortgage-calculator.jpg`,
+			twitterImage: `${baseUrl}/images/og-islamic-mortgage-calculator.jpg`,
 		},
 		pathname,
 		baseUrl,

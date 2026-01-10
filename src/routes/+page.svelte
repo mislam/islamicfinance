@@ -1,30 +1,71 @@
 <script lang="ts">
-	import { authClient } from "$lib/client"
+	import { onMount } from "svelte"
 
-	const session = authClient.useSession()
+	import { browser } from "$app/environment"
+	import { goto } from "$app/navigation"
+	import { resolve } from "$app/paths"
+	import { page } from "$app/state"
+	import { Head } from "$lib/seo"
+	import { createSEOData } from "$lib/seo"
 
-	async function signInWithGoogle() {
-		await authClient.signIn.social({
-			provider: "google",
-		})
-	}
+	// SEO metadata for homepage
+	const seo = $derived.by(() => {
+		return createSEOData(
+			{
+				title: "Islamic Finance | Halal Financial Tools & Calculators",
+				description:
+					"Free Islamic finance tools and calculators. Compare halal financing options, calculate mortgage payments, and make sharia-compliant financial decisions.",
+				keywords:
+					"islamic finance, halal finance, sharia compliant, islamic banking, halal mortgage, islamic calculator, riba free",
+				structuredData: {
+					"@context": "https://schema.org",
+					"@type": "WebSite",
+					name: "Islamic Finance",
+					description: "Free Islamic finance tools and calculators for halal financial planning",
+					url: `${page.url.origin}${page.url.pathname}`,
+					potentialAction: {
+						"@type": "SearchAction",
+						target: {
+							"@type": "EntryPoint",
+							urlTemplate: `${page.url.origin}/islamic-mortgage-calculator`,
+						},
+						"query-input": "required name=search_term_string",
+					},
+				},
+			},
+			page.url.pathname,
+			page.url.origin,
+		)
+	})
 
-	async function signOut() {
-		await authClient.signOut()
-	}
+	// Auto-redirect to calculator after a brief moment (for better UX)
+	onMount(() => {
+		if (browser) {
+			// Small delay to allow page to render, then redirect
+			const timer = setTimeout(() => {
+				goto(resolve("/islamic-mortgage-calculator"), { replaceState: true })
+			}, 100)
+
+			return () => clearTimeout(timer)
+		}
+	})
 </script>
 
-<div class="flex h-screen flex-col items-center justify-center">
-	{#if $session.data}
-		<div class="flex flex-col items-center justify-center gap-2">
-			<p>
-				Welcome, {$session.data.user.name}
-			</p>
-			<button onclick={signOut} class="rounded-md bg-red-500 px-2 py-1 text-white">Sign Out</button>
+<Head {seo} />
+
+<main class="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
+	<div class="text-center">
+		<h1 class="mb-4 text-4xl font-bold">Islamic Finance</h1>
+		<p class="mb-8 text-lg text-base-content/70">Halal Financial Tools & Calculators</p>
+		<div class="flex flex-col items-center gap-4">
+			<a
+				href={resolve("/islamic-mortgage-calculator")}
+				class="btn btn-lg btn-primary"
+				aria-label="Go to Islamic Mortgage Calculator"
+			>
+				Islamic Mortgage Calculator
+			</a>
+			<p class="text-sm text-base-content/50">Redirecting to calculator...</p>
 		</div>
-	{:else}
-		<button onclick={signInWithGoogle} class="rounded-md bg-blue-500 px-2 py-1 text-white">
-			Continue with Google
-		</button>
-	{/if}
-</div>
+	</div>
+</main>
