@@ -1,5 +1,7 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/forms" {
+	strategy: "class"; /* only generate classes - avoids conflicts with DaisyUI */
+}
 @plugin "daisyui";
 
 @layer base {
@@ -13,31 +15,5 @@
 	}
 	input[type="number"] {
 		-moz-appearance: textfield;
-	}
-
-	/* Checkbox/Radio: inherit background instead of white */
-	input:where([type="checkbox"]),
-	input:where([type="radio"]) {
-		@apply bg-inherit!;
-	}
-
-	/* Input focus: remove DaisyUI ring */
-	input:where([type="text"]):focus,
-	input:where(:not([type])):focus,
-	input:where([type="email"]):focus,
-	input:where([type="url"]):focus,
-	input:where([type="password"]):focus,
-	input:where([type="number"]):focus,
-	input:where([type="date"]):focus,
-	input:where([type="datetime-local"]):focus,
-	input:where([type="month"]):focus,
-	input:where([type="search"]):focus,
-	input:where([type="tel"]):focus,
-	input:where([type="time"]):focus,
-	input:where([type="week"]):focus,
-	select:where([multiple]):focus,
-	textarea:focus,
-	select:focus {
-		box-shadow: none !important;
 	}
 }

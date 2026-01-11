@@ -4,6 +4,7 @@
 
 	import { browser } from "$app/environment"
 	import { page } from "$app/state"
+	import HelpModal from "$lib/HelpModal.svelte"
 	import { Head } from "$lib/seo"
 
 	import { calc } from "./calculations"
@@ -249,7 +250,18 @@
 			</fieldset>
 			<!-- Growth Scenarios -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
-				<legend class="fieldset-legend text-base-content/50">YoY Appreciation</legend>
+				<legend class="fieldset-legend flex items-center gap-0 text-base-content/50">
+					<span>YoY Appreciation</span>
+					<HelpModal
+						title="Understanding YoY Appreciation"
+						content={[
+							'<strong class="text-emerald-300/70">Rent Growth (%)</strong> represents the annual increase in rental rates due to market inflation and rent adjustments. This affects the monthly rent you pay on the bank\'s share of the property.',
+							'<strong class="text-emerald-300/70">Home Growth (%)</strong> represents the annual appreciation of the property value. This is used only for projection purposes to estimate your net gain at the end of the term.',
+							"These are separate concepts: rent growth affects your monthly payments, while home growth affects your final equity position. Neither represents riba (interest) - rent is payment for use of an asset, and property appreciation reflects real asset value changes.",
+						]}
+						modalId="yoy-appreciation-help"
+					/>
+				</legend>
 				<div class="flex gap-4">
 					<div class="flex flex-col gap-2 select-none">
 						<label class="flex cursor-pointer items-center gap-2">
@@ -600,7 +612,7 @@
 	@reference "tailwindcss";
 
 	input[type="number"] {
-		@apply text-right;
+		@apply px-0 text-right;
 	}
 	legend {
 		@apply px-1 py-0 text-center;
