@@ -6,6 +6,8 @@ export interface MonthlyRecord {
 		endingBalance: number
 		interestPaid: number
 		principalPaid: number
+		insurancePaid: number
+		propertyTaxPaid: number
 	}
 	halal: {
 		totalPayment: number
@@ -13,6 +15,9 @@ export interface MonthlyRecord {
 		buyoutComponent: number
 		beginningBalance: number
 		endingBalance: number
+		insurancePaid: number
+		propertyTaxPaid: number
+		tenantOwnershipPercent: number
 	}
 }
 
@@ -24,6 +29,8 @@ export interface YearlyRecord {
 		endingBalance: number
 		interestPaid: number
 		principalPaid: number
+		insurancePaid: number
+		propertyTaxPaid: number
 	}
 	halal: {
 		totalPayment: number
@@ -31,6 +38,9 @@ export interface YearlyRecord {
 		buyoutComponent: number
 		beginningBalance: number
 		endingBalance: number
+		insurancePaid: number
+		propertyTaxPaid: number
+		tenantOwnershipPercent: number
 	}
 }
 
@@ -49,6 +59,8 @@ export interface MortgageResult {
 		totalPayments: number
 		totalCost: number
 		bankProfit: number
+		bankInsurancePaid: number
+		bankPropertyTaxPaid: number
 		netGain: number
 	}
 	house: {

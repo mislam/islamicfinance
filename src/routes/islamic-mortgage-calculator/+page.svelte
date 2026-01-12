@@ -13,14 +13,17 @@
 
 	let homePrice = $state(300000)
 	let downPaymentPercent = $state(20)
-	let termYears = $state(20)
-	let interestRate = $state(6.9)
-	let annualRentalRate = $state(8.4)
+	let termYears = $state(10)
+	let maxTermYears = $state(15)
+	let interestRate = $state(6.5)
+	let annualRentalRate = $state(8.0)
 	let fairMarketRent = $state(0)
 	let monthlyBuyout = $state(0)
 	let annualHomeGrowth = $state(4.5)
 	let annualRentGrowth = $state(4)
 	let appreciationModel = $state("balanced")
+	let annualPropertyTaxRate = $state(1.2)
+	let annualInsuranceRate = $state(0.4)
 	let loanAmount = $state(0)
 	let comparison = $state<MortgageResult | null>(null)
 	let showMobileNotice = $state(false)
@@ -43,6 +46,8 @@
 			annualRentalRate,
 			annualHomeGrowth,
 			annualRentGrowth,
+			annualPropertyTaxRate,
+			annualInsuranceRate,
 		)
 	})
 
@@ -157,7 +162,7 @@
 	</div>
 {/if}
 
-<main class="container mx-auto w-5xl min-w-5xl p-4">
+<main class="container mx-auto w-7xl min-w-7xl p-4">
 	<header class="mb-8 text-center">
 		<h1 class="mb-1 text-2xl font-bold">
 			Islamic Mortgage Calculator: Halal vs Conventional Financing
@@ -167,8 +172,8 @@
 		</p>
 	</header>
 
-	<div class="grid grid-cols-3 gap-6">
-		<div class="flex flex-col gap-4">
+	<div class="grid grid-cols-7 gap-6">
+		<div class="col-span-2 flex flex-col gap-4">
 			<!-- Property Details -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
 				<legend class="fieldset-legend text-base-content/50">Property Details</legend>
@@ -194,7 +199,7 @@
 						type="range"
 						bind:value={termYears}
 						min="5"
-						max="30"
+						max={maxTermYears}
 						step="1"
 						class="range range-sm"
 						aria-label="Loan term in years"
@@ -248,6 +253,32 @@
 					/>
 				</label>
 			</fieldset>
+			<!-- Property Costs -->
+			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
+				<legend class="fieldset-legend text-base-content/50">Property Costs</legend>
+				<label class="input" for="property-tax-rate">
+					<span class="label">Annual Property Tax (%)</span>
+					<input
+						id="property-tax-rate"
+						type="number"
+						bind:value={annualPropertyTaxRate}
+						step="0.1"
+						min="0"
+						max="5"
+					/>
+				</label>
+				<label class="input" for="insurance-rate">
+					<span class="label">Annual Insurance (%)</span>
+					<input
+						id="insurance-rate"
+						type="number"
+						bind:value={annualInsuranceRate}
+						step="0.1"
+						min="0"
+						max="5"
+					/>
+				</label>
+			</fieldset>
 			<!-- Growth Scenarios -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
 				<legend class="fieldset-legend flex items-center gap-0 text-base-content/50">
@@ -262,7 +293,7 @@
 						modalId="yoy-appreciation-help"
 					/>
 				</legend>
-				<div class="flex gap-4">
+				<div class="flex justify-between gap-4">
 					<div class="flex flex-col gap-2 select-none">
 						<label class="flex cursor-pointer items-center gap-2">
 							<input
@@ -325,7 +356,7 @@
 				</div>
 			</fieldset>
 		</div>
-		<fieldset class="col-span-2 fieldset rounded-box border border-base-content/20 p-4">
+		<fieldset class="col-span-5 fieldset rounded-box border border-base-content/20 p-4">
 			<legend class="fieldset-legend text-base-content/50">Financing Comparison</legend>
 			<div class="overflow-x-auto">
 				{#if comparison}
@@ -366,6 +397,16 @@
 								<td>${Math.round(comparison.halal.bankProfit).toLocaleString()}</td>
 							</tr>
 							<tr>
+								<td class="text-base-content/60">Bank Paid: Insurance</td>
+								<td>—</td>
+								<td>${Math.round(comparison.halal.bankInsurancePaid).toLocaleString()}</td>
+							</tr>
+							<tr>
+								<td class="text-base-content/60">Bank Paid: Property Tax</td>
+								<td>—</td>
+								<td>${Math.round(comparison.halal.bankPropertyTaxPaid).toLocaleString()}</td>
+							</tr>
+							<tr>
 								<td class="text-base-content/60">Ownership Structure</td>
 								<td>100% ownership from start, with bank holding lien.</td>
 								<td>Gradual increase from {downPaymentPercent}% to 100% ownership.</td>
@@ -392,8 +433,8 @@
 							<tr>
 								<td class="text-base-content/60">Spiritual Advantage</td>
 								<td colspan="2">
-									With halal financing, you'll avoid interest (riba), bringing peace of mind and
-									alignment with your religious values.
+									With halal financing, you'll avoid riba, bringing peace of mind and alignment with
+									your religious values.
 								</td>
 							</tr>
 						</tbody>
@@ -407,7 +448,7 @@
 		</fieldset>
 
 		{#if comparison && comparison.monthlyBreakdown?.length > 0}
-			<fieldset class="col-span-3 mt-6 fieldset rounded-box border border-base-content/20 p-4">
+			<fieldset class="col-span-7 mt-6 fieldset rounded-box border border-base-content/20 p-4">
 				<legend class="fieldset-legend text-base-content/50">
 					{capitalize(viewMode)}ly Payment Breakdown
 				</legend>
@@ -443,21 +484,28 @@
 										</div>
 									</label>
 								</th>
-								<th colspan="5" class="border-base-content/10 text-center">Conventional Loan</th>
-								<th colspan="5" class="border-l border-base-content/10 text-center">
+								<th colspan="7" class="w-140! max-w-140! border-base-content/10 text-center">
+									Conventional Loan
+								</th>
+								<th colspan="8" class="border-l border-base-content/10 text-center">
 									Halal Financing
 								</th>
 							</tr>
 							<tr>
-								<th class="border-r border-base-content/10"></th>
+								<th class="w-24! max-w-24! border-r border-base-content/10"></th>
 								<th>Payment</th>
 								<th>Interest</th>
 								<th>Principal</th>
+								<th>Insurance</th>
+								<th>Tax</th>
 								<th>Start Bal.</th>
 								<th>End Bal.</th>
 								<th class="border-l border-base-content/10">Payment</th>
 								<th>Rent</th>
 								<th>Buyout</th>
+								<th>Insurance</th>
+								<th>Tax</th>
+								<th>Own %</th>
 								<th>Start Bal.</th>
 								<th>End Bal.</th>
 							</tr>
@@ -476,6 +524,8 @@
 										<td>${Math.round(record.conventional.totalPayment).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.interestPaid).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.principalPaid).toLocaleString()}</td>
+										<td>${Math.round(record.conventional.insurancePaid).toLocaleString()}</td>
+										<td>${Math.round(record.conventional.propertyTaxPaid).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.beginningBalance).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.endingBalance).toLocaleString()}</td>
 										<td class="border-l border-base-content/10">
@@ -483,12 +533,17 @@
 										</td>
 										<td>${Math.round(record.halal.rentComponent).toLocaleString()}</td>
 										<td>${Math.round(record.halal.buyoutComponent).toLocaleString()}</td>
+										<td>${Math.round(record.halal.insurancePaid).toLocaleString()}</td>
+										<td>${Math.round(record.halal.propertyTaxPaid).toLocaleString()}</td>
+										<td>{record.halal.tenantOwnershipPercent.toFixed(1)}%</td>
 										<td>${Math.round(record.halal.beginningBalance).toLocaleString()}</td>
 										<td>${Math.round(record.halal.endingBalance).toLocaleString()}</td>
 									{:else}
 										<td>${Math.round(record.conventional.totalPayment).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.interestPaid).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.principalPaid).toLocaleString()}</td>
+										<td>${Math.round(record.conventional.insurancePaid).toLocaleString()}</td>
+										<td>${Math.round(record.conventional.propertyTaxPaid).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.beginningBalance).toLocaleString()}</td>
 										<td>${Math.round(record.conventional.endingBalance).toLocaleString()}</td>
 										<td class="border-l border-base-content/10">
@@ -496,6 +551,9 @@
 										</td>
 										<td>${Math.round(record.halal.rentComponent).toLocaleString()}</td>
 										<td>${Math.round(record.halal.buyoutComponent).toLocaleString()}</td>
+										<td>${Math.round(record.halal.insurancePaid).toLocaleString()}</td>
+										<td>${Math.round(record.halal.propertyTaxPaid).toLocaleString()}</td>
+										<td>{record.halal.tenantOwnershipPercent.toFixed(1)}%</td>
 										<td>${Math.round(record.halal.beginningBalance).toLocaleString()}</td>
 										<td>${Math.round(record.halal.endingBalance).toLocaleString()}</td>
 									{/if}
