@@ -15,6 +15,7 @@
 	let downPaymentPercent = $state(20)
 	let termYears = $state(10)
 	let maxTermYears = $state(15)
+	let minTermYears = $state(3)
 	let interestRate = $state(6.5)
 	let annualRentalRate = $state(8.0)
 	let fairMarketRent = $state(0)
@@ -198,7 +199,7 @@
 						id="term-years"
 						type="range"
 						bind:value={termYears}
-						min="5"
+						min={minTermYears}
 						max={maxTermYears}
 						step="1"
 						class="range range-sm"
@@ -208,7 +209,18 @@
 			</fieldset>
 			<!-- Financing Options -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
-				<legend class="fieldset-legend text-base-content/50">Financing Options</legend>
+				<legend class="fieldset-legend flex items-center gap-0 text-base-content/50">
+					<span>Financing Options</span>
+					<HelpModal
+						title="Understanding Financing Rates"
+						content={[
+							'<strong class="text-blue-300/70">Conventional Interest (%)</strong> is the annual interest rate charged by traditional banks on mortgage loans. This is riba (interest) - money charged for the use of money, which is prohibited in Islamic finance.',
+							'<strong class="text-blue-300/70">Annual Rental Rate (%)</strong> is NOT interest. It represents the estimated fair market rental rate for the property, used to calculate rent payments on the bank\'s ownership share in halal financing. This rate is subject to fair market value assessment and reflects payment for the use of an asset (the property), not money.',
+							'<strong class="text-blue-300/70">Key Difference:</strong> Interest (riba) is payment for the use of money, while rent is payment for the use of a physical asset. In halal financing, you pay rent on the bank\'s share of the property, which is permissible in Islamic law. The rental rate should reflect what the property would rent for in the open market.',
+						]}
+						modalId="financing-options-help"
+					/>
+				</legend>
 				<label class="input" for="interest-rate">
 					<span class="label">Conventional Interest (%)</span>
 					<input
@@ -234,7 +246,18 @@
 			</fieldset>
 			<!-- Buyout & Rent -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
-				<legend class="fieldset-legend text-base-content/50">Buyout & Rent</legend>
+				<legend class="fieldset-legend flex items-center gap-0 text-base-content/50">
+					<span>Buyout & Rent</span>
+					<HelpModal
+						title="Understanding Buyout & Rent"
+						content={[
+							"<strong class=\"text-blue-300/70\">Monthly Buyout ($)</strong> is the amount you pay each month to purchase the bank's ownership share of the property. This is the principal repayment component in halal financing. As you make buyout payments, your ownership percentage increases while the bank's decreases.",
+							'<strong class="text-blue-300/70">Fair Market Rent ($)</strong> is automatically calculated based on the home price and annual rental rate. It represents the estimated monthly rent for the entire property at fair market value. This is a reference value showing what the property would rent for in the open market.',
+							"<strong class=\"text-blue-300/70\">How It Works:</strong> In diminishing musharaka, you pay rent on the bank's share of the property (which decreases over time) plus a monthly buyout to gradually acquire full ownership. The rent component decreases as the bank's ownership decreases, while your buyout payments increase your equity.",
+						]}
+						modalId="buyout-rent-help"
+					/>
+				</legend>
 				<label class="input" for="monthly-buyout">
 					<span class="label">Monthly Buyout ($)</span>
 					<input id="monthly-buyout" type="number" bind:value={monthlyBuyout} step="10" min="10" />
@@ -255,7 +278,18 @@
 			</fieldset>
 			<!-- Property Costs -->
 			<fieldset class="fieldset rounded-box border border-base-content/20 p-4">
-				<legend class="fieldset-legend text-base-content/50">Property Costs</legend>
+				<legend class="fieldset-legend flex items-center gap-0 text-base-content/50">
+					<span>Property Costs</span>
+					<HelpModal
+						title="Understanding Property Costs"
+						content={[
+							'<strong class="text-blue-300/70">Annual Property Tax (%)</strong> is the annual property tax rate based on your home\'s assessed value. Property taxes are typically 0.5% to 2% of home value, varying by location. These taxes grow with home appreciation over time.',
+							'<strong class="text-blue-300/70">Annual Insurance (%)</strong> is the annual homeowners insurance rate, typically 0.25% to 0.5% of home value. Insurance protects against property damage and liability, and costs also increase as the home value appreciates.',
+							'<strong class="text-blue-300/70">Cost Sharing:</strong> In conventional loans, you pay 100% of insurance and property tax. In halal financing, these costs are split proportionally based on ownership - you pay your share based on your ownership percentage, and the bank pays their share based on their ownership percentage. This reflects the fair sharing of property expenses in a partnership structure.',
+						]}
+						modalId="property-costs-help"
+					/>
+				</legend>
 				<label class="input" for="property-tax-rate">
 					<span class="label">Annual Property Tax (%)</span>
 					<input
@@ -286,8 +320,8 @@
 					<HelpModal
 						title="Understanding YoY Appreciation"
 						content={[
-							'<strong class="text-emerald-300/70">Rent Growth (%)</strong> represents the annual increase in rental rates due to market inflation and rent adjustments. This affects the monthly rent you pay on the bank\'s share of the property.',
-							'<strong class="text-emerald-300/70">Home Growth (%)</strong> represents the annual appreciation of the property value. This is used only for projection purposes to estimate your net gain at the end of the term.',
+							'<strong class="text-blue-300/70">Rent Growth (%)</strong> represents the annual increase in rental rates due to market inflation and rent adjustments. This affects the monthly rent you pay on the bank\'s share of the property.',
+							'<strong class="text-blue-300/70">Home Growth (%)</strong> represents the annual appreciation of the property value. This is used only for projection purposes to estimate your net gain at the end of the term.',
 							"These are separate concepts: rent growth affects your monthly payments, while home growth affects your final equity position. Neither represents riba (interest) - rent is payment for use of an asset, and property appreciation reflects real asset value changes.",
 						]}
 						modalId="yoy-appreciation-help"
@@ -363,56 +397,74 @@
 					<table class="comparison-table table">
 						<thead>
 							<tr>
-								<th class="min-w-48"></th>
+								<th class="min-w-56"></th>
 								<th>Conventional Loan</th>
 								<th>Halal Financing</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td class="text-base-content/60">Loan Amount</td>
-								<td>${comparison.loanAmount.toLocaleString()}</td>
-								<td>${comparison.loanAmount.toLocaleString()}</td>
+								<td class="text-base-content/60">Down payment</td>
+								<td>
+									${Math.round(homePrice * (downPaymentPercent / 100)).toLocaleString()}
+									<span class="text-xs text-base-content/50">({downPaymentPercent}%)</span>
+								</td>
+								<td>
+									${Math.round(homePrice * (downPaymentPercent / 100)).toLocaleString()}
+									<span class="text-xs text-base-content/50">({downPaymentPercent}%)</span>
+								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Avg. Monthly Payment</td>
+								<td class="text-base-content/60">Bank's share</td>
+								<td>
+									${comparison.loanAmount.toLocaleString()}
+									<span class="text-xs text-base-content/50">(loan amount)</span>
+								</td>
+								<td>
+									${comparison.loanAmount.toLocaleString()}
+									<span class="text-xs text-base-content/50">(partnership share)</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-base-content/60">Avg. monthly payment</td>
 								<td>
 									${Math.round(comparison.conventional.averageMonthlyPayment).toLocaleString()}
 								</td>
 								<td>${Math.round(comparison.halal.averageMonthlyPayment).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Total Payments</td>
-								<td>${Math.round(comparison.conventional.totalPayments).toLocaleString()}</td>
-								<td>${Math.round(comparison.halal.totalPayments).toLocaleString()}</td>
-							</tr>
-							<tr>
-								<td class="text-base-content/60">Total Cost</td>
+								<td class="text-base-content/60">Total amount paid in {termYears} years</td>
 								<td>${Math.round(comparison.conventional.totalCost).toLocaleString()}</td>
 								<td>${Math.round(comparison.halal.totalCost).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Bank Profit</td>
-								<td>${Math.round(comparison.conventional.bankProfit).toLocaleString()}</td>
-								<td>${Math.round(comparison.halal.bankProfit).toLocaleString()}</td>
+								<td class="text-base-content/60">Bank's earnings</td>
+								<td>
+									${Math.round(comparison.conventional.bankProfit).toLocaleString()}
+									<span class="text-xs text-base-content/50">(interest)</span>
+								</td>
+								<td>
+									${Math.round(comparison.halal.bankProfit).toLocaleString()}
+									<span class="text-xs text-base-content/50">(profit)</span>
+								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Bank Paid: Insurance</td>
+								<td class="text-base-content/60">Insurance paid by bank</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.bankInsurancePaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Bank Paid: Property Tax</td>
+								<td class="text-base-content/60">Property tax paid by bank</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.bankPropertyTaxPaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Ownership Structure</td>
+								<td class="text-base-content/60">Ownership structure</td>
 								<td>100% ownership from start, with bank holding lien.</td>
 								<td>Gradual increase from {downPaymentPercent}% to 100% ownership.</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">House Appreciation</td>
+								<td class="text-base-content/60">House appreciation</td>
 								<td colspan="2">
 									${Math.round(comparison.house.initialValue).toLocaleString()} → ${Math.round(
 										comparison.house.projectedValue,
@@ -422,16 +474,16 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Expected Gain After {termYears}Y</td>
+								<td class="text-base-content/60">Expected gain after {termYears} years</td>
 								<td>${Math.round(comparison.conventional.netGain).toLocaleString()}</td>
 								<td>${Math.round(comparison.halal.netGain).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Financial Advantage</td>
+								<td class="text-base-content/60">Financial advantage</td>
 								<td colspan="2">{comparison.advantage.overallAdvantage}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Spiritual Advantage</td>
+								<td class="text-base-content/60">Spiritual advantage</td>
 								<td colspan="2">
 									With halal financing, you'll avoid riba, bringing peace of mind and alignment with
 									your religious values.
