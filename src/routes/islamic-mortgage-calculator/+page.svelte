@@ -164,12 +164,15 @@
 {/if}
 
 <main class="container mx-auto w-7xl min-w-7xl p-4">
-	<header class="mb-8 text-center">
-		<h1 class="mb-1 text-2xl font-bold">
-			Islamic Mortgage Calculator: Halal vs Conventional Financing
+	<header class="-m-4 max-w-screen px-4 pt-4 pb-12 text-center sm:mx-auto sm:max-w-3xl sm:pt-6">
+		<h1 class="mb-6 text-3xl leading-tight font-bold sm:text-5xl">
+			Islamic Home Financing Calculator
 		</h1>
-		<p class="text-base-content/70">
-			Compare Islamic Partnership & Lease Structure with Traditional Interest-Based Mortgages
+		<p class="mx-auto text-lg text-base-content/80 sm:text-xl">
+			Compare <strong class="text-emerald-500">Sharia-compliant</strong>
+			partnership financing
+			<span class="whitespace-nowrap">(Diminishing Musharaka)</span>
+			with conventional interest-based mortgages.
 		</p>
 	</header>
 

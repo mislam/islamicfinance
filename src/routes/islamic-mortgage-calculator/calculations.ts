@@ -38,7 +38,7 @@ export const calc = new (class {
 	 * @param annualRentGrowth Annual rental rate appreciation rate (%)
 	 * @param annualPropertyTaxRate Annual property tax rate (%)
 	 * @param annualInsuranceRate Annual insurance rate (%)
-	 * @returns Mortgage comparison results
+	 * @returns Financing comparison results (conventional mortgage vs halal partnership financing)
 	 */
 	mortgageComparison(
 		homePrice: number,
