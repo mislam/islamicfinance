@@ -17,8 +17,8 @@ export const calc = new (class {
 	}
 
 	/**
-	 * Calculate monthly buyout amount to purchase bank's share in halal financing
-	 * @param principal Financing amount (bank's share)
+	 * Calculate monthly buyout amount to purchase partner's share in halal financing
+	 * @param principal Financing amount (partner's share)
 	 * @param years Financing term in years
 	 * @returns Monthly buyout payment
 	 */
@@ -72,12 +72,12 @@ export const calc = new (class {
 		const totalPaymentsConventional = monthlyPayment * months + totalInsurance + totalPropertyTax
 		const averageMonthlyPaymentConventional =
 			monthlyPayment + monthlyInsuranceAvg + monthlyPropertyTaxAvg
-		const bankProfitConventional = monthlyPayment * months - loanAmount
+		const lenderInterest = monthlyPayment * months - loanAmount
 
 		// 2. Halal (Diminishing Musharaka) Calculations
 		let totalRentPaid = 0
-		let totalBankInsurancePaid = 0
-		let totalBankPropertyTaxPaid = 0
+		let totalPartnerInsurancePaid = 0
+		let totalPartnerPropertyTaxPaid = 0
 		let totalHalalInsurance = 0
 		let totalHalalPropertyTax = 0
 		let averageRent = 0
@@ -100,9 +100,9 @@ export const calc = new (class {
 
 			// Calculate ownership percentages (same logic as monthly breakdown)
 			const tenantOwnership = (homePrice - halalBalanceForSummary) / homePrice
-			const bankOwnership = halalBalanceForSummary / homePrice
+			const partnerOwnership = halalBalanceForSummary / homePrice
 			const tenantOwnershipPercent = Math.max(0, Math.min(tenantOwnership, 1.0))
-			const bankOwnershipPercent = Math.max(0, Math.min(bankOwnership, 1.0))
+			const partnerOwnershipPercent = Math.max(0, Math.min(partnerOwnership, 1.0))
 
 			// Apply annual rent growth at the beginning of each year
 			const rentThisMonth =
@@ -112,9 +112,9 @@ export const calc = new (class {
 
 			totalRentPaid += rentThisMonth
 
-			// Calculate bank's and tenant's share of insurance and tax
-			totalBankInsurancePaid += monthlyInsuranceForMonth * bankOwnershipPercent
-			totalBankPropertyTaxPaid += monthlyPropertyTaxForMonth * bankOwnershipPercent
+			// Calculate partner's and tenant's share of insurance and tax
+			totalPartnerInsurancePaid += monthlyInsuranceForMonth * partnerOwnershipPercent
+			totalPartnerPropertyTaxPaid += monthlyPropertyTaxForMonth * partnerOwnershipPercent
 			totalHalalInsurance += monthlyInsuranceForMonth * tenantOwnershipPercent
 			totalHalalPropertyTax += monthlyPropertyTaxForMonth * tenantOwnershipPercent
 
@@ -128,8 +128,16 @@ export const calc = new (class {
 			totalRentPaid + loanAmount + totalHalalInsurance + totalHalalPropertyTax
 		const averageMonthlyHalalPayment =
 			averageRent + monthlyBuyout + (totalHalalInsurance + totalHalalPropertyTax) / months
-		// Bank profit = rent income - bank's expenses (insurance + tax)
-		const bankProfitHalal = totalRentPaid - totalBankInsurancePaid - totalBankPropertyTaxPaid
+		// Partner net earnings = rent income - partner's expenses (insurance + tax)
+		const partnerNetEarnings =
+			totalRentPaid - totalPartnerInsurancePaid - totalPartnerPropertyTaxPaid
+
+		// Investor metrics
+		const totalRentIncome = totalRentPaid
+		const roiPercent = (partnerNetEarnings / loanAmount) * 100
+		// Annualized ROI: (1 + total_return / initial_investment)^(1/years) - 1
+		const annualizedRoiPercent =
+			(Math.pow(1 + partnerNetEarnings / loanAmount, 1 / termYears) - 1) * 100
 
 		// 3. House Value Appreciation
 		const projectedValue = homePrice * Math.pow(1 + annualHomeGrowth / 100, termYears)
@@ -167,6 +175,7 @@ export const calc = new (class {
 		let yearlyConventionalPrincipal = 0
 		let yearlyConventionalInsurance = 0
 		let yearlyConventionalPropertyTax = 0
+		let yearlyConventionalPaymentTotal = 0 // Track what was actually paid (averaged escrow)
 		let yearlyHalalRent = 0
 		let yearlyHalalBuyout = 0
 		let yearlyHalalInsurance = 0
@@ -197,14 +206,18 @@ export const calc = new (class {
 			// Interest accrues on current balance during the month
 			// then payment is made at month end
 			// Tenant pays 100% of insurance and property tax
+			// Note: In U.S. practice, insurance and tax are typically escrowed and averaged
+			// to create equal monthly payments (PITI), though actual costs increase with appreciation
 			const interestPayment = conventionalRemainingBalance * monthlyInterestRate
 			const principalPayment = monthlyPayment - interestPayment
+			// Track actual insurance/tax paid (increases with appreciation)
 			const conventionalInsurancePaid = monthlyInsurance
 			const conventionalPropertyTaxPaid = monthlyPropertyTax
-			const conventionalTotalPayment = monthlyPayment + monthlyInsurance + monthlyPropertyTax
+			// Use average for payment calculation to match escrow practice (equal monthly payments)
+			const conventionalTotalPayment = monthlyPayment + monthlyInsuranceAvg + monthlyPropertyTaxAvg
 
 			// Halal financing calculations
-			// Rent is paid on the bank's current ownership share
+			// Rent is paid on the partner's current ownership share
 			// Apply annual rent growth at the beginning of each year
 			const rent =
 				halalRemainingBalance *
@@ -212,13 +225,13 @@ export const calc = new (class {
 				Math.pow(1 + annualRentGrowth / 100, currentYear)
 
 			// Calculate ownership percentages for halal
-			// Tenant's ownership = (homePrice - bank's remaining balance) / homePrice
-			// Bank's ownership = remainingBalance / homePrice
+			// Tenant's ownership = (homePrice - partner's remaining balance) / homePrice
+			// Partner's ownership = remainingBalance / homePrice
 			const tenantOwnership = (homePrice - halalRemainingBalance) / homePrice
-			// const bankOwnership = halalRemainingBalance / homePrice
+			// const partnerOwnership = halalRemainingBalance / homePrice
 			// Ensure percentages don't exceed 1.0 and are non-negative
 			const tenantOwnershipPercent = Math.max(0, Math.min(tenantOwnership, 1.0))
-			// const bankOwnershipPercent = Math.max(0, Math.min(bankOwnership, 1.0))
+			// const partnerOwnershipPercent = Math.max(0, Math.min(partnerOwnership, 1.0))
 
 			// Split insurance and tax proportionally based on ownership
 			const halalInsurancePaid = monthlyInsurance * tenantOwnershipPercent
@@ -242,6 +255,7 @@ export const calc = new (class {
 			yearlyConventionalPrincipal += principalPayment
 			yearlyConventionalInsurance += conventionalInsurancePaid
 			yearlyConventionalPropertyTax += conventionalPropertyTaxPaid
+			yearlyConventionalPaymentTotal += conventionalTotalPayment // Track what was paid (averaged escrow)
 			yearlyHalalRent += rent
 			yearlyHalalBuyout += monthlyBuyout
 			yearlyHalalInsurance += halalInsurancePaid
@@ -277,15 +291,14 @@ export const calc = new (class {
 				yearlyBreakdown.push({
 					year,
 					conventional: {
-						totalPayment:
-							yearlyConventionalInterest +
-							yearlyConventionalPrincipal +
-							yearlyConventionalInsurance +
-							yearlyConventionalPropertyTax,
+						// totalPayment = sum of 12 monthly payments (what you paid with escrow averaging)
+						// This matches monthly breakdown's totalPayment concept
+						totalPayment: yearlyConventionalPaymentTotal,
 						beginningBalance: yearlyStartConventionalBalance,
 						endingBalance: conventionalEndingBalance,
 						interestPaid: yearlyConventionalInterest,
 						principalPaid: yearlyConventionalPrincipal,
+						// insurancePaid and propertyTaxPaid show actual costs (increased with appreciation)
 						insurancePaid: yearlyConventionalInsurance,
 						propertyTaxPaid: yearlyConventionalPropertyTax,
 					},
@@ -307,6 +320,7 @@ export const calc = new (class {
 				yearlyConventionalPrincipal = 0
 				yearlyConventionalInsurance = 0
 				yearlyConventionalPropertyTax = 0
+				yearlyConventionalPaymentTotal = 0
 				yearlyHalalRent = 0
 				yearlyHalalBuyout = 0
 				yearlyHalalInsurance = 0
@@ -322,7 +336,7 @@ export const calc = new (class {
 				averageMonthlyPayment: averageMonthlyPaymentConventional,
 				totalPayments: totalPaymentsConventional,
 				totalCost: totalPaymentsConventional + downPayment,
-				bankProfit: bankProfitConventional,
+				lenderInterest: lenderInterest,
 				netGain: netGainConventional,
 			},
 			halal: {
@@ -330,9 +344,12 @@ export const calc = new (class {
 				rentComponent: averageRent,
 				totalPayments: totalPaymentsHalal,
 				totalCost: totalPaymentsHalal + downPayment,
-				bankProfit: bankProfitHalal,
-				bankInsurancePaid: totalBankInsurancePaid,
-				bankPropertyTaxPaid: totalBankPropertyTaxPaid,
+				partnerNetEarnings: partnerNetEarnings,
+				partnerInsurancePaid: totalPartnerInsurancePaid,
+				partnerPropertyTaxPaid: totalPartnerPropertyTaxPaid,
+				totalRentIncome: totalRentIncome,
+				roiPercent: roiPercent,
+				annualizedRoiPercent: annualizedRoiPercent,
 				netGain: netGainHalal,
 			},
 			house: {

@@ -50,7 +50,7 @@ export interface MortgageResult {
 		averageMonthlyPayment: number
 		totalPayments: number
 		totalCost: number
-		bankProfit: number
+		lenderInterest: number
 		netGain: number
 	}
 	halal: {
@@ -58,9 +58,12 @@ export interface MortgageResult {
 		rentComponent: number
 		totalPayments: number
 		totalCost: number
-		bankProfit: number
-		bankInsurancePaid: number
-		bankPropertyTaxPaid: number
+		partnerNetEarnings: number
+		partnerInsurancePaid: number
+		partnerPropertyTaxPaid: number
+		totalRentIncome: number
+		roiPercent: number
+		annualizedRoiPercent: number
 		netGain: number
 	}
 	house: {

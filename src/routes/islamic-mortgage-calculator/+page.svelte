@@ -214,9 +214,9 @@
 					<HelpModal
 						title="Understanding Financing Rates"
 						content={[
-							'<strong class="text-blue-300/70">Conventional Interest (%)</strong> is the annual interest rate charged by traditional banks on mortgage loans. This is riba (interest) - money charged for the use of money, which is prohibited in Islamic finance.',
-							'<strong class="text-blue-300/70">Annual Rental Rate (%)</strong> is NOT interest. It represents the estimated fair market rental rate for the property, used to calculate rent payments on the bank\'s ownership share in halal financing. This rate is subject to fair market value assessment and reflects payment for the use of an asset (the property), not money.',
-							'<strong class="text-blue-300/70">Key Difference:</strong> Interest (riba) is payment for the use of money, while rent is payment for the use of a physical asset. In halal financing, you pay rent on the bank\'s share of the property, which is permissible in Islamic law. The rental rate should reflect what the property would rent for in the open market.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Conventional Interest (%)</strong> is the annual interest rate charged by traditional banks on mortgage loans. This is riba (interest) - money charged for the use of money, which is prohibited in Islamic finance.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Annual Rental Rate (%)</strong> is NOT interest. It represents the estimated fair market rental rate for the property, used to calculate rent payments on the partner\'s ownership share in halal financing. This rate is subject to fair market value assessment and reflects payment for the use of an asset (the property), not money.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Key Difference:</strong> Interest (riba) is payment for the use of money, while rent is payment for the use of a physical asset. In halal financing, you pay rent on the partner\'s share of the property, which is permissible in Islamic law. The rental rate should reflect what the property would rent for in the open market.',
 						]}
 						modalId="financing-options-help"
 					/>
@@ -251,9 +251,9 @@
 					<HelpModal
 						title="Understanding Buyout & Rent"
 						content={[
-							"<strong class=\"text-blue-300/70\">Monthly Buyout ($)</strong> is the amount you pay each month to purchase the bank's ownership share of the property. This is the principal repayment component in halal financing. As you make buyout payments, your ownership percentage increases while the bank's decreases.",
-							'<strong class="text-blue-300/70">Fair Market Rent ($)</strong> is automatically calculated based on the home price and annual rental rate. It represents the estimated monthly rent for the entire property at fair market value. This is a reference value showing what the property would rent for in the open market.',
-							"<strong class=\"text-blue-300/70\">How It Works:</strong> In diminishing musharaka, you pay rent on the bank's share of the property (which decreases over time) plus a monthly buyout to gradually acquire full ownership. The rent component decreases as the bank's ownership decreases, while your buyout payments increase your equity.",
+							"<strong class=\"text-blue-600/80 dark:text-blue-400/80\">Monthly Buyout ($)</strong> is the amount you pay each month to purchase the partner's ownership share of the property. This is the principal repayment component in halal financing. As you make buyout payments, your ownership percentage increases while the partner's decreases.",
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Fair Market Rent ($)</strong> is automatically calculated based on the home price and annual rental rate. It represents the estimated monthly rent for the entire property at fair market value. This is a reference value showing what the property would rent for in the open market.',
+							"<strong class=\"text-blue-600/80 dark:text-blue-400/80\">How It Works:</strong> In diminishing musharaka, you pay rent on the partner's share of the property (which decreases over time) plus a monthly buyout to gradually acquire full ownership. The rent component decreases as the partner's ownership decreases, while your buyout payments increase your equity.",
 						]}
 						modalId="buyout-rent-help"
 					/>
@@ -283,9 +283,10 @@
 					<HelpModal
 						title="Understanding Property Costs"
 						content={[
-							'<strong class="text-blue-300/70">Annual Property Tax (%)</strong> is the annual property tax rate based on your home\'s assessed value. Property taxes are typically 0.5% to 2% of home value, varying by location. These taxes grow with home appreciation over time.',
-							'<strong class="text-blue-300/70">Annual Insurance (%)</strong> is the annual homeowners insurance rate, typically 0.25% to 0.5% of home value. Insurance protects against property damage and liability, and costs also increase as the home value appreciates.',
-							'<strong class="text-blue-300/70">Cost Sharing:</strong> In conventional loans, you pay 100% of insurance and property tax. In halal financing, these costs are split proportionally based on ownership - you pay your share based on your ownership percentage, and the bank pays their share based on their ownership percentage. This reflects the fair sharing of property expenses in a partnership structure.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Annual Property Tax (%)</strong> is the annual property tax rate based on your home\'s assessed value. Property taxes are typically 0.5% to 2% of home value, varying by location. These taxes grow with home appreciation over time.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Annual Insurance (%)</strong> is the annual homeowners insurance rate, typically 0.25% to 0.5% of home value. Insurance protects against property damage and liability, and costs also increase as the home value appreciates.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Conventional Loans (Escrow):</strong> In U.S. conventional mortgages, insurance and property tax are typically collected through an escrow account. The lender estimates annual costs, divides by 12, and adds this amount to your monthly payment (PITI = Principal + Interest + Taxes + Insurance). This creates equal monthly payments, even though actual insurance and tax costs increase with property appreciation. The escrow account is recalculated annually, but your monthly payment stays constant until the next adjustment.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Halal Financing (Proportional):</strong> In halal financing, insurance and property tax are split proportionally based on ownership - you pay your share based on your ownership percentage, and the partner pays their share. As your ownership increases, your share of these costs increases proportionally. This reflects the fair sharing of property expenses in a partnership structure.',
 						]}
 						modalId="property-costs-help"
 					/>
@@ -320,8 +321,8 @@
 					<HelpModal
 						title="Understanding YoY Appreciation"
 						content={[
-							'<strong class="text-blue-300/70">Rent Growth (%)</strong> represents the annual increase in rental rates due to market inflation and rent adjustments. This affects the monthly rent you pay on the bank\'s share of the property.',
-							'<strong class="text-blue-300/70">Home Growth (%)</strong> represents the annual appreciation of the property value. This is used only for projection purposes to estimate your net gain at the end of the term.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Rent Growth (%)</strong> represents the annual increase in rental rates due to market inflation and rent adjustments. This affects the monthly rent you pay on the partner\'s share of the property.',
+							'<strong class="text-blue-600/80 dark:text-blue-400/80">Home Growth (%)</strong> represents the annual appreciation of the property value. This is used only for projection purposes to estimate your net gain at the end of the term.',
 							"These are separate concepts: rent growth affects your monthly payments, while home growth affects your final equity position. Neither represents riba (interest) - rent is payment for use of an asset, and property appreciation reflects real asset value changes.",
 						]}
 						modalId="yoy-appreciation-help"
@@ -394,12 +395,12 @@
 			<legend class="fieldset-legend text-base-content/50">Financing Comparison</legend>
 			<div class="overflow-x-auto">
 				{#if comparison}
-					<table class="comparison-table table">
+					<table class="table table-fixed">
 						<thead>
 							<tr>
-								<th class="min-w-56"></th>
-								<th>Conventional Loan</th>
-								<th>Halal Financing</th>
+								<th class="w-56 min-w-56"></th>
+								<th class="w-1/2">Conventional Loan</th>
+								<th class="w-1/2">Halal Financing</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -415,18 +416,34 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Bank's share</td>
+								<td class="text-base-content/60">Lender's / Partners' share</td>
 								<td>
 									${comparison.loanAmount.toLocaleString()}
-									<span class="text-xs text-base-content/50">(loan amount)</span>
+									<span class="text-xs text-base-content/50">
+										(Loan amount: {100 - downPaymentPercent}%)
+									</span>
 								</td>
 								<td>
 									${comparison.loanAmount.toLocaleString()}
-									<span class="text-xs text-base-content/50">(partnership share)</span>
+									<span class="text-xs text-base-content/50">
+										(Partners' share: {100 - downPaymentPercent}%)
+									</span>
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Avg. monthly payment</td>
+								<td class="text-base-content/60">
+									<div class="flex items-center gap-1">
+										<span>Avg. monthly payment</span>
+										<HelpModal
+											title="Understanding Monthly Payments"
+											content={[
+												'<strong class="text-blue-600/80 dark:text-blue-400/80">Conventional Loan:</strong> The monthly payment (PITI) includes Principal + Interest + Taxes + Insurance. In U.S. practice, insurance and property tax are escrowed - the lender estimates annual costs, divides by 12, and adds to your payment. This creates equal monthly payments throughout the year, even though actual insurance and tax costs increase with property appreciation. The escrow is recalculated annually.',
+												'<strong class="text-blue-600/80 dark:text-blue-400/80">Halal Financing:</strong> The monthly payment includes Rent + Buyout + Your share of Insurance + Your share of Property Tax. Since your ownership percentage increases over time, your share of insurance and tax increases proportionally, while rent decreases as the partner\'s ownership decreases. This results in varying monthly payments that reflect the changing ownership structure.',
+											]}
+											modalId="monthly-payment-help"
+										/>
+									</div>
+								</td>
 								<td>
 									${Math.round(comparison.conventional.averageMonthlyPayment).toLocaleString()}
 								</td>
@@ -438,29 +455,37 @@
 								<td>${Math.round(comparison.halal.totalCost).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Bank's earnings</td>
-								<td>
-									${Math.round(comparison.conventional.bankProfit).toLocaleString()}
-									<span class="text-xs text-base-content/50">(interest)</span>
-								</td>
-								<td>
-									${Math.round(comparison.halal.bankProfit).toLocaleString()}
-									<span class="text-xs text-base-content/50">(profit)</span>
-								</td>
+								<td class="text-base-content/60">Insurance paid by partner</td>
+								<td>—</td>
+								<td>${Math.round(comparison.halal.partnerInsurancePaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Insurance paid by bank</td>
+								<td class="text-base-content/60">Property tax paid by partner</td>
 								<td>—</td>
-								<td>${Math.round(comparison.halal.bankInsurancePaid).toLocaleString()}</td>
+								<td>${Math.round(comparison.halal.partnerPropertyTaxPaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Property tax paid by bank</td>
+								<td class="text-base-content/60">Partners' gross rent income</td>
 								<td>—</td>
-								<td>${Math.round(comparison.halal.bankPropertyTaxPaid).toLocaleString()}</td>
+								<td>${Math.round(comparison.halal.totalRentIncome).toLocaleString()}</td>
+							</tr>
+							<tr>
+								<td class="text-base-content/60">Lender's / Partners' net earnings</td>
+								<td>
+									${Math.round(comparison.conventional.lenderInterest).toLocaleString()}
+									<span class="text-xs text-base-content/50">(Interest)</span>
+								</td>
+								<td>
+									${Math.round(comparison.halal.partnerNetEarnings).toLocaleString()}
+									<span class="text-xs text-base-content/50">
+										(Profit: {comparison.halal.roiPercent.toFixed(1)}% ROI,
+										{comparison.halal.annualizedRoiPercent.toFixed(2)}% annualized)
+									</span>
+								</td>
 							</tr>
 							<tr>
 								<td class="text-base-content/60">Ownership structure</td>
-								<td>100% ownership from start, with bank holding lien.</td>
+								<td>100% ownership from start, with lender holding lien.</td>
 								<td>Gradual increase from {downPaymentPercent}% to 100% ownership.</td>
 							</tr>
 							<tr>
@@ -544,7 +569,7 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="w-24! max-w-24! border-r border-base-content/10"></th>
+								<th class="w-20! max-w-20! border-r border-base-content/10"></th>
 								<th>Payment</th>
 								<th>Interest</th>
 								<th>Principal</th>
@@ -730,8 +755,15 @@
 	th {
 		@apply font-normal;
 	}
-	td:first-child {
+	td,
+	th {
 		@apply align-top;
+		&:first-child {
+			@apply pl-0!;
+		}
+		&:last-child {
+			@apply pr-0!;
+		}
 	}
 	.breakdown-table {
 		td,
