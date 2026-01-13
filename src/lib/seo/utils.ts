@@ -6,12 +6,19 @@ import type { SEOData } from "./types"
 
 /**
  * Generate structured data HTML for JSON-LD
- * @param structuredData - The structured data object
- * @returns HTML string with script tag
+ * @param structuredData - The structured data object or array of objects
+ * @returns HTML string with script tag(s)
  */
-export function generateStructuredDataHtml(structuredData: object): string {
+export function generateStructuredDataHtml(structuredData: object | object[]): string {
 	const scriptOpen = '<script type="application/ld+json">'
 	const scriptClose = "</" + "script>"
+
+	// If array, create separate script tags for each item (recommended by Google)
+	if (Array.isArray(structuredData)) {
+		return structuredData.map((item) => scriptOpen + JSON.stringify(item) + scriptClose).join("\n")
+	}
+
+	// Single object
 	return scriptOpen + JSON.stringify(structuredData) + scriptClose
 }
 

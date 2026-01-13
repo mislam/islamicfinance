@@ -8,6 +8,7 @@
 	import { Head } from "$lib/seo"
 
 	import { calc } from "./calculations"
+	import FAQ from "./FAQ.svelte"
 	import { getSEOData } from "./seo"
 	import type { MonthlyRecord, MortgageResult, YearlyRecord } from "./types"
 
@@ -458,12 +459,12 @@
 								<td>${Math.round(comparison.halal.totalCost).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Insurance paid by partner</td>
+								<td class="text-base-content/60">Insurance paid by partners</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.partnerInsurancePaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Property tax paid by partner</td>
+								<td class="text-base-content/60">Property tax paid by partners</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.partnerPropertyTaxPaid).toLocaleString()}</td>
 							</tr>
@@ -669,6 +670,8 @@
 			</fieldset>
 		{/if}
 	</div>
+
+	<FAQ />
 </main>
 
 <footer class="bg-base-200 text-base-content/50">
