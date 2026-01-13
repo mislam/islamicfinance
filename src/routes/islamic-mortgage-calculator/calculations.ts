@@ -118,8 +118,13 @@ export const calc = new (class {
 			totalHalalInsurance += monthlyInsuranceForMonth * tenantOwnershipPercent
 			totalHalalPropertyTax += monthlyPropertyTaxForMonth * tenantOwnershipPercent
 
+			// For the last payment or when balance is small, pay exact remaining balance
+			// This ensures ownership reaches exactly 100% at the end
+			const actualBuyoutForSummary =
+				halalBalanceForSummary <= monthlyBuyout ? halalBalanceForSummary : monthlyBuyout
+
 			// Update balance for next iteration (buyout happens after rent calculation)
-			halalBalanceForSummary -= monthlyBuyout
+			halalBalanceForSummary -= actualBuyoutForSummary
 			if (halalBalanceForSummary < 0) halalBalanceForSummary = 0
 		}
 
@@ -224,31 +229,41 @@ export const calc = new (class {
 				(annualRentalRate / 100 / 12) *
 				Math.pow(1 + annualRentGrowth / 100, currentYear)
 
-			// Calculate ownership percentages for halal
+			// For the last payment or when balance is small, pay exact remaining balance
+			// This ensures ownership reaches exactly 100% at the end
+			const actualBuyoutPayment =
+				halalRemainingBalance <= monthlyBuyout ? halalRemainingBalance : monthlyBuyout
+
+			// Calculate ownership percentages BEFORE payment (for insurance/tax split)
 			// Tenant's ownership = (homePrice - partner's remaining balance) / homePrice
-			// Partner's ownership = remainingBalance / homePrice
-			const tenantOwnership = (homePrice - halalRemainingBalance) / homePrice
-			// const partnerOwnership = halalRemainingBalance / homePrice
-			// Ensure percentages don't exceed 1.0 and are non-negative
-			const tenantOwnershipPercent = Math.max(0, Math.min(tenantOwnership, 1.0))
-			// const partnerOwnershipPercent = Math.max(0, Math.min(partnerOwnership, 1.0))
+			const tenantOwnershipBeforePayment = (homePrice - halalRemainingBalance) / homePrice
+			const tenantOwnershipPercentBeforePayment = Math.max(
+				0,
+				Math.min(tenantOwnershipBeforePayment, 1.0),
+			)
 
-			// Split insurance and tax proportionally based on ownership
-			const halalInsurancePaid = monthlyInsurance * tenantOwnershipPercent
-			const halalPropertyTaxPaid = monthlyPropertyTax * tenantOwnershipPercent
+			// Split insurance and tax proportionally based on ownership BEFORE payment
+			const halalInsurancePaid = monthlyInsurance * tenantOwnershipPercentBeforePayment
+			const halalPropertyTaxPaid = monthlyPropertyTax * tenantOwnershipPercentBeforePayment
 
-			const thisMonthHalalPayment = rent + monthlyBuyout + halalInsurancePaid + halalPropertyTaxPaid
+			const thisMonthHalalPayment =
+				rent + actualBuyoutPayment + halalInsurancePaid + halalPropertyTaxPaid
 
 			// Apply payments to reduce balances
 			conventionalRemainingBalance -= principalPayment
 			if (conventionalRemainingBalance < 0) conventionalRemainingBalance = 0
 
-			halalRemainingBalance -= monthlyBuyout
+			halalRemainingBalance -= actualBuyoutPayment
 			if (halalRemainingBalance < 0) halalRemainingBalance = 0
 
 			// Store the ending balance for this month (after payment)
 			const conventionalEndingBalance = conventionalRemainingBalance
 			const halalEndingBalance = halalRemainingBalance
+
+			// Calculate ownership percentage AFTER payment (for display)
+			// This ensures the last month shows exactly 100% ownership
+			const tenantOwnershipAfterPayment = (homePrice - halalEndingBalance) / homePrice
+			const tenantOwnershipPercent = Math.max(0, Math.min(tenantOwnershipAfterPayment, 1.0))
 
 			// Track yearly totals
 			yearlyConventionalInterest += interestPayment
@@ -257,7 +272,7 @@ export const calc = new (class {
 			yearlyConventionalPropertyTax += conventionalPropertyTaxPaid
 			yearlyConventionalPaymentTotal += conventionalTotalPayment // Track what was paid (averaged escrow)
 			yearlyHalalRent += rent
-			yearlyHalalBuyout += monthlyBuyout
+			yearlyHalalBuyout += actualBuyoutPayment
 			yearlyHalalInsurance += halalInsurancePaid
 			yearlyHalalPropertyTax += halalPropertyTaxPaid
 
@@ -276,7 +291,7 @@ export const calc = new (class {
 				halal: {
 					totalPayment: thisMonthHalalPayment,
 					rentComponent: rent,
-					buyoutComponent: monthlyBuyout,
+					buyoutComponent: actualBuyoutPayment,
 					beginningBalance: halalBeginningBalance,
 					endingBalance: halalEndingBalance,
 					insurancePaid: halalInsurancePaid,
