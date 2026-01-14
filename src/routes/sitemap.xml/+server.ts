@@ -15,6 +15,11 @@ export const GET: RequestHandler = async ({ url }) => {
 			changefreq: "monthly",
 			priority: 0.9,
 		},
+		{
+			url: `${baseUrl}/loan-agreement-generator`,
+			changefreq: "monthly",
+			priority: 0.9,
+		},
 	]
 
 	// Generate XML sitemap

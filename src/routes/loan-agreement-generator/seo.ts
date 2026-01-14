@@ -12,11 +12,11 @@ import { createSEOData } from "$lib/seo"
  * @returns Complete SEO metadata object
  */
 export function getSEOData(pathname: string, baseUrl: string): SEOData {
-	const title = "Islamic Loan Contract Generator | Sharia-Compliant Loan Agreement"
+	const title = "Loan Agreement Generator | Free Islamic & Interest-Free Loan Contracts"
 	const description =
-		"Free tool to generate Islamic loan contracts between two parties based on Surah Al-Baqarah verse 282. Create sharia-compliant loan agreements with proper documentation and witness requirements. Download as PDF."
+		"Free loan agreement generator for personal loans, Islamic loan agreements, and interest-free loan agreements. Create sharia-compliant loan agreements (qard hasan) based on Surah Al-Baqarah verse 282. Generate and download PDF contracts with proper documentation and witness requirements."
 	const keywords =
-		"muslim loan contract, islamic loan agreement, sharia compliant loan, quran 2:282 loan contract, halal loan agreement, islamic debt contract, muslim loan document, islamic finance contract, sharia loan template, islamic lending agreement, muslim borrower lender contract, quranic loan contract, islamic contract generator, halal debt agreement"
+		"loan agreement generator, personal loan agreement generator, islamic loan agreement, interest free loan agreement, sharia compliant loan agreement, qard hasan agreement, free loan agreement generator, halal loan agreement, sharia compliant loan, islamic debt contract, muslim loan contract, quran 2:282 loan contract, islamic contract generator, interest-free loan template"
 
 	const faqStructuredData = {
 		"@context": "https://schema.org",
@@ -27,7 +27,7 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 				name: "What is a Muslim loan contract based on Surah Al-Baqarah, verse 282?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "A Muslim loan contract based on Surah Al-Baqarah verse 282 follows the Quranic guidance for documenting debts between parties. It requires written documentation, witnesses (two men, or one man and two women), and clear terms. This contract generator creates sharia-compliant loan agreements that fulfill these requirements.",
+					text: "A Muslim loan contract based on Surah Al-Baqarah verse 282 follows the Quranic guidance for documenting debts between parties. It requires written documentation, witnesses (two men, or one man and two women), and clear terms. This loan agreement generator creates sharia-compliant loan agreements that fulfill these requirements.",
 				},
 			},
 			{
@@ -35,7 +35,7 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 				name: "Why is written documentation important for Islamic loans?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "The Surah Al-Baqarah, verse 282 specifically instructs believers to write down debt contracts. Written documentation prevents disputes, ensures clarity of terms, and provides legal protection for both parties. It is considered a religious obligation (fard) when contracting debts.",
+					text: "The Surah Al-Baqarah, verse 282 specifically instructs believers to write down debt contracts. Written documentation prevents disputes, ensures clarity of terms, and provides legal protection for both parties. According to the majority of Islamic jurisprudence schools, this is considered a highly recommended practice (mustahabb) when contracting debts.",
 				},
 			},
 			{
@@ -76,7 +76,7 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 	const structuredData = {
 		"@context": "https://schema.org",
 		"@type": "WebApplication",
-		name: "Muslim Loan Contract Generator",
+		name: "Loan Agreement Generator",
 		description,
 		url: `${baseUrl}${pathname}`,
 		applicationCategory: "FinanceApplication",
@@ -87,12 +87,13 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 			priceCurrency: "USD",
 		},
 		featureList: [
-			"Generate sharia-compliant loan contracts based on Surah Al-Baqarah, verse 282",
+			"Free personal loan agreement generator",
+			"Generate Islamic loan agreements (qard hasan) based on Surah Al-Baqarah, verse 282",
+			"Create interest-free and sharia-compliant loan agreements",
 			"Document borrower and lender information",
 			"Add required witnesses (minimum 2)",
 			"Specify loan terms and repayment dates",
 			"Download contract as PDF for printing",
-			"Interest-free loan agreements",
 		],
 	}
 
@@ -105,8 +106,8 @@ export function getSEOData(pathname: string, baseUrl: string): SEOData {
 			description,
 			keywords,
 			structuredData: combinedStructuredData,
-			ogImage: `${baseUrl}/images/og-islamic-mortgage-calculator.jpg`, // Reuse existing image or create new one later
-			twitterImage: `${baseUrl}/images/og-islamic-mortgage-calculator.jpg`,
+			ogImage: `${baseUrl}/images/og-loan-agreement-generator.jpg`,
+			twitterImage: `${baseUrl}/images/og-loan-agreement-generator.jpg`,
 		},
 		pathname,
 		baseUrl,

@@ -6,6 +6,7 @@
 	import HelpModal from "$lib/HelpModal.svelte"
 	import { Head } from "$lib/seo"
 
+	import FAQ from "./FAQ.svelte"
 	import { getSEOData } from "./seo"
 	import type { ContractData, Witness } from "./types"
 
@@ -329,10 +330,10 @@
 
 <main class="container mx-auto px-4 pt-8 pb-16 sm:w-3xl sm:min-w-3xl">
 	<header class="max-w-screen px-4 pb-12 text-center sm:mx-auto sm:max-w-3xl">
-		<h1 class="mb-6 text-4xl leading-tight font-bold">Islamic Loan Contract</h1>
+		<h1 class="mb-6 text-4xl leading-tight font-bold">Islamic Loan Agreement</h1>
 		<p class="mx-auto text-lg text-base-content/80 sm:text-xl">
-			Generate a <strong class="text-emerald-500">Sharia-compliant</strong>
-			loan contract based on
+			Generate <strong class="text-emerald-500">Sharia-compliant</strong>
+			loan agreements based on
 			<span class="whitespace-nowrap">
 				<a
 					href="https://quran.com/2/282"
@@ -345,7 +346,7 @@
 					Surah Al-Baqarah verse 282.
 				</a>
 			</span>
-			Document your loan agreement with proper witnesses and Islamic principles.
+			Interest-free contracts with proper documentation and witnesses.
 		</p>
 		{#if dev}
 			<div class="mt-4">
@@ -782,6 +783,8 @@
 			</button>
 		</div>
 	</form>
+
+	<FAQ />
 </main>
 
 <!-- Error Summary Modal -->
