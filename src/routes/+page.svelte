@@ -1,8 +1,4 @@
 <script lang="ts">
-	import { onMount } from "svelte"
-
-	import { browser } from "$app/environment"
-	import { goto } from "$app/navigation"
 	import { resolve } from "$app/paths"
 	import { page } from "$app/state"
 	import { Head } from "$lib/seo"
@@ -38,17 +34,7 @@
 		)
 	})
 
-	// Auto-redirect to calculator after a brief moment (for better UX)
-	onMount(() => {
-		if (browser) {
-			// Small delay to allow page to render, then redirect
-			const timer = setTimeout(() => {
-				goto(resolve("/islamic-mortgage-calculator"), { replaceState: true })
-			}, 100)
-
-			return () => clearTimeout(timer)
-		}
-	})
+	// No longer auto-redirecting - show both tools
 </script>
 
 <Head {seo} />
@@ -57,7 +43,7 @@
 	<div class="text-center">
 		<h1 class="mb-4 text-4xl font-bold">Islamic Finance</h1>
 		<p class="mb-8 text-lg text-base-content/70">Halal Financial Tools & Calculators</p>
-		<div class="flex flex-col items-center gap-4">
+		<div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
 			<a
 				href={resolve("/islamic-mortgage-calculator")}
 				class="btn btn-lg btn-primary"
@@ -65,7 +51,13 @@
 			>
 				Islamic Mortgage Calculator
 			</a>
-			<p class="text-sm text-base-content/50">Redirecting to calculator...</p>
+			<a
+				href={resolve("/loan-agreement-generator")}
+				class="btn btn-lg btn-secondary"
+				aria-label="Go to Muslim Loan Contract Generator"
+			>
+				Loan Contract Generator
+			</a>
 		</div>
 	</div>
 </main>
