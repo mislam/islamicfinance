@@ -632,7 +632,7 @@
 				{#each witnesses as witness, index (index)}
 					<div class="rounded-box border border-base-content/10 p-4">
 						<div class="mb-2 flex items-center justify-between">
-							<h3 class="font-semibold">Witness {index + 1}</h3>
+							<div class="font-semibold">Witness {index + 1}</div>
 							{#if witnesses.length > 2}
 								<button
 									type="button"
@@ -795,9 +795,9 @@
 	aria-labelledby="error-modal-title"
 >
 	<div class="modal-box">
-		<h3 id="error-modal-title" class="mb-4 text-xl font-bold text-error">
+		<h2 id="error-modal-title" class="mb-4 text-xl font-bold text-error">
 			Please Fix the Following Errors
-		</h3>
+		</h2>
 		<div class="space-y-2">
 			{#each getErrorSummary() as errorMessage, index (index)}
 				<div class="flex items-start gap-2">

@@ -22,11 +22,13 @@ function buildSignatureGrid(
 			{
 				label: "Borrower:",
 				fullName: borrower.fullName,
+				address: borrower.address,
 				contact: [borrower.phone, borrower.email].filter(Boolean).join(" | "),
 			},
 			{
 				label: "Lender:",
 				fullName: lender.fullName,
+				address: lender.address,
 				contact: [lender.phone, lender.email].filter(Boolean).join(" | "),
 			},
 		],
@@ -189,7 +191,7 @@ export function buildContractTemplate(data: ContractData): PDFTemplate {
 		text("—  Quran, Surah Al-Baqarah (2:282)", {
 			align: "right",
 			fontWeight: "italic",
-			marginTop: -2,
+			marginTop: -3,
 			marginBottom: 1,
 		}),
 	)
@@ -203,8 +205,8 @@ export function buildContractTemplate(data: ContractData): PDFTemplate {
 			fontWeight: "bold",
 			align: "center",
 			lineHeight: 1,
-			marginTop: 6,
-			marginBottom: 6,
+			marginTop: 4,
+			marginBottom: 4,
 		}),
 	)
 
@@ -238,7 +240,7 @@ export function buildContractTemplate(data: ContractData): PDFTemplate {
 	content.push({
 		type: "signature-grid",
 		signatureRows,
-		marginTop: 6,
+		marginTop: 4,
 	})
 
 	return {
