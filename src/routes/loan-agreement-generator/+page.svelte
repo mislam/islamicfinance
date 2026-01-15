@@ -3,6 +3,7 @@
 
 	import { browser, dev } from "$app/environment"
 	import { page } from "$app/state"
+	import { trackEvent } from "$lib/analytics"
 	import HelpModal from "$lib/HelpModal.svelte"
 	import { Head } from "$lib/seo"
 
@@ -35,6 +36,54 @@
 	let errors = $state<Record<string, string>>({})
 	let isGenerating = $state(false)
 	let errorModalElement: HTMLDialogElement | null = $state(null)
+
+	// Reactive form validation state (for button disable, doesn't set errors)
+	const isFormValid = $derived.by(() => {
+		// Borrower validation
+		if (!borrowerName.trim()) return false
+		if (!borrowerAddress.trim()) return false
+		if (borrowerPhone.trim() && !/^[\d\s\-+()]+$/.test(borrowerPhone)) return false
+		if (borrowerEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(borrowerEmail)) return false
+
+		// Lender validation
+		if (!lenderName.trim()) return false
+		if (!lenderAddress.trim()) return false
+		if (lenderPhone.trim() && !/^[\d\s\-+()]+$/.test(lenderPhone)) return false
+		if (lenderEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lenderEmail)) return false
+
+		// Loan validation
+		if (loanAmount <= 0) return false
+		if (!loanPurpose.trim()) return false
+		if (!loanDate) return false
+		if (!repaymentDate) return false
+		if (loanDate && repaymentDate && new Date(repaymentDate) <= new Date(loanDate)) return false
+
+		// Witness validation
+		const validWitnesses = witnesses.filter(
+			(w) => w.fullName.trim() && w.address.trim() && w.gender,
+		)
+		if (validWitnesses.length < 2) return false
+
+		// Validate witness gender requirements
+		if (validWitnesses.length >= 2) {
+			const maleCount = validWitnesses.filter((w) => w.gender === "male").length
+			const femaleCount = validWitnesses.filter((w) => w.gender === "female").length
+			const totalWitnessValue = maleCount * 1.0 + femaleCount * 0.5
+
+			if (maleCount === 0) return false
+			if (totalWitnessValue < 2.0) return false
+		}
+
+		// Validate each witness's optional fields
+		for (const witness of witnesses) {
+			if (witness.fullName.trim() || witness.address.trim() || witness.gender) {
+				if (witness.phone.trim() && !/^[\d\s\-+()]+$/.test(witness.phone)) return false
+				if (witness.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(witness.email)) return false
+			}
+		}
+
+		return true
+	})
 
 	// Set default loan date (today) - repayment date should be intentionally set by user
 	$effect(() => {
@@ -312,6 +361,21 @@
 			const filename = `loan-agreement-${borrowerFirstName.toLowerCase()}-${dateStr}.pdf`
 
 			await downloadPDF(contractData, filename)
+
+			// Track successful PDF generation
+			const loanTermDays =
+				loanDate && repaymentDate
+					? Math.ceil(
+							(new Date(repaymentDate).getTime() - new Date(loanDate).getTime()) /
+								(1000 * 60 * 60 * 24),
+						)
+					: null
+
+			trackEvent("loan_agreement_generate", {
+				amount: loanAmount,
+				currency: loanCurrency,
+				term_days: loanTermDays,
+			})
 		} catch (error) {
 			console.error("Error generating PDF:", error)
 			alert("An error occurred while generating the PDF. Please try again.")
@@ -758,7 +822,7 @@
 
 		<!-- Generate PDF Button -->
 		<div class="flex justify-center pt-6">
-			<button type="submit" class="btn btn-lg btn-primary" disabled={isGenerating}>
+			<button type="submit" class="btn btn-lg btn-primary" disabled={!isFormValid || isGenerating}>
 				{#if isGenerating}
 					<span class="loading loading-spinner"></span>
 					Generating PDF...

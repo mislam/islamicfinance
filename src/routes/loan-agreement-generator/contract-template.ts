@@ -23,7 +23,7 @@ function buildSignatureGrid(
 				label: "Borrower:",
 				fullName: borrower.fullName,
 				address: borrower.address,
-				contact: [borrower.phone, borrower.email].filter(Boolean).join(" | "),
+				contact: [borrower.phone, borrower.email].filter(Boolean).join(", "),
 			},
 			{
 				label: "Lender:",

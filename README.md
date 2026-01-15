@@ -137,6 +137,14 @@ Commit messages must follow the [Conventional Commits](https://www.conventionalc
 - `test: add tests`
 - `chore: maintenance tasks`
 
+## 📊 Analytics Events
+
+| Event                     | Tool                     | Parameters                        |
+| ------------------------- | ------------------------ | --------------------------------- |
+| `loan_agreement_generate` | Loan Agreement Generator | `amount`, `currency`, `term_days` |
+
+**Naming Pattern:** `{tool}_{action}` (present tense, snake_case)
+
 ## 🐳 Local Services
 
 The development environment includes:
