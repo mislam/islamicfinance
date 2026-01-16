@@ -6,6 +6,9 @@
 
 	let { article } = $props<{ article: ArticleMetadata }>()
 
+	// Format dates - will use user's timezone on client after hydration
+	// Note: For date-only formats (no time), timezone usually doesn't change the displayed date
+	// unless the date crosses midnight boundaries in different timezones
 	const publishedDate = $derived(
 		article.publishedAt ? format(new Date(article.publishedAt), "MMMM d, yyyy") : null,
 	)

@@ -1,22 +1,18 @@
-import { readdir, readFile } from "node:fs/promises"
-import { join } from "node:path"
-
-import { load } from "js-yaml"
+import { and, desc, eq } from "drizzle-orm"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import { remark } from "remark"
-import remarkFrontmatter from "remark-frontmatter"
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype"
 
+import { articles, db } from "$lib/server/db"
+
 import type { Article, ArticleMetadata } from "./types"
 
-const articlesDir = join(process.cwd(), "src/content/articles")
-
 /**
- * Process markdown content to HTML (without frontmatter)
+ * Process markdown content to HTML
  */
 async function processMarkdown(content: string): Promise<string> {
 	// Custom sanitize schema that allows fragment links (#id) for anchor navigation
@@ -33,7 +29,6 @@ async function processMarkdown(content: string): Promise<string> {
 	}
 
 	const processor = remark()
-		.use(remarkFrontmatter)
 		.use(remarkGfm)
 		.use(remarkRehype)
 		.use(rehypeSlug)
@@ -51,126 +46,72 @@ async function processMarkdown(content: string): Promise<string> {
 }
 
 /**
- * Parse frontmatter from markdown content
+ * Convert database article row to ArticleMetadata
  */
-function parseFrontmatter(content: string): {
-	frontmatter: Record<string, unknown>
-	body: string
-} {
-	// Split content by frontmatter delimiters
-	const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/
-	const match = content.match(frontmatterRegex)
-
-	if (!match) {
-		return { frontmatter: {}, body: content }
+function dbRowToMetadata(row: typeof articles.$inferSelect): ArticleMetadata {
+	return {
+		slug: row.slug,
+		title: row.title,
+		description: row.description,
+		author: row.author ?? "Islamic Finance", // Use author field
+		publishedAt: row.publishedAt?.toISOString() ?? null,
+		updatedAt: row.updatedAt?.toISOString() ?? null,
+		tags: row.tags ?? [],
+		category: row.category ?? null,
+		featuredImage: row.featuredImage ?? null,
+		keywords: row.seoKeywords ?? null,
 	}
-
-	const frontmatterStr = match[1]
-	const body = match[2]
-
-	// Parse YAML frontmatter using js-yaml
-	let frontmatter: Record<string, unknown> = {}
-	try {
-		frontmatter = (load(frontmatterStr) as Record<string, unknown>) || {}
-	} catch {
-		// If YAML parsing fails, return empty frontmatter
-		frontmatter = {}
-	}
-
-	return { frontmatter, body }
 }
 
 /**
- * Get all article metadata (without content)
+ * Get all published article metadata (without content)
  */
 export async function getAllArticles(): Promise<ArticleMetadata[]> {
-	const files = await readdir(articlesDir)
-	const articles: ArticleMetadata[] = []
+	const rows = await db
+		.select()
+		.from(articles)
+		.where(eq(articles.status, "published"))
+		.orderBy(desc(articles.publishedAt))
 
-	for (const file of files) {
-		if (!file.endsWith(".md")) continue
-
-		// Use filename as slug to locate the file
-		// getArticleMetadata will use frontmatter slug if present, otherwise filename
-		const filenameSlug = file.replace(/\.md$/, "")
-		const metadata = await getArticleMetadata(filenameSlug)
-		if (metadata) {
-			articles.push(metadata)
-		}
-	}
-
-	// Sort by publishedAt (newest first)
-	return articles.sort((a, b) => {
-		if (!a.publishedAt) return 1
-		if (!b.publishedAt) return -1
-		return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-	})
+	// Convert to metadata (already sorted by publishedAt desc from DB)
+	return rows.map(dbRowToMetadata)
 }
 
 /**
- * Get article metadata by slug
+ * Get article metadata by slug (published articles only)
  */
 export async function getArticleMetadata(slug: string): Promise<ArticleMetadata | null> {
-	try {
-		const filePath = join(articlesDir, `${slug}.md`)
-		const content = await readFile(filePath, "utf-8")
-		const { frontmatter } = parseFrontmatter(content)
+	const [row] = await db
+		.select()
+		.from(articles)
+		.where(and(eq(articles.slug, slug), eq(articles.status, "published")))
+		.limit(1)
 
-		// Use slug from frontmatter if present, otherwise use filename-based slug
-		// This allows explicit slug definition and makes DB migration easier
-		const articleSlug = (frontmatter.slug as string) || slug
+	if (!row) return null
 
-		// Optional: Warn if slug in frontmatter doesn't match filename (in development)
-		if (process.env.NODE_ENV === "development" && frontmatter.slug && frontmatter.slug !== slug) {
-			console.warn(
-				`[Article] Slug mismatch in ${slug}.md: frontmatter slug "${frontmatter.slug}" doesn't match filename slug "${slug}"`,
-			)
-		}
-
-		return {
-			slug: articleSlug,
-			title: (frontmatter.title as string) || "",
-			description: (frontmatter.description as string) || "",
-			author: (frontmatter.author as string) || "",
-			publishedAt: frontmatter.publishedAt
-				? new Date(frontmatter.publishedAt as string).toISOString()
-				: null,
-			updatedAt: frontmatter.updatedAt
-				? new Date(frontmatter.updatedAt as string).toISOString()
-				: frontmatter.publishedAt
-					? new Date(frontmatter.publishedAt as string).toISOString()
-					: null,
-			tags: (frontmatter.tags as string[]) || [],
-			category: (frontmatter.category as string) || null,
-			featuredImage: (frontmatter.featuredImage as string) || null,
-			keywords: (frontmatter.keywords as string) || null,
-		}
-	} catch {
-		return null
-	}
+	return dbRowToMetadata(row)
 }
 
 /**
- * Get full article by slug (with processed HTML content)
+ * Get full article by slug (with processed HTML content) - published articles only
  */
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-	try {
-		const filePath = join(articlesDir, `${slug}.md`)
-		const content = await readFile(filePath, "utf-8")
-		const { body } = parseFrontmatter(content)
+	const [row] = await db
+		.select()
+		.from(articles)
+		.where(and(eq(articles.slug, slug), eq(articles.status, "published")))
+		.limit(1)
 
-		// Process markdown to HTML (body already has frontmatter removed)
-		const html = await processMarkdown(body)
+	if (!row) return null
 
-		const metadata = await getArticleMetadata(slug)
-		if (!metadata) return null
+	// Process markdown content to HTML
+	const html = await processMarkdown(row.content)
 
-		return {
-			...metadata,
-			content: html,
-		}
-	} catch {
-		return null
+	const metadata = dbRowToMetadata(row)
+
+	return {
+		...metadata,
+		content: html,
 	}
 }
 

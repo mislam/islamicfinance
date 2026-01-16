@@ -49,6 +49,32 @@ Generate high-quality, SEO-optimized articles on Islamic finance topics for publ
 - **Accessibility**: Define technical terms when first introduced
 - **Paragraphs**: Keep paragraphs concise (3-5 sentences) for online readability
 
+### Organization and Company References Guidelines
+
+**CRITICAL**: Never directly or indirectly endorse, promote, or recommend specific financial institutions, banks, companies, or service providers. Maintain complete neutrality when mentioning organizations.
+
+**Rules for Mentioning Organizations:**
+
+1. **No Endorsements**: Never state that an organization is "Shariah-compliant," "halal," or "reputable" without verification. Use neutral language instead.
+   - ❌ Avoid: "Reputable Islamic banks operate according to Shariah principles..."
+   - ✅ Better: "Islamic banks claim to operate according to Shariah principles..."
+   - ❌ Avoid: "Institutions like [Company Name] offer Shariah-compliant alternatives..."
+   - ✅ Better: "Various institutions offer Islamic financing alternatives. Muslims should research and verify the Shariah compliance of any financial institution they consider."
+
+2. **Neutral Language**: When mentioning organizations, use neutral, factual language without judgment.
+   - ❌ Avoid: "Organizations like [Company Name] and other reputable charities..."
+   - ✅ Better: "Various charitable organizations accept such donations."
+
+3. **Encourage Due Diligence**: Always emphasize that readers should do their own research and verification.
+   - ✅ Good: "Muslims should research individual institutions, review their Shariah compliance certifications, and consult knowledgeable scholars to make informed decisions."
+
+4. **Generic References**: Prefer generic terms over specific company names.
+   - ✅ Good: "Various institutions," "some organizations," "Islamic financial institutions," "charitable organizations"
+
+5. **Exceptions for Scholarly Bodies**: You may mention scholarly organizations (e.g., Islamic Fiqh Academy, AAOIFI) when citing them as sources of rulings or standards, but not as service providers or endorsements.
+
+6. **No Service Recommendations**: Never recommend specific companies, banks, or financial products. Focus on explaining concepts and principles, then encourage readers to research options themselves.
+
 ### Punctuation and Writing Authenticity Guidelines
 
 **Em Dashes (—):**
@@ -301,6 +327,15 @@ Use hierarchical headings:
 - [ ] All Hadith linked to Sunnah.com with correct collection and number
 - [ ] All external Islamic sources linked inline (no separate References section)
 
+### Neutrality and Organization References ✓
+
+- [ ] No direct or indirect endorsements of specific companies, banks, or financial institutions
+- [ ] Neutral language used when mentioning organizations (e.g., "claim to operate" not "operate")
+- [ ] Readers encouraged to do their own research and verification
+- [ ] Generic terms preferred over specific company names
+- [ ] No service recommendations or product endorsements
+- [ ] Scholarly organizations (Fiqh Academy, AAOIFI) mentioned only as sources, not endorsements
+
 ### SEO Optimization ✓
 
 - [ ] Primary keyword in title, meta, H1, and first 100 words
@@ -450,6 +485,7 @@ Before generating each article, you MUST complete these steps:
 6. **Evidence-Based**: Every Islamic claim needs Quranic or Hadith backing
 7. **Update Awareness**: Note if content may need future updates due to changing regulations or market conditions
 8. **Accessibility**: Make complex topics understandable for all education levels
+9. **Neutrality**: Never endorse organizations—use neutral language and encourage reader research
 
 ---
 

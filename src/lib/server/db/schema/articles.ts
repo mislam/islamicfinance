@@ -13,6 +13,7 @@ export const articles = pgTable(
 		title: text("title").notNull(),
 		description: text("description").notNull(), // SEO meta description
 		content: text("content").notNull(), // Markdown or HTML
+		author: text("author"), // Author name (can be used independently or with authorId)
 		authorId: text("author_id").references(() => users.id),
 		publishedAt: timestamp("published_at"),
 		updatedAt: timestamp("updated_at")
