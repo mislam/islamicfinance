@@ -2,8 +2,8 @@
 slug: "riba-in-islam"
 title: "Understanding Riba in Islam: Complete Guide 2026"
 description: "Learn what riba is in Islam, why it's forbidden, types of riba, and how it differs from profit. Comprehensive guide with Quranic evidence."
-author: "Islamic Finance Expert"
-publishedAt: "2026-01-16T00:00:00-05:00"
+author: "Mohammad Islam"
+publishedAt: "2026-01-16T01:57:00-05:00"
 tags: ["Riba", "Islamic Finance", "Halal", "Interest"]
 category: "Islamic Finance"
 keywords: ["riba in Islam", "what is riba", "interest in Islam", "riba types", "halal finance"]

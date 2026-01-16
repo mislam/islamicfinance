@@ -45,11 +45,20 @@
 	:global(.prose ul),
 	:global(.prose ol) {
 		margin-bottom: 1rem;
-		margin-left: 1.5rem;
+		padding-left: 1.5em; /* Mobile-friendly indentation */
+	}
+
+	/* More indentation on larger screens where we have more room */
+	@media (min-width: 768px) {
+		:global(.prose ul),
+		:global(.prose ol) {
+			padding-left: 2em;
+		}
 	}
 
 	:global(.prose li) {
 		margin-bottom: 0.5rem;
+		line-height: 1.5; /* Match paragraph line-height for consistency */
 	}
 
 	:global(.prose a) {

@@ -1,4 +1,5 @@
 import { and, desc, eq } from "drizzle-orm"
+import type { Root } from "hast"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize"
 import rehypeSlug from "rehype-slug"
@@ -6,10 +7,31 @@ import rehypeStringify from "rehype-stringify"
 import { remark } from "remark"
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype"
+import { visit } from "unist-util-visit"
 
 import { articles, db } from "$lib/server/db"
 
 import type { Article, ArticleMetadata } from "./types"
+
+/**
+ * Rehype plugin to add target="_blank" and rel="noopener noreferrer" to external links
+ */
+function rehypeExternalLinks() {
+	return (tree: Root) => {
+		visit(tree, "element", (node) => {
+			if (node.tagName === "a" && node.properties?.href) {
+				const href = String(node.properties.href)
+
+				// Check if link is external (starts with http:// or https://)
+				// Internal links (relative paths, fragments) stay in same tab
+				if (href.startsWith("http://") || href.startsWith("https://")) {
+					node.properties.target = "_blank"
+					node.properties.rel = "noopener noreferrer"
+				}
+			}
+		})
+	}
+}
 
 /**
  * Process markdown content to HTML
@@ -26,6 +48,12 @@ async function processMarkdown(content: string): Promise<string> {
 		// Don't prefix IDs to avoid breaking fragment links
 		// Since we control the markdown content, this is safe
 		clobberPrefix: "",
+		// Allow target and rel attributes on links for external links
+		tagNames: [...(defaultSchema.tagNames || []), "a"],
+		attributes: {
+			...defaultSchema.attributes,
+			a: [...(defaultSchema.attributes?.a || []), "target", "rel"],
+		},
 	}
 
 	const processor = remark()
@@ -38,6 +66,7 @@ async function processMarkdown(content: string): Promise<string> {
 				className: ["anchor-link"],
 			},
 		})
+		.use(rehypeExternalLinks) // Add target="_blank" to external links
 		.use(rehypeSanitize, sanitizeSchema)
 		.use(rehypeStringify)
 
