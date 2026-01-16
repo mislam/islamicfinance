@@ -6,6 +6,41 @@
 
 	// SEO metadata for homepage
 	const seo = $derived.by(() => {
+		const baseUrl = page.url.origin
+
+		const webSiteSchema = {
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			name: "Islamic Finance",
+			description: "Free Islamic finance tools and calculators for halal financial planning",
+			url: `${baseUrl}${page.url.pathname}`,
+			potentialAction: {
+				"@type": "SearchAction",
+				target: {
+					"@type": "EntryPoint",
+					urlTemplate: `${baseUrl}/islamic-mortgage-calculator`,
+				},
+				"query-input": "required name=search_term_string",
+			},
+		}
+
+		const organizationSchema = {
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			name: "Islamic Finance",
+			url: baseUrl,
+			logo: {
+				"@type": "ImageObject",
+				url: `${baseUrl}/favicon.svg`,
+			},
+			description: "Free Islamic finance tools and calculators for halal financial planning",
+			// sameAs can be added when social media profiles are available
+			// sameAs: [
+			//   "https://twitter.com/...",
+			//   "https://facebook.com/..."
+			// ]
+		}
+
 		return createSEOData(
 			{
 				title: "Islamic Finance | Halal Financial Tools & Calculators",
@@ -13,21 +48,7 @@
 					"Free Islamic finance tools and calculators. Compare halal financing options, calculate mortgage payments, and make sharia-compliant financial decisions.",
 				keywords:
 					"islamic finance, halal finance, sharia compliant, islamic banking, halal mortgage, islamic calculator, riba free",
-				structuredData: {
-					"@context": "https://schema.org",
-					"@type": "WebSite",
-					name: "Islamic Finance",
-					description: "Free Islamic finance tools and calculators for halal financial planning",
-					url: `${page.url.origin}${page.url.pathname}`,
-					potentialAction: {
-						"@type": "SearchAction",
-						target: {
-							"@type": "EntryPoint",
-							urlTemplate: `${page.url.origin}/islamic-mortgage-calculator`,
-						},
-						"query-input": "required name=search_term_string",
-					},
-				},
+				structuredData: [webSiteSchema, organizationSchema],
 			},
 			page.url.pathname,
 			page.url.origin,
@@ -57,6 +78,9 @@
 				aria-label="Go to Muslim Loan Contract Generator"
 			>
 				Loan Contract Generator
+			</a>
+			<a href={resolve("/articles")} class="btn btn-ghost btn-lg" aria-label="Go to Articles">
+				Articles & Guides
 			</a>
 		</div>
 	</div>

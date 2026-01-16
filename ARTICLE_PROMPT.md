@@ -1,0 +1,464 @@
+# Islamic Finance Article Generation Prompt
+
+## AI Generation Instructions
+
+**IMPORTANT**: Before drafting any article, you MUST:
+
+1. Perform web searches for keyword research and competitor analysis
+2. Verify all Islamic rulings with authoritative online sources
+3. Research current SEO trends if needed
+4. Create a detailed outline before writing
+
+**PRIORITY RULE**: If SEO best practices ever conflict with Islamic accuracy, ALWAYS prioritize Islamic principles without exception.
+
+---
+
+## Overview
+
+Generate high-quality, SEO-optimized articles on Islamic finance topics for publication on www.islamicfinance.app. Articles must be 100% accurate from an Islamic perspective, evidence-based from Quran and Sunnah (Sahih Hadith), and follow well-established Fiqh guidelines with zero room for innovation, assumption, or doubt.
+
+---
+
+## Content Requirements
+
+### Islamic Authenticity Standards
+
+- **Primary Sources**: All Islamic rulings must be based on Quran and Sahih (authentic) Hadith only
+- **Fiqh References**: Use only well-established, mainstream scholarly opinions from recognized madhahib (schools of thought)
+- **No Innovation**: Absolutely no personal interpretations, assumptions, or innovative religious opinions
+- **Evidence-Based**: Every Islamic claim must be backed by solid textual evidence
+- **Scholarly Consensus**: Prioritize matters of ijma' (scholarly consensus) where applicable
+- **Citation Required**: When citing Quranic verses or Hadith, provide proper references (Surah:Ayah for Quran, Book/Number for Hadith)
+- **Source Verification**: Use web search to verify Islamic rulings with reputable Islamic finance authorities and scholarly websites
+
+### Target Audience
+
+- General Muslim audience (not necessarily finance experts)
+- Varying levels of Islamic knowledge
+- Reading on digital devices (computer/mobile)
+- Seeking practical, comprehensible guidance
+- May not be familiar with complex financial or fiqh terminology
+
+### Writing Style Guidelines
+
+- **Clarity**: Use simple, clear language; avoid jargon where possible
+- **Tone**: Respectful, educational, and compassionate
+- **Structure**: Well-organized with logical flow
+- **Examples**: Include practical, relatable examples when appropriate
+- **Avoid**: Complex analogies, doubtful matters, controversial opinions without clear evidence
+- **Accessibility**: Define technical terms when first introduced
+- **Paragraphs**: Keep paragraphs concise (3-5 sentences) for online readability
+
+### Punctuation and Writing Authenticity Guidelines
+
+**Em Dashes (—):**
+
+- **NEVER use em dashes** in articles as they are a common AI writing pattern that readers associate with generated content
+- Replace with alternatives:
+  - Use a period to split into two sentences for clarity
+  - Use commas for parenthetical statements
+  - Use colons for explanations or lists
+  - Use parentheses for brief side notes
+
+**Examples:**
+
+- ❌ AI-like: "Muslims living in modern economies—it is essential."
+- ✅ Better: "Muslims living in modern economies must understand this. It is essential."
+- ✅ Better: "For Muslims living in modern economies, it is essential."
+- ✅ Better: "Understanding riba is essential for Muslims living in modern economies."
+
+**Other AI Writing Patterns to Avoid:**
+
+- Minimize use of these overused AI-favorite words: meticulous/meticulously, delve into, tapestry, landscape (metaphorical), robust, paramount, pivotal, underscore
+- Avoid repetitive "lists of three" patterns (e.g., "happier, stronger, and healthier")
+- Vary sentence length significantly (mix short 8-word sentences with longer 25+ word ones)
+- Use occasional contractions for natural tone where appropriate (e.g., "don't" instead of "do not" in conversational sections)
+- Write for humans first; prioritize natural, authentic voice over formulaic patterns
+
+---
+
+## SEO Requirements
+
+### Article Length
+
+- **Target**: 1,800-2,500 words (optimal for SEO and reader engagement)
+- **Flexibility**: Adjust based on topic depth—ensure content is comprehensive without unnecessary filler to maintain engagement
+- **Rationale**: Research shows articles in this range rank best in finance/education niches when they fully satisfy user intent with quality content over arbitrary length targets. Comprehensive guides in finance niches often trend toward 2,500-3,200+ words for top rankings, but depth matters more than length.
+- **Benchmark**: Top competitors in Islamic finance (e.g., IslamQA guides, AAOIFI-related content) often exceed 2,000 words for thorough topic coverage—use this to calibrate depth expectations
+- **Minimum**: 1,500 words for standard articles
+- **Deep Dives**: 2,500-3,000 words for comprehensive guides
+
+### Meta Title
+
+- **Length**: 50-65 characters (maximum ~600 pixels; aim for 50-60 for safety)
+- **Format**: Include primary keyword near the beginning
+- **Style**: Compelling and click-worthy
+- **Best Practice**: Front-load with most important keywords
+- **Date Consideration**: Include current year for time-sensitive topics (e.g., "2026 Guide")
+- **Example**: "Halal Investment Guide 2026: Islamic Finance"
+
+### Meta Description
+
+- **Length**: 120-158 characters (maximum 920 pixels for desktop; ~680 pixels for mobile)
+- **Mobile Optimization**: Prioritize first 120 characters for mobile display to ensure key message visible on all devices
+- **Content**: Concise summary with primary keyword
+- **Call-to-Action**: Include subtle CTA when appropriate
+- **Uniqueness**: Must be unique for each article
+
+### Keywords Strategy
+
+#### Primary Keyword
+
+- 1 main focus keyword (e.g., "Islamic mortgage," "halal investment")
+- Density: 1-2% of total content
+- Placement: Title, first paragraph, H1, meta title, meta description, naturally throughout
+- **Research Required**: Use web search to identify high-volume, low-competition keywords
+
+#### Secondary Keywords
+
+- 3-5 related keywords (e.g., "Shariah-compliant financing," "riba-free banking")
+- Natural integration throughout content
+- Include in subheadings where relevant
+- Use LSI (Latent Semantic Indexing) keywords for topic depth
+
+#### Long-Tail Keywords
+
+- 2-4 specific phrases (e.g., "how to invest money according to Islam")
+- Target specific user queries
+- Integrate naturally in Q&A sections or explanatory paragraphs
+
+### Meta Keywords Array
+
+- 5-8 relevant keywords
+- Mix of primary, secondary, and long-tail
+- Format: ["keyword1", "keyword2", "keyword3"]
+- **Note**: Meta keywords are optional and primarily for internal site taxonomy or legacy CMS use, as they have had no impact on Google rankings since 2009 and offer minimal value in 2026. Include only if the site's CMS uses them for internal categorization.
+
+### Tags Array
+
+- 4-6 descriptive tags
+- Relevant to article topic and broader site categories
+- Format: ["Islamic Finance", "Halal Investment", "Shariah Compliance"]
+
+### Category
+
+- Single primary category from site taxonomy
+- Examples: "Islamic Banking", "Halal Investment", "Islamic Economics", "Zakat & Charity", "Sukuk & Islamic Bonds"
+
+### Featured Snippets & AI Overviews Optimization
+
+- **2026 Context**: Many finance queries trigger AI-generated summaries or featured snippets in search results
+- **Strategy**: Structure content to answer questions clearly and concisely for potential featured snippet capture
+- **Implementation**:
+  - Use clear question-answer formats in FAQ sections
+  - Provide direct, complete answers in opening paragraphs
+  - Use structured data patterns (lists, tables, step-by-step guides)
+  - Maintain natural flow while being specific and authoritative
+- **E-E-A-T Priority**: Prioritize Experience, Expertise, Authoritativeness, and Trustworthiness through strong Quranic/Hadith sourcing and clear Islamic scholarship citations—especially critical for finance/YMYL (Your Money Your Life) topics
+- **Balance**: Optimize for SERP features without sacrificing article depth or readability
+
+### Image Optimization
+
+- **Include**: 2-4 image placeholders where visuals enhance understanding
+- **Types**: Diagrams of financial processes, infographics, comparison charts
+- **Alt Text**: Descriptive with secondary keywords (50-125 characters)
+- **Format**: `![Descriptive Alt Text with Keyword](image-url-placeholder)`
+- **Examples**:
+  - `![Islamic mortgage process diagram showing halal home financing steps](image-placeholder-1)`
+  - `![Comparison chart of riba-based vs Shariah-compliant investment](image-placeholder-2)`
+- **Purpose**: Enhance SEO, accessibility, and user engagement
+- **Relevance**: Only suggest images that add genuine value to content understanding
+- **Publishing Note**: Replace 'image-placeholder-X' with actual image paths during publishing. Use royalty-free or original visuals only to avoid copyright issues.
+
+### Internal and External Linking
+
+#### Internal Links
+
+- **Quantity**: Suggest 2-4 internal links to related articles on www.islamicfinance.app
+- **Format**: `[Anchor Text](/article/related-slug)`
+- **Placement**: Naturally within content where contextually relevant; avoid forced links
+- **Anchor Text**: Use descriptive, keyword-rich phrases that help users and crawlers navigate
+- **Best Practice**: Follow Google's guidance—links should provide genuine value to readers
+- **Example**: `Learn more about [halal investment strategies](/article/halal-investment-strategies)`
+
+#### External Links
+
+- **Restriction**: ONLY to authoritative Islamic sources
+- **Quantity**: 1-3 per article maximum
+- **Acceptable Sources**:
+  - Recognized Islamic finance institutions (AAOIFI, Islamic Fiqh Academy)
+  - Reputable scholarly websites (IslamQA, Seekers Guidance for specific rulings)
+  - Official Quran/Hadith databases
+- **Format**: Include full URL and brief context
+- **Avoid**: Commercial sites, non-authoritative blogs, controversial sources
+
+---
+
+## Article Structure
+
+### Slug
+
+- **Format**: lowercase, hyphen-separated
+- **Stop Words**: Remove unnecessary stop words (is, in, the, what, a, an, of, to, for) to keep slugs short and focused. Keep stop words only when essential for clarity or when part of proper names/titles
+- **Length**: 3-6 words maximum (aim for 3-5 for optimal SEO)
+- **Include**: Primary keyword
+- **Date Consideration**: Use current year (2026) for time-bound topics; omit for evergreen content
+- **Evergreen Strategy**: For evergreen topics, avoid year-specific references in content body to reduce future update needs
+- **Examples**:
+  - Time-sensitive: `halal-investment-guide-2026`
+  - Evergreen (before): `what-is-riba-in-islam` → (better): `riba-in-islam`
+  - With stop word kept for clarity: `guide-to-sukuk` (keeping "to" aids readability)
+- **Best Practice**: Short, descriptive, keyword-rich; prioritize brevity without sacrificing clarity
+
+### Headline (H1)
+
+- **Single H1 tag** per article
+- Include primary keyword
+- **Length**: 50-70 characters
+- Compelling and clear
+- Different from meta title (can be more descriptive)
+- **Example**: "The Complete Guide to Islamic Mortgages: Halal Home Financing"
+
+### Body Content (Markdown Format)
+
+#### Opening Section
+
+- **First Paragraph**: Hook readers immediately, include primary keyword in first 100 words
+- **Context**: Explain why this topic matters to Muslims
+- **Preview**: Brief overview of what the article covers (2-3 sentences)
+- **Engagement**: Pose a relevant question or present a relatable scenario
+
+#### Main Content Structure
+
+Use hierarchical headings:
+
+- **H2**: Main sections (3-5 per article)
+- **H3**: Subsections under H2
+- **H4**: Further breakdowns if needed (use sparingly)
+
+**Subheading Frequency**: Every 300-400 words to maintain scannability
+
+#### Content Elements
+
+- **Quranic Verses**: Always link to Quran.com with proper formatting and translation
+  - Format: `[Quran Surah:Ayah](https://quran.com/surah/ayah)`
+  - Example: Allah says: "O you who believe! Eat not up your property among yourselves unjustly..." ([Quran 4:29](https://quran.com/4/29))
+  - Always include the English translation inline, then link the citation
+- **Hadith**: Always link to Sunnah.com with proper source reference
+  - Format for Sahih Bukhari: `[Bukhari Book:Number](https://sunnah.com/bukhari:number)`
+  - Format for Sahih Muslim: `[Muslim Book:Number](https://sunnah.com/muslim:number)`
+  - Format for other collections: `[Collection Book:Number](https://sunnah.com/collection:number)`
+  - Example: The Prophet ﷺ said: "The seller and the buyer have the right to keep or return goods..." ([Bukhari 2079](https://sunnah.com/bukhari:2079))
+  - Always include the English hadith text inline, then link the citation
+- **Other Islamic Sources**: Link directly to authoritative sources
+  - AAOIFI standards: Link to official AAOIFI website
+  - Scholarly fatwas: Link to IslamQA.info or other reputable fatwa sites
+  - Islamic institutions: Link to their official pages
+  - Format: `[Source Name](https://full-url)`
+- **NO References Section**: Do NOT include a "References" section at the end of articles. All citations must be inline hyperlinks for better user experience
+- **Lists**: Use bullet points or numbered lists for clarity
+- **Examples**: Practical scenarios illustrating concepts
+- **Emphasis**: Use **bold** for key terms, _italics_ for Arabic terms (with translation)
+- **Tables**: For comparisons (e.g., halal vs. haram financial practices)
+- **Image Placeholders**: Insert where diagrams/visuals would enhance understanding
+
+#### Readability Features
+
+- Short paragraphs (3-5 sentences)
+- Transition words between sections (However, Furthermore, Additionally, etc.)
+- White space for visual breathing room
+- Varied sentence structure to maintain engagement
+- Bullet points for lists of 3+ items
+
+#### Conclusion Section
+
+- Summarize key points (2-3 sentences)
+- Practical takeaway or action items
+- Encouragement toward halal practice
+- Optional: Further reading suggestions with internal links
+
+#### Optional Sections (Use When Appropriate)
+
+- **FAQ**: Address 3-5 common questions in Q&A format
+- **Key Takeaways**: Bullet-point summary box at end
+- **Resources**: Links to authoritative Islamic finance bodies
+- **Comparison Tables**: Halal vs. conventional alternatives
+- **Step-by-Step Guides**: Numbered instructions for processes
+
+---
+
+## Quality Checklist
+
+### Islamic Accuracy ✓
+
+- [ ] All rulings backed by Quran/Sahih Hadith with proper citations
+- [ ] No personal interpretations or innovations (bid'ah)
+- [ ] Fiqh opinions from recognized scholars/madhahib only
+- [ ] No contradictions with established Islamic principles
+- [ ] Verified rulings using web search of reputable Islamic sources
+- [ ] Controversial topics avoided unless clear scholarly consensus exists
+- [ ] All Quranic verses linked to Quran.com with correct Surah:Ayah format
+- [ ] All Hadith linked to Sunnah.com with correct collection and number
+- [ ] All external Islamic sources linked inline (no separate References section)
+
+### SEO Optimization ✓
+
+- [ ] Primary keyword in title, meta, H1, and first 100 words
+- [ ] Meta title: 50-60 characters
+- [ ] Meta description: 120-158 characters
+- [ ] Article length: 1,800-2,500 words (adjusted for topic depth)
+- [ ] Keywords naturally integrated (1-2% density, no stuffing)
+- [ ] Proper heading hierarchy (H1 > H2 > H3)
+- [ ] 2-4 internal links with descriptive anchor text
+- [ ] 1-3 external links to authoritative Islamic sources only
+- [ ] 2-4 image placeholders with keyword-rich alt text
+- [ ] Keyword research performed via web search
+- [ ] Competitor analysis conducted
+
+### Readability ✓
+
+- [ ] Simple, clear language appropriate for general audience
+- [ ] Short paragraphs (3-5 sentences) and varied sentence structure
+- [ ] Technical terms defined on first use
+- [ ] Practical, relatable examples included
+- [ ] Logical flow with smooth transitions between sections
+- [ ] Free of grammatical and spelling errors
+- [ ] Mobile-friendly formatting (short paragraphs, subheadings, lists)
+- [ ] Subheadings every 300-400 words
+
+---
+
+## Output Format
+
+Provide the article data in the following structure:
+
+```markdown
+---
+slug: "your-article-slug"
+title: "Your Meta Title (50-60 chars)"
+description: "Your compelling meta description (120-158 chars)"
+author: "Author Name"
+publishedAt: "YYYY-MM-DD"
+tags: ["tag1", "tag2", "tag3", "tag4"]
+category: "Primary Category"
+keywords: ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
+---
+
+# Article Headline (H1)
+
+Opening paragraph with primary keyword integration and hook...
+
+![Descriptive alt text with keyword](image-placeholder-1)
+
+## Main Section 1 (H2)
+
+Content here with [internal link to related article](/article/related-slug)...
+
+### Subsection 1.1 (H3)
+
+More detailed content...
+
+## Main Section 2 (H2)
+
+Content here...
+
+![Another descriptive alt text](image-placeholder-2)
+
+### Subsection 2.1 (H3)
+
+Content with practical examples...
+
+## Main Section 3 (H2)
+
+Content here...
+
+## Conclusion
+
+Summary and final thoughts with call-to-action...
+
+---
+
+## Frequently Asked Questions
+
+**Q: [Common question]?**
+A: [Clear, concise answer with Islamic evidence]
+
+**Q: [Another question]?**
+A: [Answer]
+
+---
+
+## Research Process (Required Before Writing)
+
+Before generating each article, you MUST complete these steps:
+
+1. **Keyword Research** (use web_search):
+   - Identify primary keyword with search volume data
+   - Find 3-5 secondary keywords
+   - Identify 2-4 long-tail keyword phrases
+   - Check competition level for main keywords
+   - **Search Tips**: Phrase queries precisely for targeted, trustworthy results:
+     - General: `"halal investment options 2026" site:islamicfinance.app`
+     - Scholarly: `"Islamic mortgage ruling" site:.edu OR site:.org`
+     - Finance-specific: `"halal investment 2026" intitle:"guide" OR intitle:"options" site:edu OR site:org`
+
+2. **Competitor Analysis** (use web_search):
+   - Search for top-ranking articles on the topic
+   - Identify content gaps and unique angles
+   - Note average article length of top results
+   - Analyze heading structures of successful articles
+
+3. **Islamic Verification** (use web_search):
+   - Confirm all rulings with reputable Islamic sources
+   - Verify Quranic verses and Hadith authenticity
+   - Check multiple scholarly opinions if applicable
+   - Ensure no controversial interpretations without consensus
+
+4. **Outline Creation**:
+   - Structure article for optimal flow and SEO
+   - Plan heading hierarchy (H2, H3)
+   - Identify where to place internal/external links
+   - Determine image placeholder positions
+
+5. **Content Gaps**:
+   - Identify unique value to add beyond existing content
+   - Determine practical examples or scenarios to include
+   - Plan FAQ section based on common user queries
+
+---
+
+## Examples of Strong Article Topics
+
+- "How to Buy a House Without Riba: Islamic Mortgage Explained"
+- "Halal Investment Options in 2026: A Comprehensive Guide"
+- "Understanding Murabaha: The Islamic Alternative to Interest"
+- "Is Stock Trading Halal? Complete Islamic Finance Guide"
+- "Zakat Calculation Made Simple: Step-by-Step Guide"
+- "Sukuk vs Conventional Bonds: Understanding Islamic Finance"
+- "Islamic Credit Cards: Are They Truly Halal?"
+- "Riba in Modern Banking: What Every Muslim Needs to Know"
+
+---
+
+## Final Reminders
+
+1. **Islamic Accuracy Always Wins**: If SEO conflicts with Islamic principles, prioritize Islamic accuracy without hesitation
+2. **Research First**: Never skip the research process—use web search to verify all information
+3. **No Innovation**: Stick to well-established rulings; avoid personal interpretations
+4. **Quality Over Quantity**: Better to write 1,800 words of excellent content than 2,500 words of filler
+5. **Reader-Centric**: Write for humans first, search engines second
+6. **Evidence-Based**: Every Islamic claim needs Quranic or Hadith backing
+7. **Update Awareness**: Note if content may need future updates due to changing regulations or market conditions
+8. **Accessibility**: Make complex topics understandable for all education levels
+
+---
+
+## Notes
+
+- Always prioritize Islamic accuracy over SEO when conflicts arise
+- When in doubt about a ruling, search multiple reputable Islamic sources and present the strongest scholarly consensus
+- Avoid controversial topics without clear scholarly consensus
+- Monitor performance and adjust SEO strategy based on data
+- Update articles periodically to maintain relevance and accuracy
+- Use current year (2026) for time-sensitive content; omit for evergreen topics
+```

@@ -2,7 +2,15 @@
 @plugin "@tailwindcss/forms" {
 	strategy: "class"; /* only generate classes - avoids conflicts with DaisyUI */
 }
+@plugin "@tailwindcss/typography";
 @plugin "daisyui";
+
+@theme {
+	/* Configure Inter as the default sans-serif font */
+	--font-sans:
+		"Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", "Noto Color Emoji";
+}
 
 @layer base {
 	/* DaisyUI overrides - consolidate all input/form style fixes here */

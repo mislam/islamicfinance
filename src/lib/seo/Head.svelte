@@ -31,7 +31,7 @@
 	<link rel="canonical" href={seo.pageUrl} />
 
 	<!-- Open Graph / Facebook -->
-	<meta property="og:type" content="website" />
+	<meta property="og:type" content={seo.ogType || "website"} />
 	<meta property="og:url" content={seo.pageUrl} />
 	<meta property="og:title" content={seo.title} />
 	<meta property="og:description" content={seo.description} />
@@ -42,6 +42,27 @@
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:alt" content={seo.title} />
+	{/if}
+
+	<!-- Article-specific Open Graph meta tags -->
+	{#if seo.ogType === "article"}
+		{#if seo.articlePublishedTime}
+			<meta property="article:published_time" content={seo.articlePublishedTime} />
+		{/if}
+		{#if seo.articleModifiedTime}
+			<meta property="article:modified_time" content={seo.articleModifiedTime} />
+		{/if}
+		{#if seo.articleAuthor}
+			<meta property="article:author" content={seo.articleAuthor} />
+		{/if}
+		{#if seo.articleSection}
+			<meta property="article:section" content={seo.articleSection} />
+		{/if}
+		{#if seo.articleTags}
+			{#each seo.articleTags as tag (tag)}
+				<meta property="article:tag" content={tag} />
+			{/each}
+		{/if}
 	{/if}
 
 	<!-- Twitter -->

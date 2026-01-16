@@ -1,10 +1,15 @@
+import { getAllArticles } from "$lib/server/articles"
+
 import type { RequestHandler } from "./$types"
 
 export const GET: RequestHandler = async ({ url }) => {
 	const baseUrl = url.origin
 
-	// Define all pages/routes
-	const pages = [
+	// Get all articles
+	const articles = await getAllArticles()
+
+	// Define static pages/routes
+	const staticPages = [
 		{
 			url: `${baseUrl}/`,
 			changefreq: "weekly",
@@ -20,19 +25,39 @@ export const GET: RequestHandler = async ({ url }) => {
 			changefreq: "monthly",
 			priority: 0.9,
 		},
+		{
+			url: `${baseUrl}/articles`,
+			changefreq: "weekly",
+			priority: 0.8,
+		},
 	]
+
+	// Generate article entries
+	const articleEntries = articles.map((article) => {
+		const lastmod = article.updatedAt || article.publishedAt || undefined
+		return {
+			url: `${baseUrl}/articles/${article.slug}`,
+			changefreq: "monthly" as const,
+			priority: 0.9,
+			lastmod,
+		}
+	})
+
+	// Combine all pages
+	const allPages = [...staticPages, ...articleEntries]
 
 	// Generate XML sitemap
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages
-	.map(
-		(page) => `	<url>
+${allPages
+	.map((page) => {
+		const lastmod = "lastmod" in page && page.lastmod ? `\n		<lastmod>${page.lastmod}</lastmod>` : ""
+		return `	<url>
 		<loc>${page.url}</loc>
 		<changefreq>${page.changefreq}</changefreq>
-		<priority>${page.priority}</priority>
-	</url>`,
-	)
+		<priority>${page.priority}</priority>${lastmod}
+	</url>`
+	})
 	.join("\n")}
 </urlset>`
 
