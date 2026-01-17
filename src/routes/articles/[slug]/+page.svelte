@@ -74,7 +74,7 @@
 <Head {seo} />
 
 <main class="container mx-auto px-4 py-12">
-	<article class="mx-auto max-w-4xl">
+	<article class="mx-auto max-w-3xl">
 		<ArticleHeader article={data.article} />
 
 		{#if data.article.featuredImage}
