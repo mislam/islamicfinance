@@ -76,11 +76,28 @@ async function processMarkdown(content: string): Promise<string> {
 
 /**
  * Convert database article row to ArticleMetadata
+ * Accepts either full row or partial row (for optimized queries)
  */
-function dbRowToMetadata(row: typeof articles.$inferSelect): ArticleMetadata {
+function dbRowToMetadata(
+	row: Pick<
+		typeof articles.$inferSelect,
+		| "slug"
+		| "title"
+		| "headline"
+		| "description"
+		| "author"
+		| "publishedAt"
+		| "updatedAt"
+		| "tags"
+		| "category"
+		| "featuredImage"
+		| "seoKeywords"
+	>,
+): ArticleMetadata {
 	return {
 		slug: row.slug,
 		title: row.title,
+		headline: row.headline ?? row.title, // Use stored headline or fallback to title
 		description: row.description,
 		author: row.author ?? "Islamic Finance", // Use author field
 		publishedAt: row.publishedAt?.toISOString() ?? null,
@@ -94,10 +111,24 @@ function dbRowToMetadata(row: typeof articles.$inferSelect): ArticleMetadata {
 
 /**
  * Get all published article metadata (without content)
+ * Optimized: Only selects needed fields, excludes large content column
  */
 export async function getAllArticles(): Promise<ArticleMetadata[]> {
 	const rows = await db
-		.select()
+		.select({
+			id: articles.id,
+			slug: articles.slug,
+			title: articles.title,
+			headline: articles.headline,
+			description: articles.description,
+			author: articles.author,
+			publishedAt: articles.publishedAt,
+			updatedAt: articles.updatedAt,
+			tags: articles.tags,
+			category: articles.category,
+			featuredImage: articles.featuredImage,
+			seoKeywords: articles.seoKeywords,
+		})
 		.from(articles)
 		.where(eq(articles.status, "published"))
 		.orderBy(desc(articles.publishedAt))
@@ -108,10 +139,24 @@ export async function getAllArticles(): Promise<ArticleMetadata[]> {
 
 /**
  * Get article metadata by slug (published articles only)
+ * Optimized: Only selects needed fields, excludes large content column
  */
 export async function getArticleMetadata(slug: string): Promise<ArticleMetadata | null> {
 	const [row] = await db
-		.select()
+		.select({
+			id: articles.id,
+			slug: articles.slug,
+			title: articles.title,
+			headline: articles.headline,
+			description: articles.description,
+			author: articles.author,
+			publishedAt: articles.publishedAt,
+			updatedAt: articles.updatedAt,
+			tags: articles.tags,
+			category: articles.category,
+			featuredImage: articles.featuredImage,
+			seoKeywords: articles.seoKeywords,
+		})
 		.from(articles)
 		.where(and(eq(articles.slug, slug), eq(articles.status, "published")))
 		.limit(1)
@@ -141,6 +186,8 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 	return {
 		...metadata,
 		content: html,
+		// Use stored headline from database (already extracted during migration/update)
+		// Falls back to title if headline is not set
 	}
 }
 

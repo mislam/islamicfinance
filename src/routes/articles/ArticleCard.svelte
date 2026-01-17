@@ -14,23 +14,25 @@
 	)
 </script>
 
-<article class="card-bordered card bg-base-100 shadow-sm transition-shadow hover:shadow-md">
+<article
+	class="card-bordered card flex h-full flex-col bg-base-100 shadow-sm transition-shadow hover:shadow-md"
+>
 	{#if article.featuredImage}
 		<figure class="aspect-video">
-			<img src={article.featuredImage} alt={article.title} class="h-full w-full object-cover" />
+			<img src={article.featuredImage} alt={article.headline} class="h-full w-full object-cover" />
 		</figure>
 	{/if}
-	<div class="card-body">
+	<div class="card-body flex flex-1 flex-col">
 		{#if article.category}
 			<div class="mb-2 badge badge-outline badge-sm">{article.category}</div>
 		{/if}
 		<h2 class="card-title text-xl">
 			<a href={resolve(`/articles/${article.slug}`)} class="link link-hover">
-				{article.title}
+				{article.headline}
 			</a>
 		</h2>
-		<p class="line-clamp-3 text-sm text-base-content/70">{article.description}</p>
-		<div class="mt-4 card-actions flex items-center justify-between">
+		<p class="text-sm text-base-content/70">{article.description}</p>
+		<div class="mt-auto card-actions flex items-center justify-between">
 			<div class="flex flex-wrap gap-2">
 				{#each article.tags.slice(0, 3) as tag (tag)}
 					<span class="badge badge-ghost badge-sm">{tag}</span>

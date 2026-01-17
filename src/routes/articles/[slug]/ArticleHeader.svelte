@@ -31,7 +31,7 @@
 		</div>
 	{/if}
 
-	<h1 class="mb-4 text-4xl leading-tight font-bold">{article.title}</h1>
+	<h1 class="mb-4 text-4xl leading-tight font-bold">{article.headline}</h1>
 
 	<p class="mb-6 text-xl text-base-content/70">{article.description}</p>
 

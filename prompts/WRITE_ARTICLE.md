@@ -139,7 +139,7 @@ When writing about topics where Muslims have real-world financial dependencies o
 
 ### Meta Description
 
-- **Length**: 120-158 characters (maximum 920 pixels for desktop; ~680 pixels for mobile)
+- **Length**: 135-155 characters (strict: aim for 140-150 characters)
 - **Mobile Optimization**: Prioritize first 120 characters for mobile display to ensure key message visible on all devices
 - **Content**: Concise summary with primary keyword
 - **Call-to-Action**: Include subtle CTA when appropriate
@@ -254,7 +254,7 @@ When writing about topics where Muslims have real-world financial dependencies o
 
 - **Single H1 tag** per article
 - Include primary keyword
-- **Length**: 50-70 characters
+- **Length**: 50-70 characters (strict: aim for 55-65 characters)
 - Compelling and clear
 - Different from meta title (can be more descriptive)
 - **Example**: "The Complete Guide to Islamic Mortgages: Halal Home Financing"

@@ -106,7 +106,7 @@
 		<div class="mb-4 text-sm text-base-content/60">
 			Showing {data.articles.length} article{data.articles.length !== 1 ? "s" : ""}
 		</div>
-		<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{#each data.articles as article (article.slug)}
 				<ArticleCard {article} />
 			{/each}

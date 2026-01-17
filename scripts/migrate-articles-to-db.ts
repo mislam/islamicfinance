@@ -13,6 +13,10 @@ import { join } from "node:path"
 
 import { eq } from "drizzle-orm"
 import { load } from "js-yaml"
+import type { Root as MdastRoot } from "mdast"
+import { remark } from "remark"
+import remarkGfm from "remark-gfm"
+import { visit } from "unist-util-visit"
 
 const articlesDir = join(process.cwd(), "src/content/articles")
 
@@ -41,6 +45,33 @@ function parseFrontmatter(content: string): {
 	}
 
 	return { frontmatter, body }
+}
+
+/**
+ * Extract the first H1 heading from markdown content
+ */
+function extractH1FromMarkdown(content: string): string | null {
+	try {
+		const processor = remark().use(remarkGfm)
+		const tree = processor.parse(content) as MdastRoot
+
+		// Find the first h1 heading
+		let h1Text: string | null = null
+		visit(tree, "heading", (node) => {
+			if (node.depth === 1 && !h1Text) {
+				// Extract text from heading children
+				const textNodes: string[] = []
+				visit(node, "text", (textNode) => {
+					textNodes.push(textNode.value)
+				})
+				h1Text = textNodes.join("")
+			}
+		})
+
+		return h1Text
+	} catch {
+		return null
+	}
 }
 
 async function migrateArticles() {
@@ -86,6 +117,9 @@ async function migrateArticles() {
 			? (frontmatter.keywords as string[]).join(", ")
 			: ((frontmatter.keywords as string) ?? null)
 
+		// Extract H1 from markdown body for display (fallback to title if not found)
+		const headline = extractH1FromMarkdown(body) || title
+
 		// Check if article already exists - if so, update it instead of skipping
 		const [existing] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1)
 
@@ -95,6 +129,7 @@ async function migrateArticles() {
 				.update(articles)
 				.set({
 					title,
+					headline,
 					description,
 					content: body,
 					author,
@@ -116,6 +151,7 @@ async function migrateArticles() {
 			id: randomUUID(),
 			slug,
 			title,
+			headline, // Store extracted H1 for performance
 			description,
 			content: body, // Store markdown content
 			author, // Store author name from frontmatter
