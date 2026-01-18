@@ -74,6 +74,18 @@ function extractH1FromMarkdown(content: string): string | null {
 	}
 }
 
+/**
+ * Remove the first H1 heading from markdown content
+ * (H1 is stored separately in headline field, so we don't need it in content)
+ * Uses simple regex to remove the first line starting with "# " (H1 markdown syntax)
+ */
+function removeFirstH1FromMarkdown(content: string): string {
+	// Remove the first H1 line (starts with "# " at the beginning of a line)
+	// This handles both "# Heading" and "#Heading" formats, with optional whitespace
+	const h1Pattern = /^#\s+.+$/m
+	return content.replace(h1Pattern, "").trimStart()
+}
+
 async function migrateArticles() {
 	// Dynamically import database after env vars are loaded
 	const { articles, db } = await import("../src/lib/server/db/index.js")
@@ -120,6 +132,10 @@ async function migrateArticles() {
 		// Extract H1 from markdown body for display (fallback to title if not found)
 		const headline = extractH1FromMarkdown(body) || title
 
+		// Remove H1 from content since it's stored separately in headline field
+		// This prevents duplicate H1s in the rendered HTML
+		const contentWithoutH1 = removeFirstH1FromMarkdown(body)
+
 		// Check if article already exists - if so, update it instead of skipping
 		const [existing] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1)
 
@@ -131,7 +147,7 @@ async function migrateArticles() {
 					title,
 					headline,
 					description,
-					content: body,
+					content: contentWithoutH1,
 					author,
 					publishedAt,
 					updatedAt,
@@ -153,7 +169,7 @@ async function migrateArticles() {
 			title,
 			headline, // Store extracted H1 for performance
 			description,
-			content: body, // Store markdown content
+			content: contentWithoutH1, // Store markdown content without H1 (H1 is in headline field)
 			author, // Store author name from frontmatter
 			authorId: null, // Can be linked to user later
 			publishedAt,

@@ -4,6 +4,7 @@
 	import { createSEOData } from "$lib/seo"
 
 	import ArticleContent from "./ArticleContent.svelte"
+	import ArticleFooter from "./ArticleFooter.svelte"
 	import ArticleHeader from "./ArticleHeader.svelte"
 
 	let { data } = $props<{
@@ -31,7 +32,7 @@
 				structuredData: {
 					"@context": "https://schema.org",
 					"@type": "Article",
-					headline: article.title,
+					headline: article.headline,
 					description: article.description,
 					author: {
 						"@type": "Person",
@@ -73,7 +74,7 @@
 
 <Head {seo} />
 
-<main class="container mx-auto px-4 py-12">
+<main class="container mx-auto px-5 py-12">
 	<article class="mx-auto max-w-3xl">
 		<ArticleHeader article={data.article} />
 
@@ -81,12 +82,14 @@
 			<figure class="my-8">
 				<img
 					src={data.article.featuredImage}
-					alt={data.article.title}
+					alt={data.article.headline}
 					class="w-full rounded-lg object-cover"
 				/>
 			</figure>
 		{/if}
 
 		<ArticleContent content={data.article.content} />
+
+		<ArticleFooter article={data.article} />
 	</article>
 </main>

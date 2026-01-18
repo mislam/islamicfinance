@@ -39,7 +39,7 @@
 
 	:global(.prose p) {
 		margin-bottom: 1rem;
-		line-height: 1.5; /* Standard line-height for optimal readability */
+		line-height: 1.6; /* Standard line-height for optimal readability */
 	}
 
 	:global(.prose ul),
@@ -58,7 +58,7 @@
 
 	:global(.prose li) {
 		margin-bottom: 0.5rem;
-		line-height: 1.5; /* Match paragraph line-height for consistency */
+		line-height: 1.6; /* Match paragraph line-height for consistency */
 	}
 
 	:global(.prose a) {
@@ -139,10 +139,5 @@
 
 	:global(.anchor-link:hover) {
 		color: hsl(var(--p));
-	}
-
-	/* Hide the first H1 in markdown since we already show it in ArticleHeader */
-	:global(.prose > h1:first-child) {
-		display: none;
 	}
 </style>
