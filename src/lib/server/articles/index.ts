@@ -88,6 +88,7 @@ function dbRowToMetadata(
 		| "author"
 		| "publishedAt"
 		| "updatedAt"
+		| "readingMinutes"
 		| "tags"
 		| "category"
 		| "featuredImage"
@@ -102,6 +103,7 @@ function dbRowToMetadata(
 		author: row.author ?? "Islamic Finance", // Use author field
 		publishedAt: row.publishedAt?.toISOString() ?? null,
 		updatedAt: row.updatedAt?.toISOString() ?? null,
+		readingMinutes: row.readingMinutes!,
 		tags: row.tags ?? [],
 		category: row.category ?? null,
 		featuredImage: row.featuredImage ?? null,
@@ -124,6 +126,7 @@ export async function getAllArticles(): Promise<ArticleMetadata[]> {
 			author: articles.author,
 			publishedAt: articles.publishedAt,
 			updatedAt: articles.updatedAt,
+			readingMinutes: articles.readingMinutes,
 			tags: articles.tags,
 			category: articles.category,
 			featuredImage: articles.featuredImage,
@@ -152,6 +155,7 @@ export async function getArticleMetadata(slug: string): Promise<ArticleMetadata 
 			author: articles.author,
 			publishedAt: articles.publishedAt,
 			updatedAt: articles.updatedAt,
+			readingMinutes: articles.readingMinutes,
 			tags: articles.tags,
 			category: articles.category,
 			featuredImage: articles.featuredImage,

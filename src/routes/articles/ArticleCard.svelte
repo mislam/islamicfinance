@@ -30,10 +30,12 @@
 			</a>
 		</h2>
 		<p class="text-base-content/70">{article.description}</p>
-		{#if publishedDate}
-			<time class="text-sm text-base-content/50" datetime={article.publishedAt}>
-				{publishedDate}
-			</time>
-		{/if}
+		<span class="flex flex-wrap items-center gap-2 text-sm text-base-content/50">
+			{#if publishedDate}
+				<time datetime={article.publishedAt}>{publishedDate}</time>
+			{/if}
+			{#if publishedDate}<span aria-hidden="true">·</span>{/if}
+			<time datetime={"PT" + article.readingMinutes + "M"}>{article.readingMinutes} min read</time>
+		</span>
 	</div>
 </article>
