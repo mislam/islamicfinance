@@ -1,20 +1,20 @@
 ---
-slug: "islamic-wealth-building-blueprint"
+slug: "halal-investment-guide"
 title: "Halal Investment Guide: Building Wealth Without Wall Street"
 description: "Discover authentic Islamic wealth-building through direct business ownership via Musharakah and Mudarabah partnerships, not speculative markets."
 author: "Islamic Finance Team"
 publishedAt: "2026-01-17T17:31:00-05:00"
 tags: ["Islamic Investment", "Musharakah", "Mudarabah", "Business Partnerships", "Halal Wealth"]
 category: "Halal Investment"
-keywords:
-  [
-    "halal investment",
-    "Islamic business partnership",
-    "musharakah",
-    "mudarabah",
-    "direct business investment",
-    "Islamic wealth building",
-    "halal alternatives to stock market",
+keywords: [
+    "halal investment", # Primary keyword (appears in title)
+    "Islamic wealth building", # Secondary - appears in H1
+    "Islamic business partnership", # Secondary - related term
+    "musharakah", # Secondary - specific mechanism
+    "mudarabah", # Secondary - specific mechanism
+    "direct business investment", # Secondary - solution approach
+    "how to invest money according to Islam", # Long-tail - question-based query (addressed in content)
+    "halal alternatives to stock market", # Long-tail - specific user query (addressed in content)
   ]
 ---
 
@@ -28,9 +28,9 @@ This guide explains how these authentic Islamic partnerships work, why they repr
 
 ## The Islamic Vision for Wealth: Partnership Over Speculation
 
-Islam presents a fundamentally different approach to wealth creation than modern capitalism. Allah says in the Quran: "O you who believe! Eat not up your property among yourselves unjustly except it be a trade amongst you, by mutual consent" ([Quran 4:29](https://quran.com/4/29)). This verse establishes that legitimate wealth comes through actual trade and mutual exchange, not manipulation of money itself.
+Islam presents a fundamentally different approach to wealth creation than modern capitalism. Allah says in the Quran: "O believers! Do not devour one another’s wealth illegally, but rather trade by mutual consent." ([Quran 4:29](https://quran.com/4/29)). This verse establishes that legitimate wealth comes through actual trade and mutual exchange, not manipulation of money itself.
 
-The Prophet Muhammad ﷺ said: "The most honest among you are those who are the most honest in business" ([Bukhari 2086](https://sunnah.com/bukhari:2086)). Notice the emphasis on business conduct, not financial engineering or market speculation. Islamic economics views wealth as something earned through productive labor, risk-sharing ventures, and tangible value creation.
+The Prophet Muhammad ﷺ said: "The truthful, trustworthy merchant is with the Prophets, the truthful, and the martyrs." ([Tirmidhi 1209](https://sunnah.com/tirmidhi:1209)). Notice the emphasis on business conduct, not financial engineering or market speculation. Islamic economics views wealth as something earned through productive labor, risk-sharing ventures, and tangible value creation.
 
 When you invest through direct business partnerships, you become an actual owner of productive assets. You share real entrepreneurial risk. Your returns come from goods sold, services rendered, or products manufactured. This stands in stark contrast to stock market speculation, where prices fluctuate based on market sentiment, algorithmic trading, and factors often disconnected from underlying business realities.
 
@@ -54,8 +54,6 @@ Second, modern stock markets involve practices that raise additional concerns: r
 Third, the screening approach represents a concession to modern economic realities rather than the Islamic ideal. As noted in research on Islamic finance, early pioneers of the movement like Mohammad Najatuallah Siddiqui and Taqi Usmani have expressed concern that overreliance on fixed-return modes and screened stocks may "defeat the very purpose of the Islamic finance movement."
 
 The Islamic ideal remains direct business ownership through authentic partnership structures. This is where Musharakah and Mudarabah enter the picture.
-
-![Islamic business partnership diagram showing profit and loss sharing structure](image-placeholder-1)
 
 ## Musharakah: The Equity Partnership Model
 
@@ -117,8 +115,6 @@ Mudarabah creates a middle path. The skilled entrepreneur gets access to capital
 
 The Prophet Muhammad ﷺ himself engaged in Mudarabah partnerships. Before prophethood, he managed trade caravans financed by Khadijah (may Allah be pleased with her), who later became his wife. This historical example shows that Mudarabah represents an authentic, prophetic model of business partnership.
 
-![Comparison chart of Musharakah versus Mudarabah partnership structures](image-placeholder-2)
-
 ## Practical Steps to Implement Islamic Partnerships
 
 Understanding the theory is one thing. Actually redirecting your wealth from conventional savings accounts into productive Islamic partnerships requires practical steps.
@@ -155,7 +151,7 @@ Your partnership agreement should specify:
 
 **Shariah Compliance**: Explicit agreement that all business activities must remain halal and that partners will avoid interest, prohibited industries, and other Islamic violations.
 
-You can use tools like an [Islamic contract generator](/tools/contract-generator) to help structure these agreements properly, though always consult with someone knowledgeable in both Islamic finance and local business law.
+You can use tools like our [free loan agreement generator](/loan-agreement-generator) to help structure these agreements properly, though always consult with someone knowledgeable in both Islamic finance and local business law.
 
 ### Due Diligence and Risk Management
 
@@ -222,7 +218,7 @@ One particularly innovative application is Musharakah Mutanaqisah (diminishing p
 - Over time, your ownership percentage increases as theirs decreases
 - Eventually you own 100% of the home
 
-This provides a halal alternative to conventional mortgages without interest-based loans. You can explore how this works practically using an [Islamic mortgage calculator](/tools/mortgage-calculator) to model different scenarios.
+This provides a halal alternative to conventional mortgages without interest-based loans. You can explore how this works practically using our [Islamic home financing calculator](/islamic-mortgage-calculator) to model different scenarios.
 
 ## Redirecting Capital From Conventional Banks
 

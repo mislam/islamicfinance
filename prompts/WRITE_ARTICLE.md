@@ -122,15 +122,16 @@ When writing about topics where Muslims have real-world financial dependencies o
 ### Article Length
 
 - **Target**: 1,800-2,500 words (optimal for SEO and reader engagement)
-- **Flexibility**: Adjust based on topic depth—ensure content is comprehensive without unnecessary filler to maintain engagement
-- **Rationale**: Research shows articles in this range rank best in finance/education niches when they fully satisfy user intent with quality content over arbitrary length targets. Comprehensive guides in finance niches often trend toward 2,500-3,200+ words for top rankings, but depth matters more than length.
-- **Benchmark**: Top competitors in Islamic finance (e.g., IslamQA guides, AAOIFI-related content) often exceed 2,000 words for thorough topic coverage—use this to calibrate depth expectations
-- **Minimum**: 1,500 words for standard articles
-- **Deep Dives**: 2,500-3,000 words for comprehensive guides
+- **Flexibility**: Adjust based on topic depth—ensure content is comprehensive without unnecessary filler. Depth and user intent satisfaction matter more than arbitrary length targets.
+- **Guidelines**:
+  - **Minimum**: 1,500 words for standard articles
+  - **Standard**: 1,800-2,500 words for most topics
+  - **Comprehensive Guides**: 2,500-3,000 words for deep dives
+- **Quality Over Quantity**: Better to write 1,800 words of excellent, comprehensive content than 2,500 words with filler. Fully answer user intent rather than padding word count.
 
 ### Meta Title
 
-- **Length**: 50-65 characters (maximum ~600 pixels; aim for 50-60 for safety)
+- **Length**: 50-60 characters (aim for 50-60 for optimal display)
 - **Format**: Include primary keyword near the beginning
 - **Style**: Compelling and click-worthy
 - **Best Practice**: Front-load with most important keywords
@@ -145,34 +146,42 @@ When writing about topics where Muslims have real-world financial dependencies o
 - **Call-to-Action**: Include subtle CTA when appropriate
 - **Uniqueness**: Must be unique for each article
 
-### Keywords Strategy
+### Keywords Strategy (2026 SEO Best Practices)
+
+**Modern Approach**: Focus on comprehensive topic coverage and user intent satisfaction rather than keyword density. Google's algorithms understand semantic meaning and context, not keyword counts.
 
 #### Primary Keyword
 
 - 1 main focus keyword (e.g., "Islamic mortgage," "halal investment")
-- Density: 1-2% of total content
-- Placement: Title, first paragraph, H1, meta title, meta description, naturally throughout
-- **Research Required**: Use web search to identify high-volume, low-competition keywords
+- **Natural placement**: Include in title, H1, meta description, and naturally in first paragraph when contextually appropriate
+- **No density targets**: Avoid keyword stuffing; focus on comprehensive topic coverage instead
+- **Research Required**: Use web search to identify high-volume, low-competition keywords that match user intent
 
 #### Secondary Keywords
 
-- 3-5 related keywords (e.g., "Shariah-compliant financing," "riba-free banking")
-- Natural integration throughout content
-- Include in subheadings where relevant
-- Use LSI (Latent Semantic Indexing) keywords for topic depth
+- **3-5 related keywords** that are semantically related to the primary keyword
+- **Definition**: Related terms, synonyms, or variations of the primary topic (e.g., if primary is "riba in Islam," secondary could be "interest in Islam," "riba types," "halal finance")
+- **Usage**: Use naturally throughout content as semantic variations and related terms
+- **Placement**: Include in subheadings where relevant, use as synonyms naturally in paragraphs
+- **Balance**: Aim to include the exact keyword phrase at least once naturally (especially in subheadings), but also use natural variations and synonyms throughout. Google understands semantic meaning, so both exact phrases and variations help. The goal is natural, comprehensive coverage, not forced repetition.
+- **Goal**: Cover the topic comprehensively from multiple angles using related terminology
 
-#### Long-Tail Keywords
+#### Long-Tail Keywords & User Queries
 
-- 2-4 specific phrases (e.g., "how to invest money according to Islam")
-- Target specific user queries
-- Integrate naturally in Q&A sections or explanatory paragraphs
+- **2-4 specific phrases** that match actual user search queries
+- **Definition**: Question-based or specific query phrases (e.g., "how to invest money according to Islam," "what is riba in banking," "halal alternatives to stock market")
+- **Usage**: Address these naturally in Q&A sections, explanatory paragraphs, or dedicated sections
+- **Best Practice**: For FAQ sections, include the exact query phrase (or close variant) in the question itself, as users often search for these exact phrases. In body paragraphs, natural variations are fine. The key is fully answering the user's intent while making the content discoverable for those searching the exact phrase.
+- **Focus**: Answer the question fully rather than just including the phrase
+- **Example**: If long-tail is "how to avoid riba in banking," create a section that fully answers this question (ideally with a heading like "How to Avoid Riba in Banking" or FAQ format with the exact question)
 
 ### Meta Keywords Array
 
-- 5-8 relevant keywords
-- Mix of primary, secondary, and long-tail
-- Format: ["keyword1", "keyword2", "keyword3"]
-- **Note**: Meta keywords are optional and primarily for internal site taxonomy or legacy CMS use, as they have had no impact on Google rankings since 2009 and offer minimal value in 2026. Include only if the site's CMS uses them for internal categorization.
+- **Format**: `["primaryKeyword", "secondary1", "secondary2", "longTail1", "longTail2", ...]`
+- **First keyword MUST be the primary keyword** (the one that appears in title/H1)
+- **Total**: 5-8 keywords (1 primary + 3-5 secondary + 2-4 long-tail)
+- **Purpose**: For internal tracking/analytics only (not rendered in HTML meta tags)
+- **Note**: These keywords are stored in the database for tracking which keywords were targeted during content creation. They help with future content audits and keyword performance analysis, but are NOT used in HTML meta tags (which have no SEO value since 2009).
 
 ### Tags Array
 
@@ -187,13 +196,24 @@ When writing about topics where Muslims have real-world financial dependencies o
 
 ### Featured Snippets & AI Overviews Optimization
 
-- **2026 Context**: Many finance queries trigger AI-generated summaries or featured snippets in search results
+- **2026 Context**: Many finance queries trigger AI-generated summaries (Google AI Overviews), featured snippets, or voice search results. Content must be optimized for "Position Zero" and Answer Engine Optimization (AEO).
 - **Strategy**: Structure content to answer questions clearly and concisely for potential featured snippet capture
 - **Implementation**:
+  - **Question-Format Headings**: Use question phrases as H2/H3 headings (e.g., "What Is Riba in Islam?" instead of "Understanding Riba")
+  - **Answer First**: Place concise, direct answers (40-60 words) immediately after question headings, then expand with details
+  - **Format by Intent**:
+    - Paragraphs for definitions and explanations
+    - Numbered lists or steps for how-to queries
+    - Tables for comparisons
   - Use clear question-answer formats in FAQ sections
   - Provide direct, complete answers in opening paragraphs
-  - Use structured data patterns (lists, tables, step-by-step guides)
   - Maintain natural flow while being specific and authoritative
+- **Structured Data (Schema Markup)**: Content should be structured to support JSON-LD schema markup (handled at implementation level, but content structure should enable):
+  - `Article` schema with author, date published/modified
+  - `FAQPage` schema for Q&A sections
+  - `HowTo` schema for step-by-step guides
+  - `Person` schema for author credentials (supports E-E-A-T)
+- **Voice Search Optimization**: Use conversational, natural language. Voice queries are longer and more conversational—structure content to answer "how," "what," "why" questions naturally.
 - **E-E-A-T Priority**: Prioritize Experience, Expertise, Authoritativeness, and Trustworthiness through strong Quranic/Hadith sourcing and clear Islamic scholarship citations—especially critical for finance/YMYL (Your Money Your Life) topics
 - **Balance**: Optimize for SERP features without sacrificing article depth or readability
 
@@ -201,7 +221,7 @@ When writing about topics where Muslims have real-world financial dependencies o
 
 - **Include**: 2-4 image placeholders where visuals enhance understanding
 - **Types**: Diagrams of financial processes, infographics, comparison charts
-- **Alt Text**: Descriptive with secondary keywords (50-125 characters)
+- **Alt Text**: Descriptive and contextually relevant (50-125 characters), naturally including relevant terms when appropriate
 - **Format**: `![Descriptive Alt Text with Keyword](image-url-placeholder)`
 - **Examples**:
   - `![Islamic mortgage process diagram showing halal home financing steps](image-placeholder-1)`
@@ -217,7 +237,7 @@ When writing about topics where Muslims have real-world financial dependencies o
 - **Quantity**: Suggest 2-4 internal links to related articles on www.islamicfinance.app
 - **Format**: `[Anchor Text](/article/related-slug)`
 - **Placement**: Naturally within content where contextually relevant; avoid forced links
-- **Anchor Text**: Use descriptive, keyword-rich phrases that help users and crawlers navigate
+- **Anchor Text**: Use descriptive, contextually relevant phrases that help users understand the link destination
 - **Best Practice**: Follow Google's guidance—links should provide genuine value to readers
 - **Example**: `Learn more about [halal investment strategies](/article/halal-investment-strategies)`
 
@@ -248,7 +268,7 @@ When writing about topics where Muslims have real-world financial dependencies o
   - Time-sensitive: `halal-investment-guide-2026`
   - Evergreen (before): `what-is-riba-in-islam` → (better): `riba-in-islam`
   - With stop word kept for clarity: `guide-to-sukuk` (keeping "to" aids readability)
-- **Best Practice**: Short, descriptive, keyword-rich; prioritize brevity without sacrificing clarity
+- **Best Practice**: Short, descriptive, naturally including relevant terms; prioritize brevity without sacrificing clarity
 
 ### Headline (H1)
 
@@ -263,7 +283,7 @@ When writing about topics where Muslims have real-world financial dependencies o
 
 #### Opening Section
 
-- **First Paragraph**: Hook readers immediately, include primary keyword in first 100 words
+- **First Paragraph**: Hook readers immediately, naturally introduce the topic (primary keyword may appear if contextually appropriate, but don't force it)
 - **Context**: Explain why this topic matters to Muslims
 - **Preview**: Brief overview of what the article covers (2-3 sentences)
 - **Engagement**: Pose a relevant question or present a relatable scenario
@@ -299,7 +319,7 @@ Use hierarchical headings:
 - **Lists**: Use bullet points or numbered lists for clarity
 - **Examples**: Practical scenarios illustrating concepts
 - **Emphasis**: Use **bold** for key terms, _italics_ for Arabic terms (with translation)
-- **Tables**: For comparisons (e.g., halal vs. haram financial practices)
+- **Tables**: For comparisons (e.g., option A vs. option B, before vs. after, pros vs. cons)
 - **Image Placeholders**: Insert where diagrams/visuals would enhance understanding
 
 #### Readability Features
@@ -314,16 +334,19 @@ Use hierarchical headings:
 
 - Summarize key points (2-3 sentences)
 - Practical takeaway or action items
-- Encouragement toward halal practice
+- Encouragement toward best practices or positive action aligned with article topic
 - Optional: Further reading suggestions with internal links
 
 #### Optional Sections (Use When Appropriate)
 
 - **FAQ**: Address 3-5 common questions in Q&A format
+  - Use question-format headings for snippet optimization
+  - Provide concise answers (40-60 words) followed by detailed explanation
+  - Structure for FAQPage schema markup (implementation level)
 - **Key Takeaways**: Bullet-point summary box at end
-- **Resources**: Links to authoritative Islamic finance bodies
-- **Comparison Tables**: Halal vs. conventional alternatives
-- **Step-by-Step Guides**: Numbered instructions for processes
+- **Resources**: Links to authoritative sources or relevant organizations
+- **Comparison Tables**: Compare different options, approaches, or alternatives (optimizes for table snippets)
+- **Step-by-Step Guides**: Numbered instructions for processes (optimizes for HowTo snippets)
 
 ---
 
@@ -357,17 +380,22 @@ Use hierarchical headings:
 
 ### SEO Optimization ✓
 
-- [ ] Primary keyword in title, meta, H1, and first 100 words
+- [ ] Primary keyword naturally included in title, H1, meta description, and opening when contextually appropriate
 - [ ] Meta title: 50-60 characters
-- [ ] Meta description: 120-158 characters
-- [ ] Article length: 1,800-2,500 words (adjusted for topic depth)
-- [ ] Keywords naturally integrated (1-2% density, no stuffing)
+- [ ] Meta description: 135-155 characters (aim for 140-150)
+- [ ] Article length: 1,800-2,500 words (adjusted for topic depth, quality over quantity)
+- [ ] Comprehensive topic coverage with semantic relevance (not keyword density)
 - [ ] Proper heading hierarchy (H1 > H2 > H3)
+- [ ] Question-format headings (H2/H3) for snippet optimization where appropriate
+- [ ] Concise answers (40-60 words) after question headings for snippet capture
 - [ ] 2-4 internal links with descriptive anchor text
 - [ ] 1-3 external links to authoritative Islamic sources only
-- [ ] 2-4 image placeholders with keyword-rich alt text
+- [ ] 2-4 image placeholders with descriptive, contextually relevant alt text
+- [ ] FAQ section structured for featured snippets (question headings, concise answers)
+- [ ] Conversational, natural language for voice search optimization
 - [ ] Keyword research performed via web search
 - [ ] Competitor analysis conducted
+- [ ] E-E-A-T signals: Strong citations, authoritative sources, clear expertise demonstrated
 
 ### Readability ✓
 
@@ -390,12 +418,18 @@ Provide the article data in the following structure:
 ---
 slug: "your-article-slug"
 title: "Your Meta Title (50-60 chars)"
-description: "Your compelling meta description (120-158 chars)"
+description: "Your compelling meta description (135-155 chars, aim for 140-150)"
 author: "Author Name"
-publishedAt: "YYYY-MM-DD"
+publishedAt: "YYYY-MM-DDTHH:mm:ssZ" # Full ISO 8601 format recommended for SEO (e.g., "2026-01-16T09:00:00-05:00" or "2026-01-16T00:00:00Z")
 tags: ["tag1", "tag2", "tag3", "tag4"]
 category: "Primary Category"
-keywords: ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
+keywords: [
+    "primaryKeyword", # Primary keyword (must match title/H1)
+    "secondary1", # Secondary - related term/synonym/variation
+    "secondary2", # Secondary - broader category/related subtopic
+    "longTail1", # Long-tail - question-based query (addressed in FAQ/content)
+    "longTail2", # Long-tail - specific user query (addressed in content)
+  ]
 ---
 
 # Article Headline (H1)

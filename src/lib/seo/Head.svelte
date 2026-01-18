@@ -22,9 +22,6 @@
 	<!-- Primary Meta Tags -->
 	<meta name="title" content={seo.title} />
 	<meta name="description" content={seo.description} />
-	{#if seo.keywords}
-		<meta name="keywords" content={seo.keywords} />
-	{/if}
 	<meta name="author" content={author} />
 	<meta name="robots" content="index, follow" />
 	<meta name="language" content="English" />
