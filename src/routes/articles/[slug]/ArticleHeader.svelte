@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Eye } from "@lucide/svelte"
 	import { format } from "date-fns"
 
 	import type { ArticleMetadata } from "$lib/server/articles"
@@ -20,11 +21,11 @@
 </script>
 
 <header class="mb-6 border-b border-base-content/10 pb-6">
-	{#if article.category}
+	<!-- {#if article.category}
 		<div class="mb-4">
-			<span class="badge badge-outline badge-lg">{article.category}</span>
+			<span class="badge badge-soft badge-lg">{article.category}</span>
 		</div>
-	{/if}
+	{/if} -->
 
 	<h1 class="mb-4 text-4xl leading-tight font-bold">{article.headline}</h1>
 
@@ -38,6 +39,14 @@
 			<span aria-hidden="true">·</span>
 		{/if}
 		<time datetime={"PT" + article.readingMinutes + "M"}>{article.readingMinutes} min read</time>
+		{#if article.viewCount > 0}
+			<span
+				class="ml-2 inline-flex items-center gap-1"
+				aria-label={article.viewCount === 1 ? "1 view" : `${article.viewCount} views`}
+			>
+				<Eye size={14} aria-hidden="true" />{article.viewCount}
+			</span>
+		{/if}
 
 		<!-- {#if updatedDate}
 			<span>

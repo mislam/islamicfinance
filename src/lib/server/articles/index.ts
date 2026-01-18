@@ -118,7 +118,6 @@ function dbRowToMetadata(
 export async function getAllArticles(): Promise<ArticleMetadata[]> {
 	const rows = await db
 		.select({
-			id: articles.id,
 			slug: articles.slug,
 			title: articles.title,
 			headline: articles.headline,
@@ -131,13 +130,17 @@ export async function getAllArticles(): Promise<ArticleMetadata[]> {
 			category: articles.category,
 			featuredImage: articles.featuredImage,
 			seoKeywords: articles.seoKeywords,
+			viewCount: articles.viewCount,
 		})
 		.from(articles)
 		.where(eq(articles.status, "published"))
 		.orderBy(desc(articles.publishedAt))
 
 	// Convert to metadata (already sorted by publishedAt desc from DB)
-	return rows.map(dbRowToMetadata)
+	return rows.map((r) => ({
+		...dbRowToMetadata(r),
+		...(r.viewCount != null && { viewCount: r.viewCount }),
+	}))
 }
 
 /**
@@ -170,10 +173,14 @@ export async function getArticleMetadata(slug: string): Promise<ArticleMetadata 
 	return dbRowToMetadata(row)
 }
 
+/** Article with id included for server-side use (e.g. view dedup). Not exposed to the client. */
+export type ArticleWithId = Article & { id: string }
+
 /**
- * Get full article by slug (with processed HTML content) - published articles only
+ * Get full article by slug (with processed HTML content) - published articles only.
+ * Returns id for server-side use; strip before sending to the client.
  */
-export async function getArticleBySlug(slug: string): Promise<Article | null> {
+export async function getArticleBySlug(slug: string): Promise<ArticleWithId | null> {
 	const [row] = await db
 		.select()
 		.from(articles)
@@ -190,6 +197,8 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 	return {
 		...metadata,
 		content: html,
+		viewCount: row.viewCount ?? 0,
+		id: row.id,
 		// Use stored headline from database (already extracted during migration/update)
 		// Falls back to title if headline is not set
 	}

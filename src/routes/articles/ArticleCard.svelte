@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Eye } from "@lucide/svelte"
 	import { format } from "date-fns"
 
 	import { resolve } from "$app/paths"
@@ -21,11 +22,15 @@
 		</figure>
 	{/if}
 	<div class="flex flex-1 flex-col gap-2">
-		{#if article.category}
-			<div class="badge badge-outline badge-sm">{article.category}</div>
-		{/if}
+		<!-- {#if article.category}
+			<div class="badge badge-soft badge-sm">{article.category}</div>
+		{/if} -->
 		<h2 class="text-2xl font-semibold">
-			<a href={resolve(`/articles/${article.slug}`)} class="link link-hover">
+			<a
+				href={resolve(`/articles/${article.slug}`)}
+				class="link link-hover"
+				data-sveltekit-preload-data="false"
+			>
 				{article.headline}
 			</a>
 		</h2>
@@ -36,6 +41,14 @@
 			{/if}
 			{#if publishedDate}<span aria-hidden="true">·</span>{/if}
 			<time datetime={"PT" + article.readingMinutes + "M"}>{article.readingMinutes} min read</time>
+			{#if article.viewCount > 0}
+				<span
+					class="ml-2 inline-flex items-center gap-1"
+					aria-label={article.viewCount === 1 ? "1 view" : `${article.viewCount} views`}
+				>
+					<Eye size={12} aria-hidden="true" />{article.viewCount}
+				</span>
+			{/if}
 		</span>
 	</div>
 </article>

@@ -7,10 +7,10 @@
 import { config } from "dotenv"
 config()
 
-import { randomUUID } from "node:crypto"
 import { readdir, readFile } from "node:fs/promises"
 import { join } from "node:path"
 
+import { createId } from "@paralleldrive/cuid2"
 import { eq } from "drizzle-orm"
 import { load } from "js-yaml"
 import type { Root as MdastRoot } from "mdast"
@@ -172,7 +172,7 @@ async function migrateArticles() {
 
 		// Insert article
 		await db.insert(articles).values({
-			id: randomUUID(),
+			id: createId(),
 			slug,
 			title,
 			headline, // Store extracted H1 for performance

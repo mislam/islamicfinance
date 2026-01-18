@@ -14,6 +14,8 @@ export interface ArticleMetadata {
 	category: string | null
 	featuredImage: string | null
 	keywords: string | null
+	/** Present only when loading a full article (detail page). */
+	viewCount?: number
 }
 
 /**
