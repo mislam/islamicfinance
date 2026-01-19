@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Eye } from "@lucide/svelte"
+	import { EyeIcon } from "@lucide/svelte"
 	import { format } from "date-fns"
 
 	import type { ArticleMetadata } from "$lib/server/articles"
@@ -44,7 +44,7 @@
 				class="ml-2 inline-flex items-center gap-1"
 				aria-label={article.viewCount === 1 ? "1 view" : `${article.viewCount} views`}
 			>
-				<Eye size={14} aria-hidden="true" />{article.viewCount}
+				<EyeIcon size={14} aria-hidden="true" />{article.viewCount}
 			</span>
 		{/if}
 

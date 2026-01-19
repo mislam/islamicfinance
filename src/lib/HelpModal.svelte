@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CircleQuestionMark } from "@lucide/svelte"
+	import { CircleQuestionMarkIcon } from "@lucide/svelte"
 
 	interface Props {
 		title: string
@@ -27,7 +27,7 @@
 	aria-label="Help"
 	title="Help"
 >
-	<CircleQuestionMark size={16} />
+	<CircleQuestionMarkIcon size={16} />
 </button>
 
 <dialog bind:this={dialogElement} id={modalId} class="modal">

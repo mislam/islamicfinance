@@ -1,5 +1,7 @@
 # SEO & Semantic HTML Review
 
+> **Backlog:** [TODO.md](TODO.md)
+
 **Last Updated:** 2025-01-XX  
 **Overall Grade:** A (96/100)  
 **Status:** Outstanding Implementation
