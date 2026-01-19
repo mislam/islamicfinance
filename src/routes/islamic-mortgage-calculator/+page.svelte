@@ -4,7 +4,7 @@
 
 	import { browser } from "$app/environment"
 	import { page } from "$app/state"
-	import HelpModal from "$lib/HelpModal.svelte"
+	import HelpModal from "$lib/components/HelpModal.svelte"
 	import { Head } from "$lib/seo"
 
 	import { calc } from "./calculations"

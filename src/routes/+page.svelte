@@ -31,7 +31,9 @@
 			url: baseUrl,
 			logo: {
 				"@type": "ImageObject",
-				url: `${baseUrl}/favicon.svg`,
+				url: `${baseUrl}/images/logo-square.svg`,
+				width: 512,
+				height: 512,
 			},
 			description: "Free Islamic finance tools and calculators for halal financial planning",
 			// sameAs can be added when social media profiles are available

@@ -44,6 +44,17 @@
 					name: filterTitle,
 					description,
 					url: `${page.url.origin}${page.url.pathname}`,
+					publisher: {
+						"@type": "Organization",
+						name: "Islamic Finance",
+						url: page.url.origin,
+						logo: {
+							"@type": "ImageObject",
+							url: `${page.url.origin}/images/logo-square.svg`,
+							width: 512,
+							height: 512,
+						},
+					},
 				},
 			},
 			page.url.pathname,

@@ -44,7 +44,9 @@
 						url: baseUrl,
 						logo: {
 							"@type": "ImageObject",
-							url: `${baseUrl}/favicon.svg`,
+							url: `${baseUrl}/images/logo-square.svg`,
+							width: 512,
+							height: 512,
 						},
 					},
 					datePublished: article.publishedAt || undefined,

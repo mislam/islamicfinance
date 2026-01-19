@@ -1,7 +1,7 @@
 // Auth is currently disabled - uncomment below to enable
 // import { svelteKitHandler } from "better-auth/svelte-kit"
 // import { building } from "$app/environment"
-// import { auth } from "$lib/auth"
+// import { auth } from "$lib/auth/server"
 
 import { dev } from "$app/environment"
 import { PUBLIC_GA_MEASUREMENT_ID } from "$env/static/public"

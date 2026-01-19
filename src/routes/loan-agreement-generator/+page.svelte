@@ -4,7 +4,7 @@
 	import { browser, dev } from "$app/environment"
 	import { page } from "$app/state"
 	import { trackEvent } from "$lib/analytics"
-	import HelpModal from "$lib/HelpModal.svelte"
+	import HelpModal from "$lib/components/HelpModal.svelte"
 	import { Head } from "$lib/seo"
 
 	import FAQ from "./FAQ.svelte"
