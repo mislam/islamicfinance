@@ -29,9 +29,9 @@
 
 	<h1 class="mb-4 text-4xl leading-tight font-bold">{article.headline}</h1>
 
-	<p class="mb-6 text-xl text-base-content/70">{article.description}</p>
+	<p class="mb-6 text-xl text-base-content/60">{article.description}</p>
 
-	<div class="flex flex-wrap items-center gap-2 text-base-content/70">
+	<div class="flex flex-wrap items-center gap-2 text-base-content/60">
 		{#if publishedDate}
 			<time datetime={article.publishedAt}>{publishedDate}</time>
 		{/if}
