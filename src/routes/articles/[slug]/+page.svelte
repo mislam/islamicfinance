@@ -76,7 +76,7 @@
 
 <Head {seo} />
 
-<main class="container mx-auto px-5 py-8">
+<div class="container mx-auto px-5 py-8">
 	<article class="mx-auto max-w-3xl">
 		<ArticleHeader article={data.article} />
 
@@ -94,4 +94,4 @@
 
 		<ArticleFooter article={data.article} />
 	</article>
-</main>
+</div>

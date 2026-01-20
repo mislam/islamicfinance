@@ -5,7 +5,7 @@
 	let { article } = $props<{ article: ArticleMetadata }>()
 
 	function getTagUrl(tag: string): string {
-		return `${resolve("/articles")}?tag=${tag}`
+		return `${resolve("/articles")}?tag=${encodeURIComponent(tag)}`
 	}
 </script>
 

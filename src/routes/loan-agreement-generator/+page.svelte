@@ -392,7 +392,7 @@
 
 <Head {seo} />
 
-<main class="container mx-auto px-4 pt-8 pb-16 sm:w-3xl sm:min-w-3xl">
+<div class="container mx-auto px-4 pt-8 pb-16 sm:w-3xl sm:min-w-3xl">
 	<header class="max-w-screen px-4 pb-12 text-center sm:mx-auto sm:max-w-3xl">
 		<h1 class="mb-6 text-4xl leading-tight font-bold">Islamic Loan Agreement</h1>
 		<p class="mx-auto text-lg text-base-content/80 sm:text-xl">
@@ -849,7 +849,7 @@
 	</form>
 
 	<FAQ />
-</main>
+</div>
 
 <!-- Error Summary Modal -->
 <dialog

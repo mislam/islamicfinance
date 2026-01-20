@@ -3,6 +3,8 @@
 
 	import { page } from "$app/state"
 	import { trackPageView } from "$lib/analytics"
+	import Footer from "$lib/components/Footer.svelte"
+	import Header from "$lib/components/Header.svelte"
 
 	let { children } = $props()
 
@@ -14,4 +16,8 @@
 	})
 </script>
 
-{@render children()}
+<Header />
+<main class="pt-14">
+	{@render children()}
+</main>
+<Footer />

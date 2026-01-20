@@ -62,7 +62,7 @@
 
 <Head {seo} />
 
-<main class="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
+<div class="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
 	<div class="text-center">
 		<h1 class="mb-4 text-4xl font-bold">Islamic Finance</h1>
 		<p class="mb-8 text-lg text-base-content/70">Halal Financial Tools & Calculators</p>
@@ -86,4 +86,4 @@
 			</a>
 		</div>
 	</div>
-</main>
+</div>

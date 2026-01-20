@@ -22,6 +22,10 @@
 		return "Islamic Finance Articles"
 	})
 
+	// Page headline: "Articles" when unfiltered; filterTitle (e.g. "Articles tagged 'X'") when filtered.
+	// filterTitle stays separate for document title and structured data name.
+	const headline = $derived(hasActiveFilters ? filterTitle : "Articles")
+
 	// SEO metadata for articles listing page
 	const seo = $derived.by(() => {
 		const title = hasActiveFilters
@@ -65,9 +69,9 @@
 
 <Head {seo} />
 
-<main class="container mx-auto px-5 py-12">
+<div class="container mx-auto px-5 py-12">
 	<header class="mb-12 text-center">
-		<h1 class="mb-4 text-4xl font-bold">{filterTitle}</h1>
+		<h1 class="mb-4 text-4xl font-bold">{headline}</h1>
 		{#if !hasActiveFilters}
 			<p class="mx-auto max-w-2xl text-lg text-base-content/70">
 				Comprehensive guides on Islamic finance, halal investing, sharia-compliant banking, and
@@ -120,4 +124,4 @@
 			{/each}
 		</div>
 	{/if}
-</main>
+</div>
