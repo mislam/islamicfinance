@@ -8,11 +8,15 @@
 
 	let { article } = $props<{ article: ArticleMetadata }>()
 
-	// Format dates - will use user's timezone on client after hydration
-	// Note: For date-only formats (no time), timezone usually doesn't change the displayed date
-	// unless the date crosses midnight boundaries in different timezones
-	const publishedDate = $derived(
-		article.publishedAt ? format(new Date(article.publishedAt), "MMMM d, yyyy") : null,
+	const dateLabel = $derived(
+		article.updatedAt
+			? { label: "Updated", value: article.updatedAt }
+			: article.publishedAt
+				? { label: "Published", value: article.publishedAt }
+				: null,
+	)
+	const dateFormatted = $derived(
+		dateLabel ? format(new Date(dateLabel.value), "MMM d, yyyy") : null,
 	)
 </script>
 
@@ -38,10 +42,10 @@
 			<h2 class="text-2xl font-semibold">{article.headline}</h2>
 			<p class="text-base-content/60">{article.description}</p>
 			<span class="flex flex-wrap items-center gap-2 text-sm text-base-content/60">
-				{#if publishedDate}
-					<time datetime={article.publishedAt}>{publishedDate}</time>
+				{#if dateLabel && dateFormatted}
+					<time datetime={dateLabel.value}>{dateLabel.label} {dateFormatted}</time>
 				{/if}
-				{#if publishedDate}<span aria-hidden="true">·</span>{/if}
+				{#if dateFormatted}<span aria-hidden="true">·</span>{/if}
 				<time datetime={"PT" + readingMins(article.readingSeconds) + "M"}>
 					{formatReadingTime(article.readingSeconds)}
 				</time>

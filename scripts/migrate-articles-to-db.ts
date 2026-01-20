@@ -20,7 +20,7 @@ import { visit } from "unist-util-visit"
 
 import { readingSeconds } from "../src/lib/utils/reading-time.js"
 
-const articlesDir = join(process.cwd(), "src/content/articles")
+const articlesDir = join(process.cwd(), "content", "articles")
 
 /**
  * Parse frontmatter from markdown content
@@ -120,10 +120,8 @@ async function migrateArticles() {
 		// For SEO best practices, use full ISO 8601: "2026-01-16T00:00:00Z" or "2026-01-16T09:00:00+05:00"
 		const publishedAt = frontmatter.publishedAt ? new Date(frontmatter.publishedAt as string) : null
 
-		// Parse updatedAt: same format support as publishedAt
-		const updatedAt = frontmatter.updatedAt
-			? new Date(frontmatter.updatedAt as string)
-			: (publishedAt ?? new Date())
+		// updatedAt only when in frontmatter; null = never updated. Set on both insert and update.
+		const updatedAt = frontmatter.updatedAt ? new Date(frontmatter.updatedAt as string) : null
 		const tags = (frontmatter.tags as string[]) ?? []
 		const category = (frontmatter.category as string) ?? null
 		const featuredImage = (frontmatter.featuredImage as string) ?? null

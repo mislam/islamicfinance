@@ -7,18 +7,17 @@
 
 	let { article } = $props<{ article: ArticleMetadata }>()
 
-	// Format dates - will use user's timezone on client after hydration
-	// Note: For date-only formats (no time), timezone usually doesn't change the displayed date
-	// unless the date crosses midnight boundaries in different timezones
-	const publishedDate = $derived(
-		article.publishedAt ? format(new Date(article.publishedAt), "MMMM d, yyyy") : null,
+	// One date: Updated when present, else Published (same as index)
+	const dateLabel = $derived(
+		article.updatedAt
+			? { label: "Updated", value: article.updatedAt }
+			: article.publishedAt
+				? { label: "Published", value: article.publishedAt }
+				: null,
 	)
-
-	// const updatedDate = $derived(
-	// 	article.updatedAt && article.updatedAt !== article.publishedAt
-	// 		? format(new Date(article.updatedAt), "MMMM d, yyyy")
-	// 		: null,
-	// )
+	const dateFormatted = $derived(
+		dateLabel ? format(new Date(dateLabel.value), "MMM d, yyyy") : null,
+	)
 </script>
 
 <header class="mb-6 border-b border-base-content/10 pb-6">
@@ -33,15 +32,13 @@
 	<p class="mb-6 text-xl text-base-content/60">{article.description}</p>
 
 	<div class="flex flex-wrap items-center gap-2 text-base-content/60">
-		{#if publishedDate}
-			<time datetime={article.publishedAt}>{publishedDate}</time>
-		{/if}
-		{#if publishedDate}
-			<span aria-hidden="true">·</span>
-		{/if}
 		<time datetime={"PT" + readingMins(article.readingSeconds) + "M"}>
 			{formatReadingTime(article.readingSeconds)}
 		</time>
+		{#if dateLabel && dateFormatted}
+			<span aria-hidden="true">·</span>
+			<time datetime={dateLabel.value}>{dateLabel.label} {dateFormatted}</time>
+		{/if}
 		{#if article.viewCount > 0}
 			<span
 				class="ml-2 inline-flex items-center gap-1"
@@ -50,11 +47,5 @@
 				<EyeIcon size={14} aria-hidden="true" />{article.viewCount}
 			</span>
 		{/if}
-
-		<!-- {#if updatedDate}
-			<span>
-				Updated: <time datetime={article.updatedAt}>{updatedDate}</time>
-			</span>
-		{/if} -->
 	</div>
 </header>

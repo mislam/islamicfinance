@@ -118,7 +118,9 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+		<div
+			class="grid space-y-6 gap-x-12 gap-y-6 divide-y divide-base-content/10 md:grid-cols-2 md:divide-none xl:grid-cols-3"
+		>
 			{#each data.articles as article (article.slug)}
 				<ArticleCard {article} />
 			{/each}

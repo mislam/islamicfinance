@@ -21,6 +21,7 @@ export const articles = pgTable(
 		authorId: text("author_id").references(() => users.id),
 		// Publication
 		publishedAt: timestamp("published_at"),
+		// Optional: only set when frontmatter.updatedAt present; null = never updated
 		updatedAt: timestamp("updated_at")
 			.defaultNow()
 			.$onUpdate(() => new Date()),
