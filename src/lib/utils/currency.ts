@@ -1,14 +1,12 @@
 /**
- * Common utility functions
+ * Currency and number-to-words formatting for legal documents
  */
 
 /**
- * Convert number to words (simplified version)
- * Supports numbers up to 999,999,999
- * @param num - The number to convert
- * @returns The number in words (e.g., "one hundred twenty-three")
+ * Convert number to words (simplified). Supports up to 999,999,999.
+ * Used by formatCurrencyWithWords; export if needed elsewhere.
  */
-export function numberToWords(num: number): string {
+function numberToWords(num: number): string {
 	const ones = [
 		"",
 		"one",

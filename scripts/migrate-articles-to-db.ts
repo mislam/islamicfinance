@@ -18,6 +18,8 @@ import { remark } from "remark"
 import remarkGfm from "remark-gfm"
 import { visit } from "unist-util-visit"
 
+import { readingSeconds } from "../src/lib/utils/reading-time.js"
+
 const articlesDir = join(process.cwd(), "src/content/articles")
 
 /**
@@ -86,12 +88,6 @@ function removeFirstH1FromMarkdown(content: string): string {
 	return content.replace(h1Pattern, "").trimStart()
 }
 
-/** Medium-style: 265 WPM, round up, minimum 1 min. */
-function computeReadingTimeMinutes(markdown: string): number {
-	const wordCount = markdown.split(/\s+/).filter(Boolean).length
-	return Math.max(1, Math.ceil(wordCount / 265))
-}
-
 async function migrateArticles() {
 	// Dynamically import database after env vars are loaded
 	const { articles, db } = await import("../src/lib/server/db/index.js")
@@ -141,7 +137,7 @@ async function migrateArticles() {
 		// Remove H1 from content since it's stored separately in headline field
 		// This prevents duplicate H1s in the rendered HTML
 		const contentWithoutH1 = removeFirstH1FromMarkdown(body)
-		const readingMinutes = computeReadingTimeMinutes(contentWithoutH1)
+		const sec = readingSeconds(contentWithoutH1)
 
 		// Check if article already exists - if so, update it instead of skipping
 		const [existing] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1)
@@ -163,7 +159,7 @@ async function migrateArticles() {
 					tags,
 					category,
 					seoKeywords: keywords,
-					readingMinutes,
+					readingSeconds: sec,
 				})
 				.where(eq(articles.slug, slug))
 			console.log(`✅ Updated: ${slug}`)
@@ -188,7 +184,7 @@ async function migrateArticles() {
 			category,
 			seoKeywords: keywords,
 			viewCount: 0,
-			readingMinutes,
+			readingSeconds: sec,
 		})
 
 		console.log(`✅ Migrated: ${slug}`)

@@ -4,6 +4,7 @@
 
 	import { resolve } from "$app/paths"
 	import type { ArticleMetadata } from "$lib/server/articles"
+	import { formatReadingTime, readingMins } from "$lib/utils/reading-time"
 
 	let { article } = $props<{ article: ArticleMetadata }>()
 
@@ -41,8 +42,8 @@
 					<time datetime={article.publishedAt}>{publishedDate}</time>
 				{/if}
 				{#if publishedDate}<span aria-hidden="true">·</span>{/if}
-				<time datetime={"PT" + article.readingMinutes + "M"}>
-					{article.readingMinutes} min read
+				<time datetime={"PT" + readingMins(article.readingSeconds) + "M"}>
+					{formatReadingTime(article.readingSeconds)}
 				</time>
 				{#if article.viewCount > 0}
 					<span

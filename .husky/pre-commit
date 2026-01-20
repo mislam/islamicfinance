@@ -1,11 +1,15 @@
 echo "Running pre-commit checks..."
 
-# Run lint-staged to format and lint staged files
+# Format and lint staged files
 echo "Formatting and linting staged files..."
 pnpm lint-staged
 
-# Run typecheck
+# Typecheck
 echo "Running typecheck..."
 pnpm check
+
+# Unit tests
+echo "Running unit tests..."
+pnpm test
 
 echo "\033[32m✔\033[0m Pre-commit checks completed successfully!"
