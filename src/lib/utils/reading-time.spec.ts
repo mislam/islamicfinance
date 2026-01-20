@@ -2,73 +2,71 @@ import { describe, expect, it } from "vitest"
 
 import { formatReadingTime, readingMins, readingSeconds } from "./reading-time"
 
+/** Fixed WPM for tests so expectations are independent of $lib/config. With 60, seconds = word count. */
+const TEST_WPM = 60
+const rt = (md: string) => readingSeconds(md, { wpm: TEST_WPM })
+
 describe("readingSeconds", () => {
 	describe("empty and whitespace", () => {
-		it("returns 0 for empty string", () => expect(readingSeconds("")).toBe(0))
-		it("returns 0 for whitespace only", () => expect(readingSeconds("   \n\t  ")).toBe(0))
+		it("returns 0 for empty string", () => expect(rt("")).toBe(0))
+		it("returns 0 for whitespace only", () => expect(rt("   \n\t  ")).toBe(0))
 	})
 
 	describe("plain prose", () => {
-		it("counts words, 265 WPM", () => expect(readingSeconds("one two three")).toBe(1))
-		it("265 words → 60", () => {
-			expect(readingSeconds(Array.from({ length: 265 }, (_, i) => `w${i}`).join(" "))).toBe(60)
+		it("counts words and applies WPM", () => expect(rt("one two three")).toBe(3))
+		it("60 words → 60s at 60 WPM", () => {
+			expect(rt(Array.from({ length: 60 }, (_, i) => `w${i}`).join(" "))).toBe(60)
 		})
-		it("266 words → 61", () => {
-			expect(readingSeconds(Array.from({ length: 266 }, (_, i) => `w${i}`).join(" "))).toBe(61)
+		it("61 words → 61s at 60 WPM", () => {
+			expect(rt(Array.from({ length: 61 }, (_, i) => `w${i}`).join(" "))).toBe(61)
 		})
-		it("530 words → 120", () => {
-			expect(readingSeconds(Array(530).fill("w").join(" "))).toBe(120)
+		it("120 words → 120s at 60 WPM", () => {
+			expect(rt(Array(120).fill("w").join(" "))).toBe(120)
 		})
-		it("collapses multiple spaces and newlines", () =>
-			expect(readingSeconds("a   b\n\n  c")).toBe(1))
+		it("collapses multiple spaces and newlines", () => expect(rt("a   b\n\n  c")).toBe(3))
 	})
 
 	describe("links", () => {
-		it("keeps only link text", () =>
-			expect(readingSeconds("[Quran 2:275](https://quran.com/2/275)")).toBe(1))
-		it("handles empty link text", () =>
-			expect(readingSeconds("before [](https://x.com) after")).toBe(1))
+		it("keeps only link text", () => expect(rt("[Quran 2:275](https://quran.com/2/275)")).toBe(2))
+		it("handles empty link text", () => expect(rt("before [](https://x.com) after")).toBe(2))
 	})
 
 	describe("images", () => {
-		it("keeps only alt text", () => expect(readingSeconds("![alt text here](image.png)")).toBe(1))
-		it("handles empty alt", () => expect(readingSeconds("![](img.jpg)")).toBe(0))
+		it("keeps only alt text", () => expect(rt("![alt text here](image.png)")).toBe(3))
+		it("handles empty alt", () => expect(rt("![](img.jpg)")).toBe(0))
 	})
 
 	describe("headings", () => {
-		it("strips # from h1", () => expect(readingSeconds("# One")).toBe(1))
-		it("strips ## from h2", () => expect(readingSeconds("## What Is Riba?")).toBe(1))
-		it("does not strip # in the middle of a line", () =>
-			expect(readingSeconds("Section # one")).toBe(1))
+		it("strips # from h1", () => expect(rt("# One")).toBe(1))
+		it("strips ## from h2", () => expect(rt("## What Is Riba?")).toBe(3))
+		it("does not strip # in the middle of a line", () => expect(rt("Section # one")).toBe(3))
 	})
 
 	describe("unordered lists", () => {
 		it("strips - * + marker", () => {
-			expect(readingSeconds("- Item")).toBe(1)
-			expect(readingSeconds("* Item")).toBe(1)
-			expect(readingSeconds("+ Item")).toBe(1)
+			expect(rt("- Item")).toBe(1)
+			expect(rt("* Item")).toBe(1)
+			expect(rt("+ Item")).toBe(1)
 		})
-		it("leaves -Item (no space) as single token", () => expect(readingSeconds("-Item")).toBe(1))
+		it("leaves -Item (no space) as single token", () => expect(rt("-Item")).toBe(1))
 	})
 
 	describe("ordered lists", () => {
-		it("strips 1. 2. etc", () => expect(readingSeconds("2. Second\n10. Tenth")).toBe(1))
-		it("does not strip 1. in the middle of a line", () =>
-			expect(readingSeconds("See 1. first item")).toBe(1))
+		it("strips 1. 2. etc", () => expect(rt("2. Second\n10. Tenth")).toBe(2))
+		it("does not strip 1. in the middle of a line", () => expect(rt("See 1. first item")).toBe(4))
 	})
 
 	describe("blockquotes", () => {
-		it("strips > marker", () => expect(readingSeconds("> Quote")).toBe(1))
-		it("does not strip > in the middle of a line", () =>
-			expect(readingSeconds("2 > 1 is true")).toBe(2)) // "2" ">" "1" "is" "true" = 5
+		it("strips > marker", () => expect(rt("> Quote")).toBe(1))
+		it("does not strip > in the middle of a line", () => expect(rt("2 > 1 is true")).toBe(5))
 	})
 
 	describe("inline code", () => {
-		it("strips backticks", () => expect(readingSeconds("Use `code` here")).toBe(1))
+		it("strips backticks", () => expect(rt("Use `code` here")).toBe(3))
 	})
 
 	describe("fenced code blocks", () => {
-		it("counts words inside", () => expect(readingSeconds("```\nconst x = 1\n```")).toBe(2))
+		it("counts words inside", () => expect(rt("```\nconst x = 1\n```")).toBe(6))
 	})
 
 	describe("mixed real-world", () => {
@@ -79,7 +77,7 @@ Riba is an **important** concept. See [Quran 2:275](https://quran.com/2/275).
 - Second point
 > A key quote here.
 Use \`murabaha\` in practice.`
-			expect(readingSeconds(md)).toBe(6) // ~23 words
+			expect(rt(md)).toBe(23)
 		})
 	})
 })

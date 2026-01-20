@@ -32,7 +32,7 @@ export const articles = pgTable(
 		seoKeywords: text("seo_keywords"),
 		// Counters / derived
 		viewCount: integer("view_count").default(0),
-		readingSeconds: integer("reading_seconds"), // reading time in seconds at 265 words per minute
+		readingSeconds: integer("reading_seconds"), // reading time in seconds
 		// System
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 	},

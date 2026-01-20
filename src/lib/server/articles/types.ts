@@ -9,7 +9,7 @@ export interface ArticleMetadata {
 	author: string
 	publishedAt: string | null
 	updatedAt: string | null
-	readingSeconds: number // reading time in seconds at 265 words per minute
+	readingSeconds: number // reading time in seconds
 	tags: string[]
 	category: string | null
 	featuredImage: string | null
