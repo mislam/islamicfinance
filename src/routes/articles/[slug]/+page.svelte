@@ -23,7 +23,7 @@
 
 		return createSEOData(
 			{
-				title: `${article.title} | Islamic Finance`,
+				title: `${article.headline} | Islamic Finance`,
 				description: article.description,
 				keywords: article.keywords || "",
 				ogImage: ogImageUrl,
