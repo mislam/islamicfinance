@@ -30,7 +30,7 @@
 				twitterImage: ogImageUrl,
 				ogType: "article",
 				articlePublishedTime: article.publishedAt || undefined,
-				articleModifiedTime: article.updatedAt || undefined,
+				articleModifiedTime: article.updatedAt, // Always present (required field)
 				articleAuthor: article.author || undefined,
 				articleSection: article.category || undefined,
 				articleTags: article.tags.length > 0 ? article.tags : undefined,
@@ -55,7 +55,7 @@
 						},
 					},
 					datePublished: article.publishedAt || undefined,
-					dateModified: article.updatedAt || undefined,
+					dateModified: article.updatedAt, // Always present (required field)
 					image: ogImageUrl
 						? {
 								"@type": "ImageObject",

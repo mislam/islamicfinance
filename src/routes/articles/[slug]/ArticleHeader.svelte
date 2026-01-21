@@ -7,17 +7,15 @@
 
 	let { article } = $props<{ article: ArticleMetadata }>()
 
-	// One date: Updated when present, else Published (same as index)
+	// Show "Updated" if updatedAt differs from publishedAt, otherwise "Published"
 	const dateLabel = $derived(
-		article.updatedAt
+		article.publishedAt && article.updatedAt !== article.publishedAt
 			? { label: "Updated", value: article.updatedAt }
 			: article.publishedAt
 				? { label: "Published", value: article.publishedAt }
-				: null,
+				: { label: "Updated", value: article.updatedAt }, // Fallback if publishedAt missing
 	)
-	const dateFormatted = $derived(
-		dateLabel ? format(new Date(dateLabel.value), "MMM d, yyyy") : null,
-	)
+	const dateFormatted = $derived(format(new Date(dateLabel.value), "MMM d, yyyy"))
 </script>
 
 <header>
@@ -35,10 +33,8 @@
 		<time datetime={"PT" + readingMins(article.readingSeconds) + "M"}>
 			{formatReadingTime(article.readingSeconds)}
 		</time>
-		{#if dateLabel && dateFormatted}
-			<span aria-hidden="true">·</span>
-			<time datetime={dateLabel.value}>{dateLabel.label} {dateFormatted}</time>
-		{/if}
+		<span aria-hidden="true">·</span>
+		<time datetime={dateLabel.value}>{dateLabel.label} {dateFormatted}</time>
 		{#if article.viewCount > 0}
 			<span
 				class="ml-2 inline-flex items-center gap-1"

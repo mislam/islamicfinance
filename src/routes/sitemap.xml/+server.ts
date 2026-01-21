@@ -35,9 +35,9 @@ export const GET: RequestHandler = async ({ url }) => {
 	// Generate article entries from database
 	// getAllArticles() now reads from database and only returns published articles
 	const articleEntries = articles.map((article) => {
-		// Use updatedAt if available, otherwise publishedAt
+		// Use updatedAt (always present, required field)
 		// Dates are already in ISO 8601 format from the database
-		const lastmod = article.updatedAt || article.publishedAt || undefined
+		const lastmod = article.updatedAt
 		return {
 			url: `${baseUrl}/articles/${article.slug}`,
 			changefreq: "monthly" as const,

@@ -1,4 +1,4 @@
-import { and, eq, sql } from "drizzle-orm"
+import { and, desc, eq } from "drizzle-orm"
 import type { Root } from "hast"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize"
@@ -102,7 +102,7 @@ function dbRowToMetadata(
 		description: row.description,
 		author: row.author ?? "Islamic Finance", // Use author field
 		publishedAt: row.publishedAt?.toISOString() ?? null,
-		updatedAt: row.updatedAt?.toISOString() ?? null,
+		updatedAt: row.updatedAt.toISOString(), // Required field, always present
 		readingSeconds: row.readingSeconds!,
 		tags: row.tags ?? [],
 		category: row.category ?? null,
@@ -134,9 +134,9 @@ export async function getAllArticles(): Promise<ArticleMetadata[]> {
 		})
 		.from(articles)
 		.where(eq(articles.status, "published"))
-		.orderBy(sql`COALESCE(${articles.updatedAt}, ${articles.publishedAt}) DESC`)
+		.orderBy(desc(articles.updatedAt))
 
-	// Convert to metadata (sorted by COALESCE(updatedAt, publishedAt) DESC from DB)
+	// Convert to metadata (sorted by updatedAt DESC from DB)
 	return rows.map((r) => ({
 		...dbRowToMetadata(r),
 		...(r.viewCount != null && { viewCount: r.viewCount }),

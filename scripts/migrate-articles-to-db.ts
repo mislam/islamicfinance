@@ -120,8 +120,10 @@ async function migrateArticles() {
 		// For SEO best practices, use full ISO 8601: "2026-01-16T00:00:00Z" or "2026-01-16T09:00:00+05:00"
 		const publishedAt = frontmatter.publishedAt ? new Date(frontmatter.publishedAt as string) : null
 
-		// updatedAt only when in frontmatter; null = never updated. Set on both insert and update.
-		const updatedAt = frontmatter.updatedAt ? new Date(frontmatter.updatedAt as string) : null
+		// updatedAt defaults to publishedAt if not in frontmatter (required field)
+		const updatedAt = frontmatter.updatedAt
+			? new Date(frontmatter.updatedAt as string)
+			: publishedAt || new Date() // Fallback to current date if publishedAt is also missing (shouldn't happen)
 		const tags = (frontmatter.tags as string[]) ?? []
 		const category = (frontmatter.category as string) ?? null
 		const featuredImage = (frontmatter.featuredImage as string) ?? null

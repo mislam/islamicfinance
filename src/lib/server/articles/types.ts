@@ -8,7 +8,7 @@ export interface ArticleMetadata {
 	description: string
 	author: string
 	publishedAt: string | null
-	updatedAt: string | null
+	updatedAt: string // Required: defaults to publishedAt if not explicitly set
 	readingSeconds: number // reading time in seconds
 	tags: string[]
 	category: string | null
