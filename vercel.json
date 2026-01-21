@@ -1,0 +1,13 @@
+{
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"images": {
+		"sizes": [192, 384, 430, 672, 860, 1200, 1344],
+		"remotePatterns": [
+			{
+				"protocol": "https",
+				"hostname": "media.islamicfinance.app",
+				"pathname": "/images/articles/**"
+			}
+		]
+	}
+}

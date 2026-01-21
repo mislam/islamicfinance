@@ -270,6 +270,10 @@ When writing about topics where Muslims have real-world financial dependencies o
   - With stop word kept for clarity: `guide-to-sukuk` (keeping "to" aids readability)
 - **Best Practice**: Short, descriptive, naturally including relevant terms; prioritize brevity without sacrificing clarity
 
+### Featured Image
+
+- **Optional.** If used: **1344×756 JPG**, path `/images/articles/<slug>.jpg`. File goes in `static/images/articles/<slug>.jpg`. See [ARTICLE_IMAGES.md](../docs/ARTICLE_IMAGES.md). Omit `featuredImage` from frontmatter when no image is used.
+
 ### Headline (H1)
 
 - **Single H1 tag** per article
@@ -391,6 +395,7 @@ Use hierarchical headings:
 - [ ] 2-4 internal links with descriptive anchor text
 - [ ] 1-3 external links to authoritative Islamic sources only
 - [ ] 2-4 image placeholders with descriptive, contextually relevant alt text
+- [ ] Featured image if used: 1344×756 JPG, path `/images/articles/<slug>.jpg`
 - [ ] FAQ section structured for featured snippets (question headings, concise answers)
 - [ ] Conversational, natural language for voice search optimization
 - [ ] Keyword research performed via web search
@@ -430,6 +435,7 @@ keywords: [
     "longTail1", # Long-tail - question-based query (addressed in FAQ/content)
     "longTail2", # Long-tail - specific user query (addressed in content)
   ]
+featuredImage: "/images/articles/your-article-slug.jpg" # optional; source must be 1344×756 JPG
 ---
 
 # Article Headline (H1)

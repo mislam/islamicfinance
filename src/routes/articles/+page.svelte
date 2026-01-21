@@ -121,7 +121,7 @@
 		{:else}
 			<div class="grid space-y-8 gap-y-8 divide-y divide-base-content/10">
 				{#each data.articles as article (article.slug)}
-					<ArticleCard {article} />
+					<ArticleCard {article} baseUrl={page.url.origin} />
 				{/each}
 			</div>
 		{/if}

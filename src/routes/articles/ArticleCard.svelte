@@ -5,8 +5,9 @@
 	import { resolve } from "$app/paths"
 	import type { ArticleMetadata } from "$lib/server/articles"
 	import { formatReadingTime, readingMins } from "$lib/utils/reading-time"
+	import { getArticleThumbSrcSet } from "$lib/vercel-image"
 
-	let { article } = $props<{ article: ArticleMetadata }>()
+	let { article, baseUrl } = $props<{ article: ArticleMetadata; baseUrl: string }>()
 
 	const dateLabel = $derived(
 		article.updatedAt
@@ -34,11 +35,16 @@
 			<p class="text-base-content/70">{article.description}</p>
 		</div>
 		{#if article.featuredImage}
-			<figure class="aspect-4/3 w-24 shrink-0 overflow-hidden sm:aspect-auto sm:w-48">
+			{@const thumb = getArticleThumbSrcSet(article.featuredImage, baseUrl)}
+			<figure class="aspect-4/3 w-24 shrink-0 overflow-hidden sm:w-48">
 				<img
-					src={article.featuredImage}
+					src={thumb.src}
+					srcset={thumb.srcSet}
 					alt={article.headline}
-					class="h-full w-full object-contain"
+					class="h-full w-full object-cover"
+					width="192"
+					height="144"
+					fetchpriority="low"
 				/>
 			</figure>
 		{/if}

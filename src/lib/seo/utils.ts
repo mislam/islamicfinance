@@ -47,5 +47,11 @@ export function createSEOData(
 			: undefined,
 		ogImage: data.ogImage,
 		twitterImage: data.twitterImage,
+		ogType: data.ogType,
+		articlePublishedTime: data.articlePublishedTime,
+		articleModifiedTime: data.articleModifiedTime,
+		articleAuthor: data.articleAuthor,
+		articleSection: data.articleSection,
+		articleTags: data.articleTags,
 	}
 }

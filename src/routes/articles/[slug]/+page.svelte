@@ -2,6 +2,7 @@
 	import { page } from "$app/state"
 	import { Head } from "$lib/seo"
 	import { createSEOData } from "$lib/seo"
+	import { getArticleDetailSrcSet, getArticleOgImageUrl } from "$lib/vercel-image"
 
 	import ArticleContent from "./ArticleContent.svelte"
 	import ArticleFooter from "./ArticleFooter.svelte"
@@ -16,13 +17,17 @@
 		const article = data.article
 		const baseUrl = page.url.origin
 		const articleUrl = `${baseUrl}${page.url.pathname}`
+		const ogImageUrl = article.featuredImage
+			? getArticleOgImageUrl(article.featuredImage, baseUrl)
+			: undefined
 
 		return createSEOData(
 			{
 				title: `${article.title} | Islamic Finance`,
 				description: article.description,
 				keywords: article.keywords || "",
-				ogImage: article.featuredImage || undefined,
+				ogImage: ogImageUrl,
+				twitterImage: ogImageUrl,
 				ogType: "article",
 				articlePublishedTime: article.publishedAt || undefined,
 				articleModifiedTime: article.updatedAt || undefined,
@@ -51,10 +56,10 @@
 					},
 					datePublished: article.publishedAt || undefined,
 					dateModified: article.updatedAt || undefined,
-					image: article.featuredImage
+					image: ogImageUrl
 						? {
 								"@type": "ImageObject",
-								url: article.featuredImage,
+								url: ogImageUrl,
 								width: 1200,
 								height: 630,
 							}
@@ -81,11 +86,16 @@
 		<ArticleHeader article={data.article} />
 
 		{#if data.article.featuredImage}
+			{@const detail = getArticleDetailSrcSet(data.article.featuredImage, page.url.origin)}
 			<figure class="-mx-5 my-8 sm:mx-0">
 				<img
-					src={data.article.featuredImage}
+					src={detail.src}
+					srcset={detail.srcSet}
+					sizes={detail.sizes}
 					alt={data.article.headline}
 					class="w-full object-cover"
+					width="672"
+					height="378"
 				/>
 			</figure>
 		{:else}

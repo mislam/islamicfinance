@@ -26,7 +26,7 @@
 - ✅ **og:description** - Present
 - ✅ **og:site_name** - Set to "Islamic Finance"
 - ✅ **og:locale** - Set to "en_US"
-- ✅ **og:image** - Implemented with dimensions (1200x630)
+- ✅ **og:image** - Implemented; article source 1344×756 JPG, served at 1200×630 for OG (see [ARTICLE_IMAGES.md](ARTICLE_IMAGES.md))
 - ✅ **og:image:width** - Set to 1200
 - ✅ **og:image:height** - Set to 630
 - ✅ **og:image:alt** - Set to title (good practice)
@@ -169,19 +169,12 @@
 
 ### Image SEO
 
-1. **OG Image Optimization** 🟡
-   - **Current**: Images referenced but not optimized
-   - **Recommendation**:
-     - Ensure images are 1200x630px
-     - Use WebP format when possible
-     - Compress images
-     - Add proper alt text (already done ✅)
-   - **Impact**: Medium - Better social sharing
-   - **Priority**: Medium
+1. ~~**OG Image Optimization**~~ ✅
+   - **Current**: Article featured images 1344×756 JPG (per [ARTICLE_IMAGES.md](ARTICLE_IMAGES.md)); Vercel Image serves 1200×630 for og:image, twitter:image, JSON-LD. Alt text present.
+   - **Status**: Complete
 
 2. ~~**Image Schema in Article**~~ ✅ **IMPLEMENTED**
-   - ✅ Image now uses ImageObject with width and height
-   - ✅ Properly structured with @type, url, width (1200), height (630)
+   - ✅ Image uses ImageObject with width (1200), height (630); URL from 1344×756 JPG source via Vercel Image
    - **Status**: Complete
 
 ### Additional Schema Types
@@ -291,7 +284,7 @@
 
 1. ✅ ~~Add Organization schema to homepage~~ - **COMPLETE**
 
-**Remaining Medium Priority:** 2. **BreadcrumbList schema** - Add for article pages to improve navigation understanding 3. **OG image optimization** - Optimize images (size, format, compression) for better social sharing
+**Remaining Medium Priority:** 2. **BreadcrumbList schema** - Add for article pages to improve navigation understanding. ~~3. **OG image optimization**~~ ✅ Article featured images: 1344×756 JPG, optimized to 1200×630 for OG/twitter/JSON-LD (ARTICLE_IMAGES.md).
 
 **Low Priority:** 8. Add articleBody to Article schema (low value, already in HTML) 9. Add keywords to Article schema (redundant with meta tags) 10. Wrap navigation in semantic `<nav>` tags 11. Add FAQPage schema to articles if they contain FAQ sections
 
