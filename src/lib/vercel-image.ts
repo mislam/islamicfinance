@@ -76,7 +76,9 @@ export function getVercelImageUrl(
 	// This treats same-origin images as "external" but is a proven workaround.
 	const params = new URLSearchParams({ url: absolute, w: String(w), q: String(q) })
 	if (h != null) params.set("h", String(h))
-	return `/_vercel/image?${params.toString()}`
+	// Use media subdomain for /_vercel/image endpoint to avoid sending cookies
+	const mediaDomain = getMediaDomain(baseUrl)
+	return `${mediaDomain}/_vercel/image?${params.toString()}`
 }
 
 /**

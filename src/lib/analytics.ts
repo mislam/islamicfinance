@@ -18,6 +18,8 @@ export function trackPageView(url: string) {
 
 	window.gtag("config", PUBLIC_GA_MEASUREMENT_ID, {
 		page_path: url,
+		// Restrict cookies to www subdomain only (exclude media subdomain)
+		cookie_domain: "www.islamicfinance.app",
 	})
 }
 
