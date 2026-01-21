@@ -15,6 +15,11 @@
 @layer base {
 	/* DaisyUI overrides - consolidate all input/form style fixes here */
 
+	/* Global focus-visible for links: keyboard users get a clear focus ring. */
+	a:focus-visible {
+		@apply outline-2 outline-offset-2 outline-primary;
+	}
+
 	/* Number input: hide steppers (up/down arrows) */
 	input[type="number"]::-webkit-outer-spin-button,
 	input[type="number"]::-webkit-inner-spin-button {

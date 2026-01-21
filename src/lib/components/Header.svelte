@@ -170,10 +170,17 @@
 
 <style lang="postcss">
 	nav a.current {
+		position: relative;
 		color: var(--color-base-content);
-		@media (min-width: 768px) {
-			border-top: 4px solid var(--color-base-content);
-			padding-top: 14px;
+		&:before {
+			content: "";
+			display: block;
+			width: 100%;
+			height: 4px;
+			background-color: var(--color-base-content);
+			position: absolute;
+			top: -17px;
+			left: 0;
 		}
 	}
 </style>

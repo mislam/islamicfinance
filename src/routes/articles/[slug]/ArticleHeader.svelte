@@ -20,7 +20,7 @@
 	)
 </script>
 
-<header class="mb-6 border-b border-base-content/10 pb-6">
+<header>
 	<!-- {#if article.category}
 		<div class="mb-4">
 			<span class="badge badge-soft badge-lg">{article.category}</span>
@@ -29,9 +29,9 @@
 
 	<h1 class="mb-4 text-4xl leading-tight font-bold">{article.headline}</h1>
 
-	<p class="mb-6 text-xl text-base-content/60">{article.description}</p>
+	<p class="mb-6 text-xl text-base-content/70">{article.description}</p>
 
-	<div class="flex flex-wrap items-center gap-2 text-base-content/60">
+	<div class="flex flex-wrap items-center gap-2 text-base-content/70">
 		<time datetime={"PT" + readingMins(article.readingSeconds) + "M"}>
 			{formatReadingTime(article.readingSeconds)}
 		</time>

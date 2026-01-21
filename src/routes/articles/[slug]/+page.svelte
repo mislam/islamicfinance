@@ -77,17 +77,19 @@
 <Head {seo} />
 
 <div class="container mx-auto px-5 py-8">
-	<article class="mx-auto max-w-3xl">
+	<article class="mx-auto max-w-2xl">
 		<ArticleHeader article={data.article} />
 
 		{#if data.article.featuredImage}
-			<figure class="my-8">
+			<figure class="-mx-5 my-8 sm:mx-0">
 				<img
 					src={data.article.featuredImage}
 					alt={data.article.headline}
-					class="w-full rounded-lg object-cover"
+					class="w-full object-cover"
 				/>
 			</figure>
+		{:else}
+			<hr class="my-6 border-base-content/10" />
 		{/if}
 
 		<ArticleContent content={data.article.content} />

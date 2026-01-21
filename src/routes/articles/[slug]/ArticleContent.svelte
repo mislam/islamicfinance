@@ -20,7 +20,7 @@
 		margin-top: 2rem;
 		margin-bottom: 1rem;
 		font-size: 1.875rem;
-		font-weight: 700;
+		font-weight: 600;
 	}
 
 	:global(.prose h3) {
@@ -61,9 +61,14 @@
 		line-height: 1.6; /* Match paragraph line-height for consistency */
 	}
 
+	:global(.prose li::marker) {
+		color: hsl(var(--p));
+	}
+
 	:global(.prose a) {
 		color: hsl(var(--p));
 		text-decoration: underline;
+		font-weight: inherit;
 	}
 
 	:global(.prose a:hover) {

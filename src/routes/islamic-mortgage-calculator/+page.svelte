@@ -409,7 +409,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="text-base-content/60">Down payment</td>
+								<td class="text-base-content/70">Down payment</td>
 								<td>
 									${Math.round(homePrice * (downPaymentPercent / 100)).toLocaleString()}
 									<span class="text-xs text-base-content/50">({downPaymentPercent}%)</span>
@@ -420,7 +420,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Lender's / Partners' share</td>
+								<td class="text-base-content/70">Lender's / Partners' share</td>
 								<td>
 									${comparison.loanAmount.toLocaleString()}
 									<span class="text-xs text-base-content/50">
@@ -435,7 +435,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">
+								<td class="text-base-content/70">
 									<div class="flex items-center gap-1">
 										<span>Avg. monthly payment</span>
 										<HelpModal
@@ -454,27 +454,27 @@
 								<td>${Math.round(comparison.halal.averageMonthlyPayment).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Total amount paid in {termYears} years</td>
+								<td class="text-base-content/70">Total amount paid in {termYears} years</td>
 								<td>${Math.round(comparison.conventional.totalCost).toLocaleString()}</td>
 								<td>${Math.round(comparison.halal.totalCost).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Insurance paid by partners</td>
+								<td class="text-base-content/70">Insurance paid by partners</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.partnerInsurancePaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Property tax paid by partners</td>
+								<td class="text-base-content/70">Property tax paid by partners</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.partnerPropertyTaxPaid).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Partners' gross rent income</td>
+								<td class="text-base-content/70">Partners' gross rent income</td>
 								<td>—</td>
 								<td>${Math.round(comparison.halal.totalRentIncome).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Lender's / Partners' net earnings</td>
+								<td class="text-base-content/70">Lender's / Partners' net earnings</td>
 								<td>
 									${Math.round(comparison.conventional.lenderInterest).toLocaleString()}
 									<span class="text-xs text-base-content/50">(Interest)</span>
@@ -488,12 +488,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Ownership structure</td>
+								<td class="text-base-content/70">Ownership structure</td>
 								<td>100% ownership from start, with lender holding lien.</td>
 								<td>Gradual increase from {downPaymentPercent}% to 100% ownership.</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">House appreciation</td>
+								<td class="text-base-content/70">House appreciation</td>
 								<td colspan="2">
 									${Math.round(comparison.house.initialValue).toLocaleString()} → ${Math.round(
 										comparison.house.projectedValue,
@@ -503,16 +503,16 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Expected gain after {termYears} years</td>
+								<td class="text-base-content/70">Expected gain after {termYears} years</td>
 								<td>${Math.round(comparison.conventional.netGain).toLocaleString()}</td>
 								<td>${Math.round(comparison.halal.netGain).toLocaleString()}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Financial advantage</td>
+								<td class="text-base-content/70">Financial advantage</td>
 								<td colspan="2">{comparison.advantage.overallAdvantage}</td>
 							</tr>
 							<tr>
-								<td class="text-base-content/60">Spiritual advantage</td>
+								<td class="text-base-content/70">Spiritual advantage</td>
 								<td colspan="2">
 									With halal financing, you'll avoid riba, bringing peace of mind and alignment with
 									your religious values.

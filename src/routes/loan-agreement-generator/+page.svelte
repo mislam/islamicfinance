@@ -669,7 +669,7 @@
 					{#if errors.repaymentDate}
 						<div class="label-text-alt text-error">{errors.repaymentDate}</div>
 					{:else if loanTermDisplay}
-						<div class="label-text-alt text-right text-base-content/60">
+						<div class="label-text-alt text-right text-base-content/70">
 							Loan term: {loanTermDisplay}
 						</div>
 					{/if}

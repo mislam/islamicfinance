@@ -69,61 +69,61 @@
 
 <Head {seo} />
 
-<div class="container mx-auto px-5 py-12">
-	<header class="mb-12 text-center">
-		<h1 class="mb-4 text-4xl font-bold">{headline}</h1>
-		{#if !hasActiveFilters}
-			<p class="mx-auto max-w-2xl text-lg text-base-content/70">
-				Comprehensive guides on Islamic finance, halal investing, sharia-compliant banking, and
-				Islamic financial principles.
-			</p>
+<div class="container mx-auto px-5 py-8">
+	<div class="mx-auto max-w-2xl">
+		<header class="mb-12 text-center">
+			<h1 class="mb-4 text-4xl leading-tight font-bold">{headline}</h1>
+			{#if !hasActiveFilters}
+				<p class="text-xl text-base-content/70">
+					Comprehensive guides on Islamic finance, halal investing, sharia-compliant banking, and
+					Islamic financial principles.
+				</p>
+			{/if}
+		</header>
+
+		{#if hasActiveFilters}
+			<div class="mb-6 flex flex-wrap items-center justify-center gap-2">
+				{#if data.filters.tag}
+					<span class="badge gap-2 badge-lg badge-primary">
+						Tag: {data.filters.tag}
+						<a href={resolve("/articles")} class="hover:opacity-70" aria-label="Clear tag filter">
+							×
+						</a>
+					</span>
+				{/if}
+				{#if data.filters.category}
+					<span class="badge gap-2 badge-lg badge-secondary">
+						Category: {data.filters.category}
+						<a
+							href={resolve("/articles")}
+							class="hover:opacity-70"
+							aria-label="Clear category filter"
+						>
+							×
+						</a>
+					</span>
+				{/if}
+				<a href={resolve("/articles")} class="btn btn-ghost btn-sm">Clear all filters</a>
+			</div>
 		{/if}
-	</header>
 
-	{#if hasActiveFilters}
-		<div class="mb-6 flex flex-wrap items-center justify-center gap-2">
-			{#if data.filters.tag}
-				<span class="badge gap-2 badge-lg badge-primary">
-					Tag: {data.filters.tag}
-					<a href={resolve("/articles")} class="hover:opacity-70" aria-label="Clear tag filter">
-						×
-					</a>
-				</span>
-			{/if}
-			{#if data.filters.category}
-				<span class="badge gap-2 badge-lg badge-secondary">
-					Category: {data.filters.category}
-					<a
-						href={resolve("/articles")}
-						class="hover:opacity-70"
-						aria-label="Clear category filter"
-					>
-						×
-					</a>
-				</span>
-			{/if}
-			<a href={resolve("/articles")} class="btn btn-ghost btn-sm">Clear all filters</a>
-		</div>
-	{/if}
-
-	{#if data.articles.length === 0}
-		<div class="text-center">
-			<p class="mb-4 text-base-content/60">
-				{hasActiveFilters
-					? "No articles found matching your filters."
-					: "No articles available yet. Check back soon!"}
-			</p>
-			{#if hasActiveFilters}
-				<a href={resolve("/articles")} class="btn btn-primary">View all articles</a>
-			{/if}
-		</div>
-	{:else}
-		<div
-			class="grid space-y-6 gap-x-12 gap-y-6 divide-y divide-base-content/10 md:grid-cols-2 md:divide-none xl:grid-cols-3"
-		>
-			{#each data.articles as article (article.slug)}
-				<ArticleCard {article} />
-			{/each}
-		</div>
-	{/if}
+		{#if data.articles.length === 0}
+			<div class="text-center">
+				<p class="mb-4 text-base-content/70">
+					{hasActiveFilters
+						? "No articles found matching your filters."
+						: "No articles available yet. Check back soon!"}
+				</p>
+				{#if hasActiveFilters}
+					<a href={resolve("/articles")} class="btn btn-primary">View all articles</a>
+				{/if}
+			</div>
+		{:else}
+			<div class="grid space-y-8 gap-y-8 divide-y divide-base-content/10">
+				{#each data.articles as article (article.slug)}
+					<ArticleCard {article} />
+				{/each}
+			</div>
+		{/if}
+	</div>
 </div>
