@@ -37,14 +37,7 @@ Tracking gaps and enhancements for the Islamic Finance site. Use this file to pi
 
 ## 2. Medium priority
 
-### 2.1 RSS feed
-
-- **Status:** [ ] Not started
-- **What:** No `/articles/rss.xml` or `/rss.xml`.
-- **Impact:** Less discoverability for article updates.
-- **Recommendation:** Add `src/routes/rss.xml/+server.ts` or `src/routes/articles/rss.xml/+server.ts` with recent articles (title, link, description, dates). Optionally link in `<head>` or footer.
-
-### 2.2 Breadcrumbs
+### 2.1 Breadcrumbs
 
 - **Status:** [ ] Not started
 - **What:** No breadcrumb UI or BreadcrumbList schema. [SEO_REVIEW.md](SEO_REVIEW.md) recommends it.
@@ -71,10 +64,14 @@ Tracking gaps and enhancements for the Islamic Finance site. Use this file to pi
 
 ### 3.3 Image optimization
 
-- **Status:** [ ] Not started
-- **What:** Article featured images: no `loading="lazy"`, no `width`/`height`, no responsive/optimized handling. OG images could be optimized (format, size).
-- **Impact:** Performance and Core Web Vitals; see [SEO_REVIEW.md](SEO_REVIEW.md).
-- **Recommendation:** Add `loading="lazy"`, `width`/`height`, and consider SvelteKit image handling or a CDN. Optimize OG images.
+- **Status:** [ ] Partially done
+- **What:**
+  - ✅ Vercel Image Optimization implemented with responsive `srcset` and `sizes`
+  - ✅ `width`/`height` attributes present on all article images
+  - ✅ OG images optimized to 1200×630 via Vercel Image
+  - ⚠️ Missing: `loading="lazy"` on ArticleCard images (below the fold)
+- **Impact:** Minor performance improvement from lazy loading below-the-fold images.
+- **Recommendation:** Add `loading="lazy"` to ArticleCard images in `src/routes/articles/ArticleCard.svelte` (detail page featured image correctly doesn't have lazy as it's above the fold).
 
 ### 3.4 Tests
 
@@ -85,10 +82,13 @@ Tracking gaps and enhancements for the Islamic Finance site. Use this file to pi
 
 ### 3.5 Loading and error UX
 
-- **Status:** [ ] Not started
-- **What:** No loading skeletons or route-level error UIs for tools.
-- **Impact:** Abrupt or blank states during slower actions.
-- **Recommendation:** Add loading states (e.g. for PDF generation) and friendly error messages for the mortgage calculator and loan generator.
+- **Status:** [ ] Partially done
+- **What:**
+  - ✅ Loading state implemented for PDF generation in loan generator (spinner, disabled button)
+  - ⚠️ Missing: Better error messages (currently uses `alert()` for errors)
+  - ⚠️ Missing: Loading skeletons for route-level navigation
+- **Impact:** Minor UX improvement from better error handling and route transitions.
+- **Recommendation:** Replace `alert()` with friendly error UI components, add loading skeletons for route transitions.
 
 ### 3.6 Organization `sameAs` (social links)
 
@@ -104,32 +104,23 @@ Tracking gaps and enhancements for the Islamic Finance site. Use this file to pi
 - **Impact:** Less engagement and internal linking.
 - **Recommendation:** Show 2–4 related articles by tags/category at the bottom of each article.
 
-### 3.8 Article `loading="lazy"` on images
-
-- **Status:** [ ] Not started
-- **What:** [SEO_REVIEW.md](SEO_REVIEW.md): add `loading="lazy"` to images below the fold.
-- **Impact:** Performance.
-- **Recommendation:** Add `loading="lazy"` (and `width`/`height`) to article images that are below the fold; keep above-the-fold featured image eager if needed.
-
 ---
 
 ## 4. Summary table
 
-| ID  | Item                    | Priority | Status         |
-| --- | ----------------------- | -------- | -------------- |
-| 1.1 | Custom error pages      | Critical | ⏳ Not started |
-| 1.2 | Legal / trust pages     | Critical | ⏳ Not started |
-| 1.3 | Auth: remove or enable  | Critical | ⏳ Not started |
-| 2.1 | RSS feed                | Medium   | ⏳ Not started |
-| 2.2 | Breadcrumbs             | Medium   | ⏳ Not started |
-| 3.1 | Search (placeholder)    | Lower    | ⏳ Not started |
-| 3.2 | Articles pagination     | Lower    | ⏳ Not started |
-| 3.3 | Image optimization      | Lower    | ⏳ Not started |
-| 3.4 | Tests                   | Lower    | ⏳ Not started |
-| 3.5 | Loading and error UX    | Lower    | ⏳ Not started |
-| 3.6 | Organization sameAs     | Lower    | ⏳ Not started |
-| 3.7 | Related articles        | Lower    | ⏳ Not started |
-| 3.8 | Article image lazy load | Lower    | ⏳ Not started |
+| ID  | Item                   | Priority | Status            |
+| --- | ---------------------- | -------- | ----------------- |
+| 1.1 | Custom error pages     | Critical | ⏳ Not started    |
+| 1.2 | Legal / trust pages    | Critical | ⏳ Not started    |
+| 1.3 | Auth: remove or enable | Critical | ⏳ Not started    |
+| 2.1 | Breadcrumbs            | Medium   | ⏳ Not started    |
+| 3.1 | Search (placeholder)   | Lower    | ⏳ Not started    |
+| 3.2 | Articles pagination    | Lower    | ⏳ Not started    |
+| 3.3 | Image optimization     | Lower    | 🟡 Partially done |
+| 3.4 | Tests                  | Lower    | ⏳ Not started    |
+| 3.5 | Loading and error UX   | Lower    | 🟡 Partially done |
+| 3.6 | Organization sameAs    | Lower    | ⏳ Not started    |
+| 3.7 | Related articles       | Lower    | ⏳ Not started    |
 
 ---
 
