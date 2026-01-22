@@ -4,8 +4,10 @@ title: "Halal Investment Guide: Building Wealth Without Wall Street"
 description: "Discover authentic Islamic wealth-building through direct business ownership via Musharakah and Mudarabah partnerships, not speculative markets."
 author: "Islamic Finance Team"
 publishedAt: "2026-01-17T17:31:00-05:00"
+updatedAt: "2026-01-21T22:37:00-05:00"
 tags: ["Islamic Investment", "Musharakah", "Mudarabah", "Business Partnerships", "Halal Wealth"]
 category: "Halal Investment"
+featuredImage: "/images/articles/halal-investment-guide.jpg"
 keywords: [
     "halal investment", # Primary keyword (appears in title)
     "Islamic wealth building", # Secondary - appears in H1

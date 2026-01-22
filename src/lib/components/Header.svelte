@@ -21,9 +21,6 @@
 
 	function toggleMenu() {
 		open = !open
-		if (open) {
-			tick().then(() => document.querySelector<HTMLAnchorElement>("#main-nav a")?.focus())
-		}
 	}
 
 	function closeMenu() {
@@ -115,7 +112,7 @@
 
 		<button
 			type="button"
-			class="-mr-2 flex size-12 shrink-0 items-center justify-center md:hidden"
+			class="-mr-2 flex size-12 shrink-0 items-center justify-center outline-none focus-visible:outline-none md:hidden"
 			aria-expanded={open}
 			aria-controls="main-nav"
 			aria-label={open ? "Close menu" : "Open menu"}
@@ -172,15 +169,17 @@
 	nav a.current {
 		position: relative;
 		color: var(--color-base-content);
-		&:before {
-			content: "";
-			display: block;
-			width: 100%;
-			height: 4px;
-			background-color: var(--color-base-content);
-			position: absolute;
-			top: -17px;
-			left: 0;
+		@media (min-width: 768px) {
+			&:before {
+				content: "";
+				display: block;
+				width: 100%;
+				height: 4px;
+				background-color: var(--color-base-content);
+				position: absolute;
+				top: -17px;
+				left: 0;
+			}
 		}
 	}
 </style>

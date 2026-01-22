@@ -4,8 +4,10 @@ title: "Bank Deposits & Riba: The Contradiction Muslims Must Address"
 description: "Muslims avoid riba in loans but fuel the system through bank deposits. Discover why this contradicts Islamic values and explore halal alternatives."
 author: "Islamic Finance Team"
 publishedAt: "2026-01-16T11:19:00-05:00"
+updatedAt: "2026-01-21T21:39:00-05:00"
 tags: ["Islamic Banking", "Riba", "Halal Investment", "Islamic Finance"]
 category: "Islamic Banking"
+featuredImage: "/images/articles/bank-deposits-riba.jpg"
 keywords: [
     "bank deposits and riba", # Primary keyword (matches title/H1: "Bank Deposits & Riba")
     "bank deposits riba", # Secondary - alternative phrasing
