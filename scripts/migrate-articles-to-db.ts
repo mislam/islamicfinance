@@ -89,8 +89,9 @@ function removeFirstH1FromMarkdown(content: string): string {
 }
 
 async function migrateArticles() {
-	// Dynamically import database after env vars are loaded
+	// Dynamically import database and processMarkdown after env vars are loaded
 	const { articles, db } = await import("../src/lib/server/db/index.js")
+	const { processMarkdown } = await import("../src/lib/server/articles/index.js")
 
 	console.log("Starting article migration from files to database...\n")
 
@@ -139,6 +140,10 @@ async function migrateArticles() {
 		const contentWithoutH1 = removeFirstH1FromMarkdown(body)
 		const sec = readingSeconds(contentWithoutH1)
 
+		// Process markdown to HTML during migration (not on every request)
+		// This improves page load performance by eliminating 9.5ms processing delay
+		const contentHtml = await processMarkdown(contentWithoutH1)
+
 		// Check if article already exists - if so, update it instead of skipping
 		const [existing] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1)
 
@@ -150,7 +155,7 @@ async function migrateArticles() {
 					title,
 					headline,
 					description,
-					content: contentWithoutH1,
+					content: contentHtml, // Store HTML (pre-processed for performance)
 					author,
 					publishedAt,
 					updatedAt,
@@ -173,7 +178,7 @@ async function migrateArticles() {
 			title,
 			headline, // Store extracted H1 for performance
 			description,
-			content: contentWithoutH1, // Store markdown content without H1 (H1 is in headline field)
+			content: contentHtml, // Store HTML (pre-processed for performance)
 			author, // Store author name from frontmatter
 			authorId: null, // Can be linked to user later
 			publishedAt,

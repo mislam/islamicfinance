@@ -15,7 +15,7 @@ export const articles = pgTable(
 		title: text("title").notNull(),
 		headline: text("headline"), // H1 from markdown (for display), extracted and stored for performance
 		description: text("description").notNull(), // SEO meta description
-		content: text("content").notNull(), // Markdown or HTML
+		content: text("content").notNull(), // HTML (pre-processed from markdown during migration)
 		// Author
 		author: text("author"), // Author name (can be used independently or with authorId)
 		authorId: text("author_id").references(() => users.id),

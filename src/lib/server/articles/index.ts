@@ -156,8 +156,9 @@ function rehypeInjectDisclaimer() {
 
 /**
  * Process markdown content to HTML
+ * Used during migration to pre-process articles for better performance
  */
-async function processMarkdown(content: string): Promise<string> {
+export async function processMarkdown(content: string): Promise<string> {
 	// Custom sanitize schema that allows fragment links (#id) for anchor navigation
 	const sanitizeSchema = {
 		...defaultSchema,
@@ -319,14 +320,13 @@ export async function getArticleBySlug(slug: string): Promise<ArticleWithId | nu
 
 	if (!row) return null
 
-	// Process markdown content to HTML
-	const html = await processMarkdown(row.content)
-
+	// Content is already stored as HTML (processed during migration)
+	// No processing needed on read path for better performance
 	const metadata = dbRowToMetadata(row)
 
 	return {
 		...metadata,
-		content: html,
+		content: row.content, // Already HTML, no processing needed
 		viewCount: row.viewCount ?? 0,
 		id: row.id,
 		// Use stored headline from database (already extracted during migration/update)
