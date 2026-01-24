@@ -1,4 +1,5 @@
 import { error } from "@sveltejs/kit"
+import { waitUntil } from "@vercel/functions"
 
 import { dev } from "$app/environment"
 import { getArticleBySlug } from "$lib/server/articles"
@@ -13,17 +14,20 @@ export async function load({ cookies, getClientAddress, params, request }) {
 
 	const { id, ...article } = result
 
-	const { counted } = await recordArticleView({
+	// Track view count in background (non-blocking, analytics only)
+	// waitUntil ensures task completes in Vercel serverless functions
+	const viewCountPromise = recordArticleView({
 		articleId: id,
 		slug: params.slug,
 		cookies,
 		getClientAddress,
 		request,
 		secure: !dev,
+	}).catch((err) => {
+		console.error("Failed to record article view:", err)
 	})
-	if (counted) {
-		article.viewCount = (article.viewCount ?? 0) + 1
-	}
+
+	waitUntil(viewCountPromise)
 
 	return {
 		article,
