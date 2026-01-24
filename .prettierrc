@@ -13,6 +13,13 @@
 				"singleAttributePerLine": false,
 				"htmlWhitespaceSensitivity": "ignore"
 			}
+		},
+		{
+			"files": "*.html",
+			"options": {
+				"parser": "html",
+				"printWidth": 999
+			}
 		}
 	],
 	"tailwindStylesheet": "./src/routes/layout.css"

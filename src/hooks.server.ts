@@ -16,7 +16,8 @@ export async function handle({ event, resolve }) {
 			// Inject Google Analytics tag immediately after <head> if in production and ID is set
 			if (!dev && PUBLIC_GA_MEASUREMENT_ID) {
 				// Restrict cookies to www subdomain only (exclude media subdomain for cookie-free image requests)
-				const googleTag = `<script async src="https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_MEASUREMENT_ID}"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${PUBLIC_GA_MEASUREMENT_ID}', {'cookie_domain': 'www.islamicfinance.app'});</script>`
+				// Use defer attribute instead of async to prevent render-blocking while maintaining proper GA initialization
+				const googleTag = `<script defer src="https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_MEASUREMENT_ID}"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${PUBLIC_GA_MEASUREMENT_ID}', {'cookie_domain': 'www.islamicfinance.app'});</script>`
 				return html.replace("%sveltekit.googleAnalytics%", googleTag)
 			}
 			// Remove placeholder if not in production or ID not set
