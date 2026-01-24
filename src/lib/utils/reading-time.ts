@@ -15,12 +15,12 @@ export function readingSeconds(markdown: string, opts?: { wpm?: number }): numbe
 		.replace(/^\s*>\s*/gm, "")
 		.replace(/`([^`]+)`/g, "$1")
 	const n = text.split(/\s+/).filter(Boolean).length
-	return Math.ceil((n / wpm) * 60)
+	return Math.round((n / wpm) * 60)
 }
 
 /** Reading time in whole minutes for display (round up, min 1). For "X min read" and <time datetime="PT{X}M">. */
 export function readingMins(seconds: number): number {
-	return Math.max(1, Math.ceil(seconds / 60))
+	return Math.max(1, Math.round(seconds / 60))
 }
 
 export function formatReadingTime(seconds: number): string {

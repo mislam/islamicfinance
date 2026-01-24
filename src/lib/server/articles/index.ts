@@ -1,10 +1,11 @@
 import { and, desc, eq } from "drizzle-orm"
-import type { Root } from "hast"
+import type { Element, Root } from "hast"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import { remark } from "remark"
+import remarkCustomHeaderId from "remark-custom-header-id"
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype"
 import { visit } from "unist-util-visit"
@@ -12,6 +13,69 @@ import { visit } from "unist-util-visit"
 import { articles, db } from "$lib/server/db"
 
 import type { Article, ArticleMetadata } from "./types"
+
+/**
+ * Rehype plugin to wrap the last paragraph in blockquotes with <footer><cite> tags
+ * Unwraps the paragraph element, keeping its children (text and links) inside <cite>,
+ * then wraps <cite> in <footer> for semantic HTML structure
+ */
+function rehypeWrapCitations() {
+	return (tree: Root) => {
+		visit(tree, "element", (node) => {
+			if (
+				node.tagName === "blockquote" &&
+				Array.isArray(node.children) &&
+				node.children.length > 0
+			) {
+				// Find the last paragraph in the blockquote
+				let lastParagraphIndex = -1
+				for (let i = node.children.length - 1; i >= 0; i--) {
+					const child = node.children[i]
+					if (
+						child &&
+						typeof child === "object" &&
+						"type" in child &&
+						child.type === "element" &&
+						"tagName" in child &&
+						child.tagName === "p"
+					) {
+						lastParagraphIndex = i
+						break
+					}
+				}
+
+				// Wrap the last paragraph's children in <cite>, then wrap <cite> in <footer>
+				if (lastParagraphIndex >= 0) {
+					const lastParagraph = node.children[lastParagraphIndex]
+					if (
+						lastParagraph &&
+						typeof lastParagraph === "object" &&
+						"type" in lastParagraph &&
+						lastParagraph.type === "element" &&
+						"children" in lastParagraph &&
+						Array.isArray(lastParagraph.children)
+					) {
+						const citeNode: Element = {
+							type: "element",
+							tagName: "cite",
+							properties: {},
+							children: lastParagraph.children,
+						}
+						const footerNode: Element = {
+							type: "element",
+							tagName: "footer",
+							properties: {
+								"aria-label": "Source citation",
+							},
+							children: [citeNode],
+						}
+						node.children[lastParagraphIndex] = footerNode
+					}
+				}
+			}
+		})
+	}
+}
 
 /**
  * Rehype plugin to add target="_blank" and rel="noopener noreferrer" to external links
@@ -34,6 +98,63 @@ function rehypeExternalLinks() {
 }
 
 /**
+ * Rehype plugin to inject disclaimer after the first paragraph
+ */
+function rehypeInjectDisclaimer() {
+	return (tree: Root) => {
+		let firstParagraphFound = false
+
+		visit(tree, "element", (node, index, parent) => {
+			// Find the first paragraph that's a direct child of the root
+			if (
+				!firstParagraphFound &&
+				node.tagName === "p" &&
+				parent &&
+				"children" in parent &&
+				Array.isArray(parent.children) &&
+				typeof index === "number"
+			) {
+				firstParagraphFound = true
+
+				// Create disclaimer element with proper HTML structure
+				const disclaimerNode: Element = {
+					type: "element",
+					tagName: "aside",
+					properties: {
+						role: "note",
+						"aria-label": "Important disclaimer",
+						class: "disclaimer",
+					},
+					children: [
+						{
+							type: "element",
+							tagName: "p",
+							properties: {},
+							children: [
+								{
+									type: "element",
+									tagName: "strong",
+									properties: {},
+									children: [{ type: "text", value: "Important Disclaimer:" }],
+								},
+								{
+									type: "text",
+									value:
+										" This article provides educational information about Islamic finance based on established scholarly sources. We are not qualified Islamic scholars, muftis, or licensed financial advisors. For specific rulings (fatwas) or financial decisions related to your personal circumstances, always consult qualified Islamic scholars and licensed financial professionals. Islamic rulings may vary by school of thought, and individual situations require personalized guidance.",
+								},
+							],
+						},
+					],
+				}
+
+				// Insert disclaimer after the first paragraph
+				parent.children.splice(index + 1, 0, disclaimerNode)
+			}
+		})
+	}
+}
+
+/**
  * Process markdown content to HTML
  */
 async function processMarkdown(content: string): Promise<string> {
@@ -49,24 +170,33 @@ async function processMarkdown(content: string): Promise<string> {
 		// Since we control the markdown content, this is safe
 		clobberPrefix: "",
 		// Allow target and rel attributes on links for external links
-		tagNames: [...(defaultSchema.tagNames || []), "a"],
+		// Allow cite and footer elements for semantic citations
+		// Allow aside element for disclaimer
+		tagNames: [...(defaultSchema.tagNames || []), "cite", "footer", "aside"],
 		attributes: {
 			...defaultSchema.attributes,
-			a: [...(defaultSchema.attributes?.a || []), "target", "rel"],
+			// Extend anchor attributes: defaultSchema already includes className in nested format
+			// We need to preserve the existing structure and add target/rel
+			a: [...(defaultSchema.attributes?.a || []), "target", "rel", "class"],
+			footer: [...(defaultSchema.attributes?.footer || []), "aria-label"],
+			aside: [...(defaultSchema.attributes?.aside || []), "role", "aria-label", "class"],
 		},
 	}
 
 	const processor = remark()
 		.use(remarkGfm)
+		.use(remarkCustomHeaderId) // Process {#id} syntax in headings BEFORE converting to HTML
 		.use(remarkRehype)
-		.use(rehypeSlug)
+		.use(rehypeSlug) // Add IDs to headings that don't have them yet (those without {#id})
 		.use(rehypeAutolinkHeadings, {
 			behavior: "wrap",
 			properties: {
-				className: ["anchor-link"],
+				class: "anchor-link",
 			},
 		})
+		.use(rehypeWrapCitations) // Wrap citation links in <cite> tags
 		.use(rehypeExternalLinks) // Add target="_blank" to external links
+		.use(rehypeInjectDisclaimer) // Inject disclaimer after first paragraph
 		.use(rehypeSanitize, sanitizeSchema)
 		.use(rehypeStringify)
 

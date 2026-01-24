@@ -4,6 +4,30 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+	name: "light";
+	default: true;
+	prefersdark: false;
+	color-scheme: light;
+	/* Only override the 4 colors we need - using Tailwind variables */
+	--color-primary: var(--color-indigo-600);
+	--color-accent: var(--color-emerald-400);
+	--color-warning: var(--color-yellow-500);
+	--color-base-content: var(--color-slate-900);
+	--color-base-200: var(--color-slate-100);
+}
+@plugin "daisyui/theme" {
+	name: "dark";
+	default: false;
+	prefersdark: true;
+	color-scheme: dark;
+	/* Only override the 4 colors we need - using Tailwind variables */
+	--color-primary: var(--color-indigo-400);
+	--color-accent: var(--color-emerald-300);
+	--color-warning: var(--color-yellow-400);
+	--color-base-content: var(--color-slate-50);
+	--color-base-200: var(--color-slate-800);
+}
 
 @theme {
 	/* Configure Inter as the default sans-serif font */

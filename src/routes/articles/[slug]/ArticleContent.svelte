@@ -11,9 +11,9 @@
 </div>
 
 <style>
-	/* Custom styling for markdown content using CSS variables for DaisyUI compatibility */
+	/* Custom styling for markdown content using Tailwind-based CSS variables */
 	:global(.prose) {
-		color: hsl(var(--bc));
+		color: var(--color-base-content);
 	}
 
 	:global(.prose h2) {
@@ -61,23 +61,14 @@
 		line-height: 1.6; /* Match paragraph line-height for consistency */
 	}
 
-	:global(.prose li::marker) {
-		color: hsl(var(--p));
-	}
-
 	:global(.prose a) {
-		color: hsl(var(--p));
 		text-decoration: underline;
 		font-weight: inherit;
 	}
 
-	:global(.prose a:hover) {
-		color: hsl(var(--pf));
-	}
-
 	:global(.prose code) {
 		border-radius: 0.25rem;
-		background-color: hsl(var(--b2));
+		background-color: var(--color-base-200);
 		padding: 0.125rem 0.375rem;
 		font-size: 0.875rem;
 	}
@@ -86,7 +77,7 @@
 		margin-bottom: 1rem;
 		overflow-x: auto;
 		border-radius: 0.5rem;
-		background-color: hsl(var(--b2));
+		background-color: var(--color-base-200);
 		padding: 1rem;
 	}
 
@@ -96,11 +87,72 @@
 	}
 
 	:global(.prose blockquote) {
-		margin-top: 1rem;
+		margin-top: 1.3333333em;
 		margin-bottom: 1rem;
-		border-left: 4px solid hsl(var(--p));
-		padding-left: 1rem;
-		font-style: italic;
+		margin-left: -1.25rem;
+		margin-right: -1.25rem;
+		border-radius: 0;
+		@media (min-width: 768px) {
+			margin-left: 0;
+			margin-right: 0;
+			border-radius: 1rem;
+		}
+		padding: 1rem 1.25rem;
+		border: none;
+		background-color: var(--color-base-200);
+		font-weight: normal;
+	}
+
+	:global(.prose blockquote p) {
+		position: relative;
+		margin: 0;
+		&:before,
+		&:after {
+			content: "";
+		}
+	}
+
+	:global(.prose blockquote footer) {
+		margin-top: 1rem;
+		text-align: right;
+	}
+
+	:global(.prose blockquote cite) {
+		position: relative;
+		&:before {
+			content: "”";
+			position: absolute;
+			display: block;
+			bottom: -0.2em;
+			left: -0.625em;
+			font-family: "Times New Roman", serif;
+			font-size: 10em;
+			line-height: 0;
+			font-weight: bold;
+			color: color-mix(in srgb, var(--color-base-content) 10%, transparent);
+		}
+	}
+
+	:global(.prose .disclaimer) {
+		margin-top: 1.3333333em;
+		margin-bottom: 1rem;
+		margin-left: -1.25rem;
+		margin-right: -1.25rem;
+		border-radius: 0;
+		@media (min-width: 768px) {
+			margin-left: 0;
+			margin-right: 0;
+			border-radius: 1rem;
+		}
+		padding: 1rem 1.25rem;
+
+		background-color: color-mix(in srgb, var(--color-warning) 10%, transparent);
+		border-left: 4px solid var(--color-warning);
+	}
+
+	:global(.prose .disclaimer p) {
+		margin: 0;
+		font-size: 1rem; /* text-base */
 	}
 
 	:global(.prose img) {
@@ -118,12 +170,12 @@
 
 	:global(.prose th),
 	:global(.prose td) {
-		border: 1px solid hsl(var(--bc) / 0.2);
+		border: 1px solid color-mix(in srgb, var(--color-base-content) 20%, transparent);
 		padding: 0.5rem 1rem;
 	}
 
 	:global(.prose th) {
-		background-color: hsl(var(--b2));
+		background-color: var(--color-base-200);
 		font-weight: 600;
 	}
 
@@ -135,14 +187,5 @@
 	:global(.prose h5 a),
 	:global(.prose h6 a) {
 		text-decoration: none;
-	}
-
-	:global(.anchor-link) {
-		color: hsl(var(--bc) / 0.4);
-		text-decoration: none;
-	}
-
-	:global(.anchor-link:hover) {
-		color: hsl(var(--p));
 	}
 </style>
