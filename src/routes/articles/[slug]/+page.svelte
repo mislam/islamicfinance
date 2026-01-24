@@ -2,7 +2,11 @@
 	import { page } from "$app/state"
 	import { Head } from "$lib/seo"
 	import { createSEOData } from "$lib/seo"
-	import { getArticleDetailSrcSet, getArticleOgImageUrl } from "$lib/vercel-image"
+	import {
+		getArticleDetailSrcSet,
+		getArticleOgImageUrl,
+		getLcpImagePreloadData,
+	} from "$lib/vercel-image"
 
 	import ArticleContent from "./ArticleContent.svelte"
 	import ArticleFooter from "./ArticleFooter.svelte"
@@ -11,6 +15,13 @@
 	let { data } = $props<{
 		data: { article: Awaited<ReturnType<typeof import("./+page.server").load>>["article"] }
 	}>()
+
+	// Compute featured image detail once for reuse in SEO and <img> tag
+	const featuredImageDetail = $derived.by(() => {
+		return data.article.featuredImage
+			? getArticleDetailSrcSet(data.article.featuredImage, page.url.origin)
+			: undefined
+	})
 
 	// SEO metadata for individual article
 	const seo = $derived.by(() => {
@@ -34,6 +45,8 @@
 				articleAuthor: article.author || undefined,
 				articleSection: article.category || undefined,
 				articleTags: article.tags.length > 0 ? article.tags : undefined,
+				// LCP image preload for performance (using helper to extract preload data)
+				...getLcpImagePreloadData(featuredImageDetail),
 				structuredData: {
 					"@context": "https://schema.org",
 					"@type": "Article",
@@ -85,17 +98,17 @@
 	<article class="mx-auto max-w-2xl">
 		<ArticleHeader article={data.article} />
 
-		{#if data.article.featuredImage}
-			{@const detail = getArticleDetailSrcSet(data.article.featuredImage, page.url.origin)}
+		{#if featuredImageDetail}
 			<figure class="-mx-5 my-8 sm:mx-0">
 				<img
-					src={detail.src}
-					srcset={detail.srcSet}
-					sizes={detail.sizes}
+					src={featuredImageDetail.src}
+					srcset={featuredImageDetail.srcSet}
+					sizes={featuredImageDetail.sizes}
 					alt={data.article.headline}
 					class="w-full object-cover"
 					width="672"
 					height="378"
+					fetchpriority="high"
 				/>
 			</figure>
 		{:else}

@@ -53,5 +53,8 @@ export function createSEOData(
 		articleAuthor: data.articleAuthor,
 		articleSection: data.articleSection,
 		articleTags: data.articleTags,
+		lcpImageSrc: data.lcpImageSrc,
+		lcpImageSrcSet: data.lcpImageSrcSet,
+		lcpImageSizes: data.lcpImageSizes,
 	}
 }

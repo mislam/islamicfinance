@@ -122,3 +122,18 @@ export function getArticleDetailSrcSet(
 export function getArticleOgImageUrl(src: string, baseUrl: string): string {
 	return getVercelImageUrl(src, { w: 1200, h: 630, q: 85 }, baseUrl)
 }
+
+/**
+ * Get LCP image preload data from image srcset data.
+ * Returns data ready to pass to createSEOData() for LCP optimization.
+ */
+export function getLcpImagePreloadData(
+	imageData: { src: string; srcSet: string; sizes: string } | undefined,
+): { lcpImageSrc?: string; lcpImageSrcSet?: string; lcpImageSizes?: string } {
+	if (!imageData) return {}
+	return {
+		lcpImageSrc: imageData.src,
+		lcpImageSrcSet: imageData.srcSet,
+		lcpImageSizes: imageData.sizes,
+	}
+}

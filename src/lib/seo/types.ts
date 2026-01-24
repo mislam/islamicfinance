@@ -18,6 +18,11 @@ export interface SEOData {
 	articleAuthor?: string
 	articleSection?: string // Category
 	articleTags?: string[] // Tags array
+	// LCP image preload data (optional, for any page with a critical above-the-fold image)
+	// When provided, adds <link rel="preload"> for the LCP image to improve Largest Contentful Paint
+	lcpImageSrc?: string
+	lcpImageSrcSet?: string
+	lcpImageSizes?: string
 }
 
 export interface SEOConfig {

@@ -76,4 +76,16 @@
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html seo.structuredDataHtml}
 	{/if}
+
+	<!-- Preload LCP image - works for any page that provides lcpImageSrc -->
+	<!-- Usage: Pass lcpImageSrc, lcpImageSrcSet (optional), lcpImageSizes (optional) to createSEOData() -->
+	{#if seo.lcpImageSrc}
+		<link
+			rel="preload"
+			as="image"
+			href={seo.lcpImageSrc}
+			imagesrcset={seo.lcpImageSrcSet}
+			imagesizes={seo.lcpImageSizes}
+		/>
+	{/if}
 </svelte:head>
