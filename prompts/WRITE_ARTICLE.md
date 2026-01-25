@@ -39,11 +39,13 @@ Generate high-quality, SEO-optimized articles on Islamic finance topics for www.
   - **Quran**: Use (Qur'an Surah:Ayah) format. For example:
     ```markdown
     > Allah has permitted trade and has forbidden interest.
+    >
     > [Qur'an 2:275](https://quran.com/2/275)
     ```
   - **Hadith**: Use (Full Book Name: Hadith Number) format. Use the full collection name (e.g., Sahih al-Bukhari, Sahih Muslim, Sunan Abi Dawud, Sunan al-Tirmidhi, Sunan al-Nasa'i, Sunan Ibn Majah). For example:
     ```markdown
     > Avoid the seven great destructive sins: associating others with Allah, magic, killing, consuming riba, consuming orphans' wealth, fleeing from battle, and slandering chaste women.
+    >
     > [Sahih al-Bukhari 2766](https://sunnah.com/bukhari:2766)
     ```
   - Always include the full verse/hadith text in the blockquote, not just a paraphrase.
