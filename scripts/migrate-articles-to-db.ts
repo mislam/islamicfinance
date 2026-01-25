@@ -140,15 +140,24 @@ async function migrateArticles() {
 		const contentWithoutH1 = removeFirstH1FromMarkdown(body)
 		const sec = readingSeconds(contentWithoutH1)
 
+		// Check if article already exists and if updatedAt matches
+		const [existing] = await db
+			.select({ updatedAt: articles.updatedAt })
+			.from(articles)
+			.where(eq(articles.slug, slug))
+			.limit(1)
+
+		// Skip if article exists and updatedAt matches (no changes)
+		if (existing && existing.updatedAt.getTime() === updatedAt.getTime()) {
+			continue
+		}
+
 		// Process markdown to HTML during migration (not on every request)
 		// This improves page load performance by eliminating 9.5ms processing delay
 		const contentHtml = await processMarkdown(contentWithoutH1)
 
-		// Check if article already exists - if so, update it instead of skipping
-		const [existing] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1)
-
 		if (existing) {
-			console.log(`⚠️  Article "${slug}" already exists. Updating...`)
+			// Update existing article
 			await db
 				.update(articles)
 				.set({
